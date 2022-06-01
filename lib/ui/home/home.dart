@@ -1,3 +1,4 @@
+import 'package:chedmed/ui/add_annonce/add_annonce.dart';
 import 'package:chedmed/ui/common/buttons.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,9 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 
 import 'package:chedmed/ui/common/app_theme.dart';
 
+import '../article_details/article_details.dart';
 import '../common/no_cache.dart';
+import '../common/transitions.dart';
 import 'articles.dart';
 import 'categories.dart';
 import 'search_bar.dart';
@@ -23,46 +26,64 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: CustomScrollView(physics: RangeMaintainingScrollPhysics(),
-          //scrollBehavior: MyBehavior(),
-          //controller: controller,
-          slivers: [
-            SliverAppBar(
-                expandedHeight: 170,
-                floating: false,
-                pinned: true,
-                elevation: 0,
-                collapsedHeight: 60,
-                toolbarHeight: 60,
-                shadowColor: Colors.transparent,
-                primary: false,
-                leading: Container(),
-                backgroundColor: Colors.transparent,
-                flexibleSpace: LayoutBuilder(builder: (context, constraints) {
-                  return FlexibleSpaceBar(
-                      collapseMode: CollapseMode.parallax,
-                      expandedTitleScale: 1,
-                      centerTitle: true,
-                      titlePadding: EdgeInsets.all(0),
-                      background: Stack(
-                        children: [
-                          Header(),
-                        ],
+      child: Stack(
+        children: [
+          CustomScrollView(physics: RangeMaintainingScrollPhysics(),
+              //scrollBehavior: MyBehavior(),
+              //controller: controller,
+              slivers: [
+                SliverAppBar(
+                    expandedHeight: 170,
+                    floating: false,
+                    pinned: true,
+                    elevation: 0,
+                    collapsedHeight: 60,
+                    toolbarHeight: 60,
+                    shadowColor: Colors.transparent,
+                    primary: false,
+                    leading: Container(),
+                    backgroundColor: Colors.transparent,
+                    flexibleSpace:
+                        LayoutBuilder(builder: (context, constraints) {
+                      return FlexibleSpaceBar(
+                          collapseMode: CollapseMode.parallax,
+                          expandedTitleScale: 1,
+                          centerTitle: true,
+                          titlePadding: EdgeInsets.all(0),
+                          background: Stack(
+                            children: [
+                              Header(),
+                            ],
+                          ),
+                          title: SearchBar());
+                    })),
+                SliverToBoxAdapter(
+                  child: SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    primary: false,
+                    child: Container(
+                      child: Column(
+                        children: [Categories(), ArticlesHeader(), Articles()],
                       ),
-                      title: SearchBar());
-                })),
-            SliverToBoxAdapter(
-              child: SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                primary: false,
-                child: Container(
-                  child: Column(
-                    children: [Categories(), ArticlesHeader(), Articles()],
+                    ),
                   ),
+                )
+              ]),
+          Positioned(
+              bottom: 8,
+              right: 8,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, SlideRightRoute(widget: AddAnnonce()));
+                },
+                child: Icon(
+                  FontAwesome.plus,
+                  color: AppTheme.cardColor(context),
                 ),
-              ),
-            )
-          ]),
+              ))
+        ],
+      ),
     ));
   }
 }

@@ -46,6 +46,7 @@ class CustomChip extends StatelessWidget {
         ),
         onPressed: onPressed as void Function()?,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             icon != null
                 ? Padding(
@@ -98,10 +99,50 @@ class MyElevatedButton extends StatelessWidget {
   }
 }
 
+class MyElevatedButtonWide extends StatelessWidget {
+  const MyElevatedButtonWide(
+      {this.child,
+      this.color,
+      this.onPressed,
+      this.borderRadius = 6,
+      this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 13),
+      Key? key})
+      : super(key: key);
+  final Color? color;
+  final Widget? child;
+  final Function? onPressed;
+  final double borderRadius;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData currentTheme = Theme.of(context);
+    return ElevatedButton(
+      child: child,
+      style: ElevatedButton.styleFrom(
+        splashFactory: MaterialInkSplash.splashFactory,
+        elevation: 0,
+        padding: padding,
+        shadowColor: Colors.transparent,
+        textStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+        primary: AppTheme.secondaryColor(context),
+        onPrimary: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+      ),
+      onPressed: onPressed as void Function()?,
+      autofocus: true,
+    );
+  }
+}
+
 class ReturnButton extends StatelessWidget {
-  const ReturnButton({
-    Key? key,
-  }) : super(key: key);
+  bool? transparent;
+  ReturnButton({Key? key, this.transparent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +153,7 @@ class ReturnButton extends StatelessWidget {
       margin: EdgeInsets.all(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        color: cardColor,
+        color: (transparent != null) ? Colors.transparent : cardColor,
       ),
       child: Material(
         color: Colors.transparent,
@@ -121,13 +162,13 @@ class ReturnButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(100),
           onTap: () => {Navigator.of(context).pop()},
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.only(left: 14, right: 6, top: 10, bottom: 10),
             child: Icon(
               // isDirectionRTL(context)
               //     ? AntDesign.arrowright
               //     :
 
-              AntDesign.arrowleft,
+              MaterialIcons.arrow_back_ios,
               color: textColor,
             ),
             decoration: BoxDecoration(

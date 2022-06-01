@@ -10,6 +10,10 @@ void main() {
   runApp(const MyApp());
 }
 
+const primary = Color(0xff30b3f8);
+
+const secondary = Color(0xffEB5353);
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -22,8 +26,8 @@ class MyApp extends StatelessWidget {
           fontFamily: "Aileron",
           //  fontFamily: "AvenirLTStd",
 
-          colorScheme: ColorScheme.light().copyWith(
-              primary: Color(0xff30b3f8), secondary: Color(0xfffe8628)),
+          colorScheme: ColorScheme.light()
+              .copyWith(primary: primary, secondary: secondary),
           canvasColor: Color(0xfff5f5f5),
           checkboxTheme: CheckboxThemeData(fillColor: checkBoxColor),
           radioTheme: RadioThemeData(fillColor: checkBoxColor),
@@ -33,8 +37,9 @@ class MyApp extends StatelessWidget {
           // fontFamily: "Aileron",
           // fontFamily: "AvenirLTStd",
 
-          colorScheme: ColorScheme.dark().copyWith(
-              primary: Color(0xff30b3f8), secondary: Color(0xfffe8628)),
+          colorScheme: ColorScheme.dark()
+              .copyWith(primary: primary, secondary: secondary),
+
           canvasColor: Color(0xff151515),
           checkboxTheme: CheckboxThemeData(fillColor: checkBoxColor),
           radioTheme: RadioThemeData(fillColor: checkBoxColor),
