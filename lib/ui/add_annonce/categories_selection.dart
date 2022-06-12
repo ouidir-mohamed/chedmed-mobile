@@ -1,7 +1,12 @@
+import 'package:chedmed/blocs/add_annonce_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
+import '../../blocs/loading_ressources_bloc.dart';
+import '../../models/category.dart';
 import '../common/buttons.dart';
+import '../common/category_presentation.dart';
+import '../common/chips.dart';
 import '../home/categories.dart';
 
 class CategoriesSelection extends StatefulWidget {
@@ -12,57 +17,71 @@ class CategoriesSelection extends StatefulWidget {
 }
 
 class _CategoriesSelectionState extends State<CategoriesSelection> {
-  List<Category> categories = [
-    Category(nom: "Vetements", icon: Ionicons.ios_shirt, selected: false),
-    Category(
-        nom: "Téléphones", icon: MaterialIcons.smartphone, selected: false),
-    Category(nom: "Froid", icon: Icons.ac_unit, selected: false),
-    Category(nom: "PC", icon: MaterialIcons.laptop_mac, selected: false),
-    Category(nom: "Véhicules", icon: FontAwesome.car, selected: false),
-    Category(
-        nom: "Outils", icon: MaterialCommunityIcons.tools, selected: false),
-    Category(nom: "Autre", icon: AntDesign.question, selected: false),
-  ];
+  GlobalKey<DynamicChipViewState> chipsKey = GlobalKey();
 
-  String selected = "";
+  List<CategoryPresentation> categories = loadingRessourcesBloc.categories
+      .map((e) => CategoryPresentation.toCategoryPresentation(
+          category: e, selected: false))
+      .toList();
+  List<UnderCategory> underCategories = loadingRessourcesBloc
+      .categories.first.underCategory
+      .map((e) => e)
+      .toList();
 
-  List<CategoryType> categoryTypes = [
-    CategoryType(
-      nom: "T-Shirts",
-    ),
-    CategoryType(
-      nom: "Chaussures",
-    ),
-    CategoryType(
-      nom: "Vestes",
-    ),
-    CategoryType(
-      nom: "Pontalons",
-    ),
-    CategoryType(
-      nom: "Autre",
-    ),
-  ];
-
-  String selectedType = "";
   @override
   void initState() {
-    selected = categories.first.nom;
-    selectedType = categoryTypes.first.nom;
-
+    addAnnonceBloc.getDone.listen((a) {
+      init();
+      chipsKey.currentState!.restore();
+    });
+    init();
     super.initState();
   }
 
-  select(Category category) {
-    setState(() {
-      selected = category.nom;
-    });
+  init() {
+    int? selected = categories.first.id;
+    int? selectedType;
+
+    underCategories = loadingRessourcesBloc.categories
+        .firstWhere((element) => element.id == selected)
+        .underCategory
+        .map((e) => e)
+        .toList();
+
+    if (underCategories.isNotEmpty)
+      selectedType = underCategories.first.id;
+    else
+      selectedType = null;
+
+    addAnnonceBloc.category_id = selected;
+    addAnnonceBloc.underCategory_id = selectedType;
+
+    setState(() {});
   }
 
-  selectType(CategoryType type) {
-    setState(() {
-      selectedType = type.nom;
-    });
+  select(int? categoryId) {
+    int? selected = categories.first.id;
+    int? selectedType;
+    selected = categoryId;
+    underCategories = loadingRessourcesBloc.categories
+        .firstWhere((element) => element.id == categoryId)
+        .underCategory
+        .map((e) => e)
+        .toList();
+
+    if (underCategories.isNotEmpty)
+      selectedType = underCategories.first.id;
+    else
+      selectedType = null;
+
+    addAnnonceBloc.category_id = selected;
+    addAnnonceBloc.underCategory_id = selectedType;
+
+    setState(() {});
+  }
+
+  selectType(int? typeId) {
+    addAnnonceBloc.underCategory_id = typeId;
   }
 
   @override
@@ -73,52 +92,43 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3),
-            child: Text("Catégorie",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          ),
-          Wrap(
-            children: categories
+          DynamicChipView(
+            key: chipsKey,
+            title: "Catégorie",
+            chips: categories
                 .map(
-                  (e) => CustomChip(
-                      text: e.nom,
-                      icon: e.icon,
-                      onPressed: () {
-                        select(e);
-                      },
-                      isSelected: e.nom == selected),
+                  (e) => ChipModel(
+                    title: e.name,
+                    icon: e.icon,
+                    onPressed: () {
+                      select(e.id);
+                    },
+                  ),
                 )
                 .toList(),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 3),
-            child: Text("Type",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                )),
-          ),
-          Wrap(
-            children: categoryTypes
+          DynamicChipView(
+            title: "Type",
+            chips: underCategories
                 .map(
-                  (e) => CustomChip(
-                      text: e.nom,
-                      onPressed: () {
-                        selectType(e);
-                      },
-                      isSelected: e.nom == selectedType),
+                  (e) => ChipModel(
+                    title: e.name,
+                    onPressed: () {
+                      selectType(e.id);
+                    },
+                  ),
                 )
                 .toList(),
-          )
+          ),
         ],
       ),
     );
   }
 }
 
-class CategoryType {
-  String nom;
-  CategoryType({
-    required this.nom,
-  });
-}
+// class CategoryType {
+//   String nom;
+//   CategoryType({
+//     required this.nom,
+//   });
+// }

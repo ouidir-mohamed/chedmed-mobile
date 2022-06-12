@@ -1,32 +1,34 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chedmed/ui/article_details/image_full_screen.dart';
-import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'package:chedmed/ui/article_details/image_full_screen.dart';
+import 'package:chedmed/ui/common/app_theme.dart';
 
 import '../common/buttons.dart';
 import '../common/no_cache.dart';
 
 class ImageDisplay extends StatefulWidget {
-  ImageDisplay({Key? key}) : super(key: key);
+  List<String> images;
+  ImageDisplay({
+    Key? key,
+    required this.images,
+  }) : super(key: key);
 
   @override
   State<ImageDisplay> createState() => _ImageDisplayState();
 }
 
 class _ImageDisplayState extends State<ImageDisplay> {
-  var faker = Faker();
-  List<ImageData> images = [];
-  String selected = "car";
+  List<String> images = [];
+  String selected = "";
 
   @override
   void initState() {
-    print("refetching....");
-    images = ["car", "watch", "clothes", "smartphone"]
-        .map((e) => ImageData(url: faker.image.image(keywords: [e]), id: e))
-        .toList();
-    selected = images.first.id;
+    images = widget.images;
+
+    selected = images.first;
     super.initState();
   }
 
@@ -52,12 +54,14 @@ class _ImageDisplayState extends State<ImageDisplay> {
                 height: 250,
                 width: double.infinity,
                 child: Image.network(
-                  images.where((element) => element.id == selected).first.url,
+                  images.where((element) => element == selected).first,
                   fit: BoxFit.cover,
                 ),
               ),
               Positioned(
-                child: ZoomButton(),
+                child: ZoomButton(
+                  images: widget.images,
+                ),
                 bottom: 5,
                 right: 5,
               ),
@@ -78,10 +82,10 @@ class _ImageDisplayState extends State<ImageDisplay> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: images
                     .map((e) => ImagePreview(
-                          imageUrl: e.url,
-                          selected: e.id == selected,
+                          imageUrl: e,
+                          selected: e == selected,
                           imageTapped: () {
-                            selectImage(e.id);
+                            selectImage(e);
                           },
                         ))
                     .toList()),
@@ -134,49 +138,23 @@ class ImageData {
   });
 }
 
-class Loading extends StatelessWidget {
-  const Loading({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var backgroundColor = Theme.of(context).canvasColor;
-    var brightness = Theme.of(context).brightness;
-    Color baseColor;
-    Color highlightColor;
-
-    if (brightness == Brightness.light) {
-      baseColor = Colors.white;
-      highlightColor = Colors.grey[200]!;
-    } else {
-      baseColor = Color(0xFF1D1D1D);
-      highlightColor = Color(0XFF3C4042);
-    }
-
-    return Container(
-      child: Shimmer.fromColors(
-        baseColor: baseColor,
-        highlightColor: highlightColor,
-        period: Duration(milliseconds: 700),
-        child: Container(
-          height: 100,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8), color: backgroundColor),
-        ),
-      ),
-    );
-  }
-}
-
 class ZoomButton extends StatelessWidget {
-  const ZoomButton({Key? key}) : super(key: key);
+  List<String> images;
+  ZoomButton({
+    Key? key,
+    required this.images,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MyElevatedButton(
-      color: AppTheme.secondaryColor(context),
+    return MyElevatedButtonSmall(
       onPressed: () => {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ImageFullScreenGalery()))
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ImageFullScreenGalery(
+                      images: images,
+                    )))
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,

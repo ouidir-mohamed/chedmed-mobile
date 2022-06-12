@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chedmed/blocs/add_annonce_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,6 +26,7 @@ class _ImageSelectionState extends State<ImageSelection> {
     if (photo != null)
       setState(() {
         pickedImages.add(photo.path);
+        addAnnonceBloc.imagePaths.add(photo.path);
       });
   }
 
@@ -34,6 +36,7 @@ class _ImageSelectionState extends State<ImageSelection> {
     if (images != null)
       setState(() {
         pickedImages.addAll(images.map((e) => e.path));
+        addAnnonceBloc.imagePaths = pickedImages;
       });
   }
 
@@ -49,7 +52,20 @@ class _ImageSelectionState extends State<ImageSelection> {
     setState(() {
       pickedImages.removeWhere((element) => selectedImages.contains(element));
       selectedImages.removeWhere((element) => selectedImages.contains(element));
+      addAnnonceBloc.imagePaths = pickedImages;
     });
+  }
+
+  @override
+  void initState() {
+    addAnnonceBloc.getDone.listen((event) {
+      setState(() {
+        pickedImages.clear();
+        selectedImages.clear();
+        addAnnonceBloc.imagePaths.clear();
+      });
+    });
+    super.initState();
   }
 
   @override
@@ -61,24 +77,29 @@ class _ImageSelectionState extends State<ImageSelection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text("Ajouter des photos",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3),
-              child: Wrap(
-                spacing: 5,
-                runSpacing: 5,
-                children: pickedImages
-                    .map((e) => ImagePreview(
-                          imageUrl: e,
-                          selected: selectedImages.contains(e),
-                          imageTapped: () {
-                            selectImage(e);
-                          },
-                        ))
-                    .toList(),
+            AnimatedSize(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.ease,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 3),
+                child: Wrap(
+                  spacing: 5,
+                  runSpacing: 5,
+                  children: pickedImages
+                      .map((e) => ImagePreview(
+                            imageUrl: e,
+                            selected: selectedImages.contains(e),
+                            imageTapped: () {
+                              selectImage(e);
+                            },
+                          ))
+                      .toList(),
+                ),
               ),
             ),
             Padding(

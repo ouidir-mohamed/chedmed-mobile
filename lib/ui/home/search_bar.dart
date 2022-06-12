@@ -1,10 +1,35 @@
+import 'package:chedmed/blocs/home_bloc.dart';
+import 'package:chedmed/ui/home/filter_dialog/filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
+import '../add_annonce/add_annonce.dart';
 import '../common/app_theme.dart';
+import '../common/transitions.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class SearchBar extends StatefulWidget {
+  SearchBar({Key? key}) : super(key: key);
+
+  @override
+  State<SearchBar> createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  FocusNode focueNode = FocusNode();
+  TextEditingController searchController = TextEditingController();
+  bool filterEnabled = false;
+
+  @override
+  void initState() {
+    focueNode.unfocus();
+    homeBloc.getFiltersEnabled.listen((event) {
+      if (mounted)
+        setState(() {
+          filterEnabled = event;
+        });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +42,22 @@ class SearchBar extends StatelessWidget {
             Expanded(
               //width: double.infinity,
               child: TextFormField(
-                //controller: departureAdressController,
-                //readOnly: true,
-                //  cursorColor: Colors.white,
-                // focusNode: startFocusNode,
+                onFieldSubmitted: (v) {
+                  homeBloc.setQueryAndApply(v);
+                  focueNode.unfocus();
+                },
+                onChanged: (v) {
+                  if (v.isEmpty) homeBloc.setQueryAndApply(v);
+                },
 
+                controller: searchController,
+                // readOnly: true,
+                // cursorColor: Colors.white,
+                onEditingComplete: () {
+                  print("compleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeted");
+                },
+
+                focusNode: focueNode,
                 decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.search,
@@ -38,20 +74,27 @@ class SearchBar extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: AppTheme.cardColor(context),
+                color: filterEnabled
+                    ? AppTheme.secondaryColor(context)
+                    : AppTheme.cardColor(context),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
               margin: EdgeInsets.only(left: 10),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context, SlideBottomRoute(widget: FilterDialog()));
+                  },
                   child: Container(
                     height: 48,
                     padding: EdgeInsets.symmetric(horizontal: 13),
                     child: Icon(
                       Entypo.sound_mix,
-                      color: AppTheme.textColor(context),
+                      color: filterEnabled
+                          ? Colors.white
+                          : AppTheme.textColor(context),
                     ),
                   ),
                 ),

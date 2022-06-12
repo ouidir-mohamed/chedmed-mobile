@@ -1,9 +1,12 @@
 import 'package:chedmed/ui/common/app_theme.dart';
+import 'package:chedmed/ui/common/category_presentation.dart';
 import 'package:chedmed/ui/home/categories.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/category.dart';
+
 class CategoryChip extends StatelessWidget {
-  Category category;
+  CategoryPresentation category;
   void Function()? onTap;
   CategoryChip({Key? key, required this.category, this.onTap})
       : super(key: key);
@@ -36,7 +39,7 @@ class CategoryChip extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  category.nom,
+                  category.name,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: category.selected

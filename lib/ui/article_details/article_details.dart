@@ -1,7 +1,8 @@
-import 'package:chedmed/ui/article_details/call_button.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+
+import 'package:chedmed/ui/article_details/call_button.dart';
+import 'package:chedmed/ui/home/annonce_presentation.dart';
 
 import '../common/app_theme.dart';
 import '../common/buttons.dart';
@@ -9,7 +10,11 @@ import '../common/no_cache.dart';
 import 'image_display.dart';
 
 class ArticleDetails extends StatefulWidget {
-  ArticleDetails({Key? key}) : super(key: key);
+  AnnoncePresentation annonce;
+  ArticleDetails({
+    Key? key,
+    required this.annonce,
+  }) : super(key: key);
 
   @override
   State<ArticleDetails> createState() => _ArticleDetailsState();
@@ -17,7 +22,6 @@ class ArticleDetails extends StatefulWidget {
 
 class _ArticleDetailsState extends State<ArticleDetails> {
   var _callExtended = true;
-
   void shrinkButton() async {
     if (!_callExtended) return;
     await Future.delayed(Duration(seconds: 5));
@@ -68,7 +72,9 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                           expandedTitleScale: 1,
                           centerTitle: true,
                           titlePadding: EdgeInsets.all(0),
-                          background: ImageDisplay(),
+                          background: ImageDisplay(
+                            images: widget.annonce.images,
+                          ),
                         );
                       })),
                   SliverToBoxAdapter(
@@ -77,7 +83,11 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                       primary: false,
                       child: Container(
                         child: Column(
-                          children: [ArticleContent()],
+                          children: [
+                            ArticleContent(
+                              annonce: widget.annonce,
+                            )
+                          ],
                         ),
                       ),
                     ),
@@ -127,7 +137,11 @@ class TitleHeader extends StatelessWidget {
 }
 
 class ArticleContent extends StatelessWidget {
-  ArticleContent({Key? key}) : super(key: key);
+  AnnoncePresentation annonce;
+  ArticleContent({
+    Key? key,
+    required this.annonce,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -138,11 +152,11 @@ class ArticleContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            faker.vehicle.model(),
+            annonce.titre,
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Text(
-            faker.randomGenerator.integer(12000).toString() + " DA",
+            annonce.prix.toString() + " DA",
             style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -156,7 +170,7 @@ class ArticleContent extends StatelessWidget {
             ),
           ),
           Text(
-            faker.lorem.sentences(30).join("\n"),
+            annonce.description,
             style: TextStyle(
               fontSize: 14,
             ),
@@ -178,7 +192,7 @@ class ArticleContent extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        faker.address.city(),
+                        annonce.localisation,
                         style: TextStyle(
                             fontSize: 15,
                             color: AppTheme.headlineColor(context)),
@@ -199,7 +213,7 @@ class ArticleContent extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Il ya 2 jours",
+                        annonce.time,
                         style: TextStyle(
                             fontSize: 15,
                             color: AppTheme.headlineColor(context)),

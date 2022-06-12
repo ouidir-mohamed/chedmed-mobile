@@ -1,72 +1,14 @@
-import 'package:chedmed/ui/article_details/article_details.dart';
 import 'package:chedmed/ui/common/transitions.dart';
-import 'package:faker/faker.dart';
+import 'package:chedmed/ui/home/annonces.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_font_icons/flutter_font_icons.dart';
 
+import '../article_details/article_details.dart';
 import '../common/app_theme.dart';
 import '../common/no_cache.dart';
 
-class Articles extends StatelessWidget {
-  Articles({Key? key}) : super(key: key);
-  var faker = new Faker();
-
-  @override
-  Widget build(BuildContext context) {
-    List<Annonce> annonces = [];
-    for (var item in [
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      11,
-      1,
-      1,
-      1
-    ]) {
-      annonces.add(Annonce(
-          titre: faker.vehicle.model(),
-          prix: faker.randomGenerator.integer(12000).toString() + " DA",
-          localisation: faker.address.city(),
-          image: faker.image.image(
-              keywords: ["clothes", "laptop", "shoes", "car", "watch"])));
-    }
-
-    annonces.forEach((element) {
-      print(element.image);
-    });
-
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      child: Column(
-        children: annonces
-            .map((e) => ArticleCard(
-                  annonce: e,
-                ))
-            .toList(),
-      ),
-    );
-  }
-}
-
-class ArticleCard extends StatelessWidget {
+class ArticleNoFav extends StatelessWidget {
   Annonce annonce;
-  ArticleCard({
+  ArticleNoFav({
     Key? key,
     required this.annonce,
   }) : super(key: key);
@@ -85,8 +27,7 @@ class ArticleCard extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
-              Navigator.push(
-                  context, SlideRightRoute(widget: ArticleDetails()));
+              Navigator.push(context, SlideRightRoute(widget: Container()));
             },
             child: Row(
               children: [
@@ -142,14 +83,6 @@ class ArticleCard extends StatelessWidget {
                     ],
                   ),
                 )),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Icon(
-                    AntDesign.heart,
-                    size: 20,
-                    color: AppTheme.secondaryColor(context),
-                  ),
-                )
               ],
             ),
           ),
@@ -157,17 +90,4 @@ class ArticleCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class Annonce {
-  String titre;
-  String prix;
-  String localisation;
-  String image;
-  Annonce({
-    required this.titre,
-    required this.prix,
-    required this.localisation,
-    required this.image,
-  });
 }

@@ -15,4 +15,9 @@ class AppTheme {
 
   static Color headlineColor(BuildContext context) =>
       Theme.of(context).textTheme.headline1!.color!;
+
+  static Color containerColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.light
+          ? cardColor(context)
+          : canvasColor(context);
 }

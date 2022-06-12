@@ -1,40 +1,43 @@
 import 'dart:math';
 
-import 'package:chedmed/ui/common/app_theme.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+import 'package:chedmed/ui/common/app_theme.dart';
+
 import '../common/buttons.dart';
 import 'image_display.dart';
 
 class ImageFullScreen extends StatelessWidget {
-  const ImageFullScreen({Key? key}) : super(key: key);
+  String image;
+  ImageFullScreen({
+    Key? key,
+    required this.image,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var faker = Faker();
-
     return Container(
         child: PhotoView(
-      imageProvider: NetworkImage(faker.image.image(keywords: ["clothes"])),
+      imageProvider: NetworkImage(image),
     ));
   }
 }
 
 class ImageFullScreenGalery extends StatefulWidget {
-  const ImageFullScreenGalery({Key? key}) : super(key: key);
+  List<String> images;
+  ImageFullScreenGalery({
+    Key? key,
+    required this.images,
+  }) : super(key: key);
 
   @override
   State<ImageFullScreenGalery> createState() => _ImageFullScreenGaleryState();
 }
 
 class _ImageFullScreenGaleryState extends State<ImageFullScreenGalery> {
-  List<ImageData> galleryItems = ["car", "watch", "clothes", "smartphone"]
-      .map((e) => ImageData(url: faker.image.image(keywords: [e]), id: e))
-      .toList();
   int currentNumber = 1;
 
   PhotoViewController pageController = new PhotoViewController();
@@ -57,7 +60,6 @@ class _ImageFullScreenGaleryState extends State<ImageFullScreenGalery> {
 
   @override
   Widget build(BuildContext context) {
-    print(galleryItems.length);
     return Scaffold(
         body: Stack(
       children: [
@@ -66,14 +68,14 @@ class _ImageFullScreenGaleryState extends State<ImageFullScreenGalery> {
           builder: (BuildContext context, int index) {
             return PhotoViewGalleryPageOptions(
               controller: pageController,
-              imageProvider: NetworkImage(galleryItems[index].url),
+              imageProvider: NetworkImage(widget.images[index]),
               initialScale: PhotoViewComputedScale.contained * 1,
               heroAttributes:
-                  PhotoViewHeroAttributes(tag: galleryItems[index].id),
+                  PhotoViewHeroAttributes(tag: widget.images[index]),
             );
           },
 
-          itemCount: galleryItems.length,
+          itemCount: widget.images.length,
 
           loadingBuilder: (context, event) => Center(
             child: Container(
@@ -94,7 +96,7 @@ class _ImageFullScreenGaleryState extends State<ImageFullScreenGalery> {
           bottom: 8,
           right: 8,
           child: Text(
-            "Image $currentNumber /" + galleryItems.length.toString(),
+            "Image $currentNumber /" + widget.images.length.toString(),
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16),
           ),
