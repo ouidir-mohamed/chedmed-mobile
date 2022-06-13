@@ -1,4 +1,5 @@
 import 'package:chedmed/blocs/locations_bloc.dart';
+import 'package:chedmed/blocs/profile_bloc.dart';
 import 'package:chedmed/main.dart';
 import 'package:chedmed/models/annonce.dart';
 import 'package:chedmed/models/city.dart';
@@ -179,6 +180,7 @@ class HomeBloc {
     _annoncesFetcher.sink.add(oldList);
 
     displayAddedToFavoriteSnackbar("Annonce ajoutée aux favoris");
+    profileBloc.loadFavoriteAnnonces();
   }
 
   removeFromFavorite(int annonceId) async {
@@ -190,6 +192,7 @@ class HomeBloc {
 
     _annoncesFetcher.sink.add(oldList);
     displayRemovedFromFavoriteSnackbar("Annonce supprimée des favoris");
+    profileBloc.loadFavoriteAnnonces();
   }
 }
 

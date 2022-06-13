@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:chedmed/blocs/profile_bloc.dart';
+import 'package:chedmed/models/profile.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/common/buttons.dart';
 import 'package:chedmed/ui/profile/edit_dialog.dart';
@@ -7,9 +9,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UserInfos extends StatelessWidget {
-  final ImagePicker _picker = ImagePicker();
-  File? imageFile;
+class UserInfos extends StatefulWidget {
+  @override
+  State<UserInfos> createState() => _UserInfosState();
+}
+
+class _UserInfosState extends State<UserInfos> {
+  UserProfile profile = UserProfile(id: 0, username: "", phone: "");
+
+  @override
+  void initState() {
+    profileBloc.loadProfile();
+    profileBloc.getProfile.listen((event) {
+      print(event.username);
+      setState(() {
+        profile = event;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +48,7 @@ class UserInfos extends StatelessWidget {
                 color: // AppTheme.headlineColor(context).withOpacity(0.2)
                     AppTheme.primaryColor(context)),
             child: Text(
-              "Y",
+              profile.username.substring(0, 1).toUpperCase(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
@@ -46,10 +64,10 @@ class UserInfos extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Yanis Ziani',
+                  profile.username,
                   style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                 ),
-                Text('0656110707',
+                Text(profile.phone,
                     style: TextStyle(
                         fontSize: 15, color: AppTheme.headlineColor(context))),
               ],

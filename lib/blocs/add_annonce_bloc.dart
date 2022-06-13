@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:chedmed/blocs/profile_bloc.dart';
 import 'package:chedmed/models/annonce_request.dart';
 import 'package:chedmed/models/city.dart';
 import 'package:chedmed/ressources/repository/repository.dart';
 import 'package:chedmed/ui/common/snackbar.dart';
+import 'package:chedmed/ui/navigation/bottom_navigation.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -83,8 +85,9 @@ class AddAnnonceBloc {
     _loadingFetcher.sink.add(true);
     await Future.delayed(Duration(seconds: 2));
     chedMedApiFormData.addPost(request).then((value) {
-      print(value);
       displaySuccessSnackbar("Annonce ajoutée avec success");
+      navigationController.jumpToTab(2);
+      profileBloc.loadProfileAnnonces();
       _doneFetcher.sink.add(null);
     }).onError((error, stackTrace) {
       if (error.runtimeType == DioError) {

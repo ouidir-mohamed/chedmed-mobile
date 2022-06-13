@@ -23,6 +23,22 @@ class SharedPreferenceData {
     return prefs.getInt('cityId');
   }
 
+  static saveUserName(String userName) async {
+    await prefs.setString('userName', userName);
+  }
+
+  static String loadUserName() {
+    return prefs.getString('userName') ?? "";
+  }
+
+  static savePhone(String phone) async {
+    await prefs.setString('phone', phone);
+  }
+
+  static String loadPhone() {
+    return prefs.getString('phone') ?? "";
+  }
+
   static addToFavoriteAnnonces(int annonceId) async {
     var oldList = prefs.getStringList('favorites') ?? [];
     oldList.add(annonceId.toString());

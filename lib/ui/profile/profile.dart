@@ -1,18 +1,19 @@
+import 'package:chedmed/blocs/profile_bloc.dart';
 import 'package:chedmed/ui/article_details/article_details.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/common/buttons.dart';
+import 'package:chedmed/ui/common/chips.dart';
 import 'package:chedmed/ui/common/no_cache.dart';
 import 'package:chedmed/ui/common/transitions.dart';
 import 'package:chedmed/ui/home/annonces.dart';
-import 'package:chedmed/ui/profile/tab_view.dart';
+import 'package:chedmed/ui/profile/articles_to_display.dart';
 import 'package:chedmed/ui/profile/user_informations.dart.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'article_no_fav.dart';
-import 'my_articles.dart';
+import 'filter.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -22,47 +23,63 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> with TickerProviderStateMixin {
-  List<Annonce> annonces = [];
+  @override
+  void initState() {
+    profileBloc.loadProfileAnnonces();
+    profileBloc.loadFavoriteAnnonces();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 2, vsync: this);
-    final List<String> tabs = <String>['Tab 1', 'Tab 2'];
-
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              // <-- custom sticky menu bar
-              floating: false,
-              pinned: false,
-              expandedHeight: 180,
-              toolbarHeight: 80,
-              collapsedHeight: 80,
-              elevation: 0.0,
-              leading: Container(),
-              title: Header(),
-              leadingWidth: 0,
-              backgroundColor: AppTheme.containerColor(context),
-              bottom: PreferredSize(
-                  preferredSize: Size(double.infinity, 100),
-                  child: UserInfos()),
-            ),
-            SliverPersistentHeader(
-              pinned: true,
-              floating: false,
-              delegate: TabViewDelegate(tabController: _tabController),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                height: double.maxFinite,
-                child: TabBarView(
-                    controller: _tabController,
-                    children: [MyArticles(), Container()]),
-              ),
-            ),
-          ],
+        child: RefreshIndicator(
+          color: AppTheme.secondaryColor(context),
+          onRefresh: profileBloc.refresh,
+          child: CustomScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            slivers: [
+              SliverAppBar(
+                  expandedHeight: 260,
+                  floating: false,
+                  pinned: true,
+                  elevation: 0,
+                  collapsedHeight: 75,
+                  toolbarHeight: 1,
+                  shadowColor: Colors.transparent,
+                  primary: false,
+                  leading: Container(),
+                  backgroundColor: Colors.transparent,
+                  flexibleSpace: LayoutBuilder(builder: (context, constraints) {
+                    return FlexibleSpaceBar(
+                        collapseMode: CollapseMode.parallax,
+                        expandedTitleScale: 1,
+                        centerTitle: true,
+                        titlePadding: EdgeInsets.all(0),
+                        background: Column(
+                          children: [Header(), UserInfos()],
+                        ),
+                        title: Container(
+                          child: Filters(),
+                        ));
+                  })),
+              SliverToBoxAdapter(
+                child: SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  primary: false,
+                  child: Container(
+                    child: Column(
+                      children: [
+                        ArticlestoDisplay(),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -74,8 +91,9 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+    return Container(
+      color: AppTheme.containerColor(context),
+      padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

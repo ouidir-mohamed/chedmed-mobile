@@ -109,7 +109,8 @@ class GettingStartedBloc {
     chedMedApi
         .signUp(request)
         .then((value) {
-          validateUser(value.token, _selectedCityFetcher.value.id);
+          validateUser(
+              value.token, _selectedCityFetcher.value.id, username, phone);
         })
         .timeout(Duration(seconds: 2))
         .catchError((e) {
@@ -139,10 +140,13 @@ class GettingStartedBloc {
 
 final gettingStartedBloc = GettingStartedBloc();
 
-validateUser(String token, int cityId) async {
+validateUser(String token, int cityId, String username, String phone) async {
   addTokenInterceptor(token);
   await SharedPreferenceData.saveToken(token);
   await SharedPreferenceData.saveCityId(cityId);
+  await SharedPreferenceData.savePhone(phone);
+  await SharedPreferenceData.saveUserName(username);
+
   Navigator.pushReplacement(requireContext(),
       MaterialPageRoute(builder: (context) => LoadingScreen()));
 }

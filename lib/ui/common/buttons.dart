@@ -58,9 +58,10 @@ class MyElevatedButton extends StatelessWidget {
       child: child,
       style: ElevatedButton.styleFrom(
         splashFactory: MaterialInkSplash.splashFactory,
-        elevation: 1,
+        elevation: 0,
         padding: padding,
         primary: AppTheme.secondaryColor(context),
+        onPrimary: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
