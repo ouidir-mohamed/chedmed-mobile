@@ -1,0 +1,124 @@
+{
+
+    "language_name":"العربية",
+
+    "@__GETTING_STARTED": {},
+    "your_location":"موقعك",
+    "your_location_description":"اختر مدينتك ثم اضغط على التالي",
+    "select_city_first": "يرجى اختيار مدينة",
+    "next":"التالي",
+    "select_your_city":"اختر مدينتك",
+                  
+    
+    "@__HOME_PAGE": {},
+    
+        "today_collections": "تجميعات اليوم",
+        "tomorrow_collections": "تجميعات الغد",
+        "weekly_collections": "تجميعات الاسبوع",
+        "no_collect":"لا توجد تجميعات",
+        "no_collect_description":"لا توجد تجميعات تخص مدينتك هذا اليوم",
+    
+    
+    
+    "@__NOTIFICATION_DIALOG": {},  
+    
+    "notify_me":"تلقي تنبيه",
+    
+        "before_departure":"قبل الانطلاق",
+        "before_departure_description":"تلقي تنبيه {minutes} دقيقية قبل انطلاق الشاحنة يمكنكم تعديل هذه المدة في الاعدادات ",
+        "@before_departure_description": {
+          "placeholders": {
+              "minutes": {
+                  "type": "String",
+                  "example": "30"
+              }
+          }
+      },
+        "before_arrival":"قبل الوصول",
+        "before_arrival_description":"تلقي تنبيه {minutes} دقيقية قبل وصول الشاحنة الى اقرب نقطة تجميع يمكنكم تعديل هذه المدة في الاعدادات ",
+        "@before_arrival_description": {
+          "placeholders": {
+              "minutes": {
+                  "type": "String",
+                  "example": "30"
+              }
+          }
+      },
+    
+      "nearest_point":"اقرب نقطة تجميع",
+      "ok":"موافقة",
+      "cancel":"الغاء",
+    
+    
+    "@__COLLECTION_DETAILS": {},
+    
+        "your_rating":"تقييمك",
+        "departure_at":"الانطلاق على",
+        "minutes":" دقائق",
+      "expand":"تكبير",
+      "min":" min",
+      "deperaure_tomorrow_at":"الانطلاق غدا على :",
+      "departure_date_at":" الانطلاق {date} على:",
+      "@departure_date_at":{
+        "placeholders":{
+         "date": {
+           "type": "String",
+           "example": " "
+       }
+        }
+      },
+      "currently_at": "حاليا في: ",
+      "collection_finished": "نهاية التجميع ",
+   "park":"موقف",
+
+"@__RATINGS": {},
+    "how_was_the_service":"كيف كانت الخدمة ؟",
+    "your_rating_helps_us":"تقييمكم يساعدنا على تحسين خدماتنا",
+    "bad":"سيئة",
+    "good":"جيدة",
+    "excellent":"ممتازة",
+    "send":"ارسال",
+    "thanks_fo_rating":"شكرا على تقييمكم",
+    "thanks_fo_rating_description": "نحن نتاسف اذا كانت لديكم تجبة سيئة معنا \n تقييماتكم تساعدنا على تحسين خدماتنا",
+    "close":"غلق",
+
+    
+    "@__NOTIFICATIONS": {},
+    
+      "notifications":"الاشعارات",
+      "no_notifications":"لا توجد اشعارات",
+      "no_notifications_decription":"عندما تكون اشعارات يمكنكم الاطلاع عليها هنا",
+    
+    "@__SETTINGS": {},
+      
+      "global":"عامة",
+      "settings":"الاعدادات",
+    
+      "language":"اللغة",
+      "location":"الموقع",
+      "time_beforee_departure":"الوقت قبل انطلاق الشاحنة",
+      "time_beforee_departure_description":"اختر وقت وصول الاشعار قبل انطلاق الشاحنة ",
+    
+      "time_beforee_arrival":"قبل الوصول",
+      "time_beforee_arrival_description":"اختر وقت وصول الاشعار قبل وصول الشاحنة الى نقطة التجميع",
+      "apply":"تاكيد",
+      "minutes_var":"{minutes} دقيقية",
+   "@minutes_var":{
+    "placeholders": {
+      "minutes": {
+          "type": "String",
+          "example": "30"
+      }
+
+    }
+  },    
+    
+      "other":"اخرى",
+      "about":"حول التطبيق"
+    
+    
+    
+    
+    
+      
+    }

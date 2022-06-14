@@ -133,6 +133,7 @@ class HomeBloc {
 
   selectCity(City city) {
     cityCandidate = city;
+    _cityFetcher.sink.add(city);
   }
 
   setMaxDistance(double distance) {

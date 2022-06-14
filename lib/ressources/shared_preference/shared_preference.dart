@@ -7,6 +7,22 @@ class SharedPreferenceData {
     prefs = await SharedPreferences.getInstance();
   }
 
+  static saveTheme(String theme) async {
+    await prefs.setString('theme', theme);
+  }
+
+  static String loadTheme() {
+    return prefs.getString('theme') ?? "default";
+  }
+
+  static saveLocale(String locale) async {
+    await prefs.setString('locale', locale);
+  }
+
+  static String loadLocale() {
+    return prefs.getString('locale') ?? "";
+  }
+
   static saveToken(String token) async {
     await prefs.setString('token', token);
   }

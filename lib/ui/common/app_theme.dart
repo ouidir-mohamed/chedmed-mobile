@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:chedmed/ui/common/ripple_effect.dart';
+
 class AppTheme {
   static Color primaryColor(BuildContext context) =>
       Theme.of(context).colorScheme.primary;
@@ -21,3 +23,85 @@ class AppTheme {
           ? cardColor(context)
           : canvasColor(context);
 }
+
+class SelectedTheme {
+  ThemeData lightTheme;
+  ThemeData darkTheme;
+  String code;
+  String name;
+  SelectedTheme({
+    required this.lightTheme,
+    required this.darkTheme,
+    required this.code,
+    required this.name,
+  });
+
+  static SelectedTheme systemDefault() {
+    return SelectedTheme(
+        lightTheme: _lightTheme,
+        darkTheme: _darkTheme,
+        code: "default",
+        name: "Selon le systéme");
+  }
+
+  static SelectedTheme forceLight() {
+    return SelectedTheme(
+        lightTheme: _lightTheme,
+        darkTheme: _lightTheme,
+        code: "light",
+        name: "Claire");
+  }
+
+  static SelectedTheme forceDark() {
+    return SelectedTheme(
+        lightTheme: _darkTheme,
+        darkTheme: _darkTheme,
+        code: "dark",
+        name: "Sombre");
+  }
+
+  static ThemeData _lightTheme = ThemeData(
+    fontFamily: "Aileron",
+    //  fontFamily: "AvenirLTStd",
+
+    colorScheme:
+        ColorScheme.light().copyWith(primary: primary, secondary: secondary),
+    canvasColor: Color(0xffF2F2F2),
+    cardColor: Color(0xffFCFCFC),
+
+    checkboxTheme: CheckboxThemeData(fillColor: checkBoxColor),
+    radioTheme: RadioThemeData(fillColor: checkBoxColor),
+    splashFactory: MaterialInkSplash.splashFactory,
+  );
+
+  static ThemeData _darkTheme = ThemeData(
+    fontFamily: "Aileron",
+    // fontFamily: "AvenirLTStd",
+
+    colorScheme:
+        ColorScheme.dark().copyWith(primary: primary, secondary: secondary),
+
+    canvasColor: Color(0xff010101),
+    cardColor: Color(0xff171717),
+    checkboxTheme: CheckboxThemeData(fillColor: checkBoxColor),
+    radioTheme: RadioThemeData(fillColor: checkBoxColor),
+    brightness: Brightness.dark,
+    splashFactory: MaterialInkSplash.splashFactory,
+  );
+}
+
+const primary = Color(0xff30b3f8);
+
+const secondary = Color(0xfff7547b);
+
+Color getColor(Set<MaterialState> states) {
+  const Set<MaterialState> interactiveStates = <MaterialState>{
+    MaterialState.pressed,
+    MaterialState.hovered,
+    MaterialState.focused,
+  };
+
+  return secondary;
+}
+
+var checkBoxColor = MaterialStateProperty.resolveWith(getColor);

@@ -1,0 +1,125 @@
+{
+  "language_name":"Français",
+  
+  "@__GETTING_STARTED": {},
+  "your_location":"Votre emplacement",
+  "your_location_description":"Selectionner d'abbord votre ville actuelle puis appuyer sur suivant",
+  "select_city_first": "Veillez choisir un emplacement d'abord",
+  "next":"Suivant",
+  "select_your_city":"Selectionner votre ville",
+                  
+
+"@__HOME_PAGE": {},
+
+    "today_collections": "Collections d'aujourd'hui",
+    "tomorrow_collections": "Collections de demain",
+    "weekly_collections": "Collections de cette semaine",
+    "no_collect":"Aucune collecte",
+    "no_collect_description":"Aucune collecte dens votre ville pour cette journée",
+
+
+
+"@__NOTIFICATION_DIALOG": {},  
+
+    "notify_me":"Me notifier",
+    "before_departure":"Avant le départ",
+    "before_departure_description":"Recevez une notification {minutes} minutes avant le départ de la collection vous pouvez adjuster ce temps dans les paramétres",
+    "@before_departure_description": {
+      "placeholders": {
+          "minutes": {
+              "type": "String",
+              "example": "30"
+          }
+      }
+  },
+    "before_arrival":"Juste avant l'arrivée",
+    "before_arrival_description":"Recevez une notification {minutes} minutes avant l'arrivée a votre point plus proche vous pouvez adjuster ce temps dans les paramétres",
+    "@before_arrival_description": {
+      "placeholders": {
+          "minutes": {
+              "type": "String",
+              "example": "30"
+          }
+      }
+  },
+
+  "nearest_point":"Point plus proche",
+  "ok":"OK",
+  "cancel":"Annuler",
+
+
+"@__COLLECTION_DETAILS": {},
+
+    "your_rating":"Votre avis",
+    "departure_at":"Départ à",
+    "minutes":" minutes",
+  "expand":"Agrandir",
+   "min":" min",
+   "deperaure_tomorrow_at":"Départ demain à :",
+   "departure_date_at":" Départ {date} à:",
+   "@departure_date_at":{
+     "placeholders":{
+      "date": {
+        "type": "String",
+        "example": " "
+    }
+     }
+   },
+   "currently_at": "Actuellement a: ",
+   "collection_finished": "Fin de trajet ",
+   "park":"Parc",
+
+
+   "@__RATINGS": {},
+"how_was_the_service":"Comment a été le service ?",
+"your_rating_helps_us":"Votre ais nous aide a améliorer",
+"bad":"Mauvais",
+"good":"Bien",
+"excellent":"Excellent",
+"send":"Envoyer",
+"thanks_fo_rating":"Merci pour votre avis",
+"thanks_fo_rating_description": "Nous sommes vraiment désolés si vous avez eu une mauvaise expérience \nVos avis nous aideront à améliorer notre service",
+"close":"Fermer",
+
+
+
+
+"@__NOTIFICATIONS": {},
+
+  "notifications":"Notifications",
+  "no_notifications":"Aucune notification",
+  "no_notifications_decription":"Lorsquevous avez des notifications, vouz pouvez les voir ici ",
+
+"@__SETTINGS": {},
+  
+  "global":"Générale",
+  "settings":"Paramétres",
+
+  "language":"Langue",
+  "location":"Emplacement",
+  "time_beforee_departure":"Temps avant le départ",
+  "time_beforee_departure_description":"Choisissez le temps avant la réception des notifications avant les départs favorites",
+   "minutes_var":"{minutes} minutes",
+   "@minutes_var":{
+    "placeholders": {
+      "minutes": {
+          "type": "String",
+          "example": "30"
+      }
+  }
+   },
+  "time_beforee_arrival":"Temps avant l'arrivée",
+  "time_beforee_arrival_description":"Choisissez le temps avant la réception des notifications avant les points de collecte ",
+  "apply":"Valider",
+
+
+
+  "other":"Autre",
+  "about":"A propos"
+
+
+
+
+
+  
+}
