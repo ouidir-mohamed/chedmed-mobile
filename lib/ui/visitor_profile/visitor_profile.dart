@@ -1,32 +1,28 @@
+import 'package:chedmed/blocs/visitor_profile_bloc.dart';
+import 'package:chedmed/ui/visitor_profile/articles_to_display.dart';
+import 'package:flutter/material.dart';
+
 import 'package:chedmed/blocs/profile_bloc.dart';
-import 'package:chedmed/ui/article_details/article_details.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/common/buttons.dart';
-import 'package:chedmed/ui/common/chips.dart';
-import 'package:chedmed/ui/common/no_cache.dart';
-import 'package:chedmed/ui/common/transitions.dart';
-import 'package:chedmed/ui/home/annonces.dart';
-import 'package:chedmed/ui/profile/articles_to_display.dart';
-import 'package:chedmed/ui/profile/user_informations.dart.dart';
-import 'package:faker/faker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_font_icons/flutter_font_icons.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:chedmed/ui/visitor_profile/user_informations.dart.dart';
 
-import 'filter.dart';
-
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class VisitorProfile extends StatefulWidget {
+  int userId;
+  VisitorProfile({
+    Key? key,
+    required this.userId,
+  }) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<VisitorProfile> createState() => _VisitorProfileState();
 }
 
-class _ProfileState extends State<Profile> with TickerProviderStateMixin {
+class _VisitorProfileState extends State<VisitorProfile>
+    with TickerProviderStateMixin {
   @override
   void initState() {
-    profileBloc.loadProfileAnnonces();
-    profileBloc.loadFavoriteAnnonces();
+    visitorProfileBloc.loadProfileAnnonces(widget.userId, false);
 
     super.initState();
   }
@@ -37,12 +33,12 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       body: SafeArea(
         child: RefreshIndicator(
           color: AppTheme.secondaryColor(context),
-          onRefresh: profileBloc.refresh,
+          onRefresh: () => visitorProfileBloc.refresh(widget.userId),
           child: CustomScrollView(
             physics: AlwaysScrollableScrollPhysics(),
             slivers: [
               SliverAppBar(
-                  expandedHeight: 300,
+                  expandedHeight: 260,
                   floating: false,
                   pinned: true,
                   elevation: 0,
@@ -59,11 +55,16 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                         centerTitle: true,
                         titlePadding: EdgeInsets.all(0),
                         background: Column(
-                          children: [Header(), UserInfos()],
+                          children: [
+                            Header(),
+                            UserInfos(
+                              userId: widget.userId,
+                            )
+                          ],
                         ),
                         title: Container(
-                          child: Filters(),
-                        ));
+                            //  child: Filters(),
+                            ));
                   })),
               SliverToBoxAdapter(
                 child: SingleChildScrollView(
@@ -72,7 +73,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   child: Container(
                     child: Column(
                       children: [
-                        ArticlestoDisplay(),
+                        ArticlesToDisplay(),
                       ],
                     ),
                   ),
@@ -93,14 +94,17 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppTheme.containerColor(context),
-      padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
+      padding: const EdgeInsets.only(
+        top: 28,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Mon profile",
+              ReturnButton(transparent: true),
+              Text("Kach titre hna",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 23,

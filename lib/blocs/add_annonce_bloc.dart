@@ -15,15 +15,20 @@ import 'locations_bloc.dart';
 
 class AddAnnonceBloc {
   BehaviorSubject<City> _selectedCityFetcher = BehaviorSubject<City>();
+  BehaviorSubject<String> _profilePhoneFetcher = BehaviorSubject<String>();
+
   BehaviorSubject<bool> _loadingFetcher = BehaviorSubject<bool>();
   BehaviorSubject<void> _doneFetcher = BehaviorSubject<void>();
 
   Stream<City> get getSelectedCity => _selectedCityFetcher.stream;
+  Stream<String> get getProfilePhone => _profilePhoneFetcher.stream;
+
   Stream<bool> get getLoading => _loadingFetcher.stream;
   Stream<void> get getDone => _doneFetcher.stream;
 
   String titre = "";
   String description = "";
+  String phone = "";
   int? category_id;
   int? underCategory_id;
   int price = 1;
@@ -32,6 +37,8 @@ class AddAnnonceBloc {
   init() {
     _selectedCityFetcher.sink
         .add(locationsBloc.getCityById(SharedPreferenceData.loadCityId()!));
+
+    _profilePhoneFetcher.sink.add(SharedPreferenceData.loadPhone());
   }
 
   selectCity(City city) {
@@ -60,6 +67,13 @@ class AddAnnonceBloc {
     return null;
   }
 
+  String? phoneValidator(String? value) {
+    if (value == null || value.length == 0 || value.length > 10)
+      return ("Ce numéro n'est pas valide");
+    phone = value;
+    return null;
+  }
+
   String? priceValidator(String? value) {
     int? parsedValue = int.tryParse(value!);
     if (parsedValue == null) return ("Veuillez ..");
@@ -74,6 +88,7 @@ class AddAnnonceBloc {
     AnnonceRequest request = AnnonceRequest(
         title: titre,
         description: description,
+        phone: phone,
         price: price,
         location_id: _selectedCityFetcher.value.id,
         category_id: category_id,
@@ -83,7 +98,6 @@ class AddAnnonceBloc {
     print(request);
 
     _loadingFetcher.sink.add(true);
-    await Future.delayed(Duration(seconds: 2));
     chedMedApiFormData.addPost(request).then((value) {
       displaySuccessSnackbar("Annonce ajoutée avec success");
       navigationController.jumpToTab(2);

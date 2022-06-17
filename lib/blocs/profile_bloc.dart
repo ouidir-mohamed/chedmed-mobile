@@ -25,7 +25,9 @@ class ProfileBloc {
       _profileFetcher.stream.startWith(UserProfile(
           id: 0,
           username: SharedPreferenceData.loadUserName(),
-          phone: SharedPreferenceData.loadPhone()));
+          phone: SharedPreferenceData.loadPhone(),
+          nbFavorite: 0,
+          nbPost: 0));
 
   Stream<List<SelfAnnoncePresentation>> get getSelfAnnonces =>
       _selfAnnonceFetcher.stream;
@@ -69,6 +71,7 @@ class ProfileBloc {
   }
 
   Future<void> refresh() async {
+    loadProfile();
     int currentTab = _tabFetcher.hasValue ? _tabFetcher.value : 0;
     if (currentTab == 0) return loadProfileAnnonces();
     loadFavoriteAnnonces();

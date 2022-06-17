@@ -104,7 +104,6 @@ class GettingStartedBloc {
 
   handleValidation() async {
     _loadingFetcher.sink.add(true);
-    // await Future.delayed(Duration(seconds: 3));
     UserRequest request = UserRequest(username: username, phone: phone);
     chedMedApi
         .signUp(request)

@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 class AnnonceRequest {
   String title;
   String description;
+  String phone;
+
   int price;
   int? category_id;
   int? underCategory_id;
@@ -13,6 +15,7 @@ class AnnonceRequest {
   AnnonceRequest({
     required this.title,
     required this.description,
+    required this.phone,
     required this.price,
     this.category_id,
     this.underCategory_id,
@@ -28,6 +31,7 @@ class AnnonceRequest {
       'category_id': category_id,
       'underCategory_id': underCategory_id,
       'location_id': location_id,
+      'phone': phone,
     };
   }
 

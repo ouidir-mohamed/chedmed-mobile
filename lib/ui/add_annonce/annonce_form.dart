@@ -23,12 +23,17 @@ class _AnnonceFormState extends State<AnnonceForm> {
   TextEditingController priceController = TextEditingController();
 
   TextEditingController cityController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   @override
   void initState() {
     addAnnonceBloc.init();
     addAnnonceBloc.getSelectedCity.listen((event) {
       cityController.text = event.name;
+    });
+
+    addAnnonceBloc.getProfilePhone.listen((event) {
+      phoneController.text = event;
     });
 
     addAnnonceBloc.getDone.listen((event) {
@@ -101,6 +106,18 @@ class _AnnonceFormState extends State<AnnonceForm> {
                         )));
                   },
                   readOnly: true,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, bottom: 3),
+                  child: Text("Téléphone",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
+                TextFormField(
+                  validator: addAnnonceBloc.phoneValidator,
+                  decoration:
+                      MyInputDecoration(title: "Téléphone", context: context),
+                  controller: phoneController,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 3),

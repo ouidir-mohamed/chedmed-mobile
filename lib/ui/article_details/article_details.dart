@@ -1,12 +1,16 @@
+import 'package:chedmed/ui/visitor_profile/visitor_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
 import 'package:chedmed/ui/article_details/call_button.dart';
 import 'package:chedmed/ui/home/annonce_presentation.dart';
+import 'package:like_button/like_button.dart';
 
+import '../../blocs/home_bloc.dart';
 import '../common/app_theme.dart';
 import '../common/buttons.dart';
 import '../common/no_cache.dart';
+import '../common/transitions.dart';
 import 'image_display.dart';
 
 class ArticleDetails extends StatefulWidget {
@@ -94,7 +98,8 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                   )
                 ]),
             Positioned(
-                child: CallButton(isExtended: _callExtended),
+                child: CallButton(
+                    isExtended: _callExtended, phone: widget.annonce.phone),
                 bottom: 7,
                 right: 5),
             Positioned(
@@ -151,16 +156,37 @@ class ArticleContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            annonce.titre,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            annonce.prix.toString() + " DA",
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.primaryColor(context)),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      annonce.titre,
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      annonce.prix.toString() + " DA",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.primaryColor(context)),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Icon(
+                    AntDesign.heart,
+                    color: AppTheme.secondaryColor(context),
+                  ),
+                  Text(annonce.nbFavorite.toString())
+                ],
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20, bottom: 10),
@@ -219,6 +245,40 @@ class ArticleContent extends StatelessWidget {
                             color: AppTheme.headlineColor(context)),
                       )
                     ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          SlideBottomRoute(
+                              widget: VisitorProfile(
+                            userId: annonce.userId,
+                          )));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Entypo.shop,
+                            color: AppTheme.primaryColor(context),
+                            size: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 3),
+                            child: Text(
+                              annonce.username,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: AppTheme.textColor(context)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],

@@ -3,11 +3,13 @@ import 'package:chedmed/blocs/profile_bloc.dart';
 import 'package:chedmed/main.dart';
 import 'package:chedmed/models/annonce.dart';
 import 'package:chedmed/models/city.dart';
+import 'package:chedmed/models/fav_request.dart';
 import 'package:chedmed/models/filter_request.dart';
 import 'package:chedmed/ressources/repository/repository.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/ui/common/snackbar.dart';
 import 'package:chedmed/ui/home/annonce_presentation.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
@@ -28,7 +30,6 @@ class HomeBloc {
   int currentPage = 1;
   Future<void> getALl({required bool displayShimmer}) async {
     if (displayShimmer) _loadingFetcher.sink.add(true);
-    await Future.delayed(Duration(seconds: 1));
 
     var request = FilterRequest(
         page: currentPage,
@@ -172,6 +173,12 @@ class HomeBloc {
   //favorite
 
   addToFavorite(int annonceId) async {
+    print(FavRequest(post_id: annonceId).toJson());
+    await chedMedApi
+        .addToFavorite(FavRequest(post_id: annonceId))
+        .onError((error, stackTrace) => print((error as DioError).message))
+        .then((value) => print(value));
+
     await SharedPreferenceData.addToFavoriteAnnonces(annonceId);
     var oldList = _annoncesFetcher.value;
     oldList.forEach((element) {
@@ -185,6 +192,10 @@ class HomeBloc {
   }
 
   removeFromFavorite(int annonceId) async {
+    await chedMedApi
+        .deleteFromFavorite(FavRequest(post_id: annonceId))
+        .onError((error, stackTrace) => print(error))
+        .then((value) => print(value));
     await SharedPreferenceData.removeFromFavoriteAnnonces(annonceId);
     var oldList = _annoncesFetcher.value;
     oldList.forEach((element) {

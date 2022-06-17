@@ -1,5 +1,6 @@
 import 'package:chedmed/models/annonce_request.dart';
 import 'package:chedmed/models/category.dart';
+import 'package:chedmed/models/fav_request.dart';
 import 'package:chedmed/models/favorite_request.dart';
 import 'package:chedmed/models/filter_request.dart';
 import 'package:chedmed/models/profile.dart';
@@ -38,8 +39,20 @@ abstract class ChedMedApi {
   @POST("/post/favorite")
   Future<List<Annonce>> favoritePosts(@Body() FavoriteRequest request);
 
-  @POST("/user/info")
+  @GET("/post/profile/{userId}")
+  Future<List<Annonce>> userPostsById(@Path("userId") userId);
+
+  @POST("/favorite")
+  Future addToFavorite(@Body() FavRequest request);
+
+  @DELETE("/favorite")
+  Future deleteFromFavorite(@Body() FavRequest request);
+
+  @GET("/user/informations")
   Future<UserProfile> userInfo();
+
+  @GET("/user/informations/{userId}")
+  Future<UserProfile> userPublicInfo(@Path("userId") userId);
 }
 
 abstract class ChedMedApiFormData {

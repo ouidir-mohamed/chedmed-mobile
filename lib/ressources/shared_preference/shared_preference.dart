@@ -28,6 +28,7 @@ class SharedPreferenceData {
   }
 
   static String? loadToken() {
+    print(prefs.getString('token'));
     return prefs.getString('token');
   }
 

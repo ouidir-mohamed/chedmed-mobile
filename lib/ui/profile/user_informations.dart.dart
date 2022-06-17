@@ -15,7 +15,8 @@ class UserInfos extends StatefulWidget {
 }
 
 class _UserInfosState extends State<UserInfos> {
-  UserProfile profile = UserProfile(id: 0, username: "", phone: "");
+  UserProfile profile =
+      UserProfile(id: 0, username: "", phone: "", nbFavorite: 0, nbPost: 0);
 
   @override
   void initState() {
@@ -35,50 +36,88 @@ class _UserInfosState extends State<UserInfos> {
       color: AppTheme.containerColor(context),
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Column(
         children: [
-          Container(
-            width: 60,
-            height: 60,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(80),
-                color: // AppTheme.headlineColor(context).withOpacity(0.2)
-                    AppTheme.primaryColor(context)),
-            child: Text(
-              profile.username.substring(0, 1).toUpperCase(),
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: AppTheme.containerColor(context)),
-            ),
-          ),
-          SizedBox(
-            width: 14,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  profile.username,
-                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(80),
+                    color: // AppTheme.headlineColor(context).withOpacity(0.2)
+                        AppTheme.primaryColor(context)),
+                child: Text(
+                  profile.username.substring(0, 1).toUpperCase(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: AppTheme.containerColor(context)),
                 ),
-                Text(profile.phone,
-                    style: TextStyle(
-                        fontSize: 15, color: AppTheme.headlineColor(context))),
+              ),
+              SizedBox(
+                width: 14,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      profile.username,
+                      style:
+                          TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                    ),
+                    Text(profile.phone,
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: AppTheme.headlineColor(context))),
+                  ],
+                ),
+              ),
+              IconButton(
+                  onPressed: () {
+                    displayEditDialog(context);
+                  },
+                  icon: Icon(FontAwesome.pencil,
+                      size: 20, color: AppTheme.textColor(context)))
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      profile.nbPost.toString(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text("ANNONCES",
+                        style: TextStyle(
+                          color: AppTheme.headlineColor(context),
+                        )),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      profile.nbFavorite.toString(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text("J'AIMES",
+                        style: TextStyle(
+                          color: AppTheme.headlineColor(context),
+                        )),
+                  ],
+                ),
               ],
             ),
-          ),
-          IconButton(
-              onPressed: () {
-                displayEditDialog(context);
-              },
-              icon: Icon(FontAwesome.pencil,
-                  size: 20, color: AppTheme.textColor(context)))
+          )
         ],
       ),
     );
