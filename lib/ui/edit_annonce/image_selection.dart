@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../blocs/edit_annonce_bloc.dart';
 import '../common/app_theme.dart';
 
 class ImageSelection extends StatefulWidget {
@@ -30,7 +31,7 @@ class _ImageSelectionState extends State<ImageSelection> {
         print("im aadddddding ");
 
         pickedImages.addAll([photo.path]);
-        addAnnonceBloc.imagePaths = pickedImages;
+        editAnnonceBloc.imagePaths = pickedImages;
       });
       print(pickedImages);
     }
@@ -42,7 +43,7 @@ class _ImageSelectionState extends State<ImageSelection> {
     if (images != null)
       setState(() {
         pickedImages.addAll(images.map((e) => e.path));
-        addAnnonceBloc.imagePaths = pickedImages;
+        editAnnonceBloc.imagePaths = pickedImages;
       });
   }
 
@@ -58,24 +59,24 @@ class _ImageSelectionState extends State<ImageSelection> {
     setState(() {
       pickedImages.removeWhere((element) => selectedImages.contains(element));
       selectedImages.removeWhere((element) => selectedImages.contains(element));
-      addAnnonceBloc.imagePaths = pickedImages;
+      editAnnonceBloc.imagePaths = pickedImages;
     });
   }
 
   @override
   void initState() {
-    addAnnonceBloc.getDone.listen((event) {
-      setState(() {
-        pickedImages.clear();
-        selectedImages.clear();
-        addAnnonceBloc.imagePaths.clear();
-      });
+    editAnnonceBloc.getImageErreur.listen((event) {
+      if (mounted)
+        setState(() {
+          imagesErreur = event;
+        });
     });
 
-    addAnnonceBloc.getImageErreur.listen((event) {
-      setState(() {
-        imagesErreur = event;
-      });
+    editAnnonceBloc.getInitialImages.listen((event) {
+      if (mounted)
+        setState(() {
+          pickedImages = event;
+        });
     });
     super.initState();
   }

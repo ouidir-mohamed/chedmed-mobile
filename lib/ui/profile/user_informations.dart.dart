@@ -15,8 +15,8 @@ class UserInfos extends StatefulWidget {
 }
 
 class _UserInfosState extends State<UserInfos> {
-  UserProfile profile =
-      UserProfile(id: 0, username: "", phone: "", nbFavorite: 0, nbPost: 0);
+  UserProfile profile = UserProfile(
+      id: 0, username: "", phone: "", nbFavorite: 0, nbPost: 0, nbViews: 0);
 
   @override
   void initState() {
@@ -98,6 +98,18 @@ class _UserInfosState extends State<UserInfos> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text("ANNONCES",
+                        style: TextStyle(
+                          color: AppTheme.headlineColor(context),
+                        )),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      profile.nbViews.toString(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text("VUES",
                         style: TextStyle(
                           color: AppTheme.headlineColor(context),
                         )),

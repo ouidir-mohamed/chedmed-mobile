@@ -9,6 +9,10 @@ class SelfAnnoncePresentation {
   String description;
   String localisation;
   String time;
+  String nbFavorite;
+  String vues;
+  bool delivery;
+
   List<String> images;
   SelfAnnoncePresentation({
     required this.id,
@@ -17,6 +21,9 @@ class SelfAnnoncePresentation {
     required this.description,
     required this.localisation,
     required this.time,
+    required this.nbFavorite,
+    required this.vues,
+    required this.delivery,
     required this.images,
   });
 
@@ -31,8 +38,17 @@ class SelfAnnoncePresentation {
       prix: annonce.price,
       description: annonce.description,
       localisation: annonce.location.name,
+      nbFavorite: numberToText(annonce.nbFavorite),
+      vues: numberToText(annonce.vues),
       images: annonce.images,
       time: time,
+      delivery: annonce.delivry,
     );
+  }
+
+  static String numberToText(int number) {
+    if (number < 1000) return number.toString();
+    if (number < 1000000) return (number ~/ 1000).toString() + " k";
+    return (number ~/ 1000000).toString() + " m";
   }
 }

@@ -3,6 +3,7 @@ import 'package:chedmed/ui/common/inputs.dart';
 import 'package:chedmed/ui/common/location_selection.dart';
 import 'package:flutter/material.dart';
 
+import '../../blocs/edit_annonce_bloc.dart';
 import '../../models/city.dart';
 import '../common/app_theme.dart';
 import '../common/select_city.dart';
@@ -28,31 +29,26 @@ class _AnnonceFormState extends State<AnnonceForm> {
 
   @override
   void initState() {
-    addAnnonceBloc.init();
-    addAnnonceBloc.getSelectedCity.listen((event) {
-      cityController.text = event.name;
-    });
-    addAnnonceBloc.getProfilePhone.listen((event) {
-      phoneController.text = event;
-    });
+    editAnnonceBloc.getInitialAnnonce.listen((event) {
+      if (!mounted) return;
+      titleController.text = event.title;
+      descriptionController.text = event.description;
+      cityController.text = event.location.name;
+      phoneController.text = event.phone;
+      priceController.text = event.price.toString();
 
-    addAnnonceBloc.getDone.listen((event) {
-      init();
+      setState(() {
+        delivery = event.delivry;
+      });
     });
 
     super.initState();
   }
 
-  init() {
-    titleController.text = "";
-    descriptionController.text = "";
-    priceController.text = "1";
-  }
-
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: addAnnonceFormKey,
+      key: editAnnonceFormKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -69,7 +65,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                 ),
                 TextFormField(
                   controller: titleController,
-                  validator: addAnnonceBloc.titleValidator,
+                  validator: editAnnonceBloc.titleValidator,
                   decoration:
                       MyInputDecoration(title: "Titre", context: context),
                 ),
@@ -80,7 +76,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
                 TextFormField(
-                    validator: addAnnonceBloc.descriptionValidator,
+                    validator: editAnnonceBloc.descriptionValidator,
                     controller: descriptionController,
                     maxLines: 5,
                     decoration:
@@ -92,7 +88,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
                 TextFormField(
-                  validator: addAnnonceBloc.cityValidator,
+                  validator: editAnnonceBloc.cityValidator,
                   decoration: MyInputDecoration(
                       title: "L'emplacement de l'annonce", context: context),
                   controller: cityController,
@@ -102,7 +98,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                         SlideBottomRoute(
                             widget: SelectCity(
                           title: "L'mplacement de l'annonce",
-                          citySelected: addAnnonceBloc.selectCity,
+                          citySelected: editAnnonceBloc.selectCity,
                         )));
                   },
                   readOnly: true,
@@ -114,7 +110,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
                 TextFormField(
-                  validator: addAnnonceBloc.phoneValidator,
+                  validator: editAnnonceBloc.phoneValidator,
                   decoration:
                       MyInputDecoration(title: "Téléphone", context: context),
                   controller: phoneController,
@@ -132,7 +128,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                     //readOnly: true,
                     //  cursorColor: Colors.white,
                     // focusNode: startFocusNode,
-                    validator: addAnnonceBloc.priceValidator,
+                    validator: editAnnonceBloc.priceValidator,
                     keyboardType: TextInputType.number,
 
                     decoration: InputDecoration(
@@ -154,7 +150,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                           child: Checkbox(
                               value: delivery,
                               onChanged: (a) {
-                                addAnnonceBloc.delivery = a!;
+                                editAnnonceBloc.delivery = a!;
                                 setState(() {
                                   delivery = a;
                                 });

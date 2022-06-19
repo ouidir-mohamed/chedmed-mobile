@@ -87,6 +87,22 @@ class _ChedMedApi implements ChedMedApi {
   }
 
   @override
+  Future<Annonce> getPostById(postId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Annonce>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/post/${postId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Annonce.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<List<Annonce>> userPosts() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -138,6 +154,21 @@ class _ChedMedApi implements ChedMedApi {
     var value = _result.data!
         .map((dynamic i) => Annonce.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<dynamic> deletePost(annonceId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
+        Options(method: 'DELETE', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/post/${annonceId}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
     return value;
   }
 

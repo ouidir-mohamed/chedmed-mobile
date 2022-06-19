@@ -154,7 +154,7 @@ class ArticleCard extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(top: 2),
                             child: Text(
-                              annonce.prix.toString(),
+                              annonce.prix.toString() + " DA",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
@@ -172,37 +172,58 @@ class ArticleCard extends StatelessWidget {
                     ],
                   ),
                 )),
-                Container(
-                  height: 100,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: LikeButton(
-                      likeBuilder: (liked) {
-                        if (liked)
-                          return Icon(
-                            AntDesign.heart,
-                            color: AppTheme.secondaryColor(context),
-                          );
-                        return Icon(
-                          AntDesign.hearto,
-                          color: AppTheme.secondaryColor(context),
-                        );
-                      },
-                      isLiked: annonce.favorite,
-                      onTap: annonce.favorite
-                          ? (s) async {
-                              homeBloc.removeFromFavorite(annonce.id);
-                              return false;
-                            }
-                          : (s) async {
-                              homeBloc.addToFavorite(annonce.id);
-                              return true;
-                            }),
+                Stack(
+                  children: [
+                    Container(
+                      height: 100,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: LikeButton(
+                          likeBuilder: (liked) {
+                            if (liked)
+                              return Icon(
+                                AntDesign.heart,
+                                color: AppTheme.secondaryColor(context),
+                              );
+                            return Icon(
+                              AntDesign.hearto,
+                              color: AppTheme.secondaryColor(context),
+                            );
+                          },
+                          isLiked: annonce.favorite,
+                          onTap: annonce.favorite
+                              ? (s) async {
+                                  homeBloc.removeFromFavorite(annonce.id);
+                                  return false;
+                                }
+                              : (s) async {
+                                  homeBloc.addToFavorite(annonce.id);
+                                  return true;
+                                }),
 
-                  //  Icon(
-                  //   annonce.favorite ? AntDesign.heart : AntDesign.hearto,
-                  //   size: 20,
-                  //   color: AppTheme.secondaryColor(context),
-                  // ),
+                      //  Icon(
+                      //   annonce.favorite ? AntDesign.heart : AntDesign.hearto,
+                      //   size: 20,
+                      //   color: AppTheme.secondaryColor(context),
+                      // ),
+                    ),
+                    Positioned(
+                        right: 14,
+                        bottom: 12,
+                        child: Row(
+                          children: [
+                            Icon(
+                              AntDesign.eye,
+                              color: AppTheme.headlineColor(context),
+                              size: 16,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(annonce.vues.toString()),
+                            )
+                          ],
+                        ))
+                  ],
                 )
               ],
             ),

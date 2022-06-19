@@ -27,6 +27,7 @@ class ProfileBloc {
           username: SharedPreferenceData.loadUserName(),
           phone: SharedPreferenceData.loadPhone(),
           nbFavorite: 0,
+          nbViews: 0,
           nbPost: 0));
 
   Stream<List<SelfAnnoncePresentation>> get getSelfAnnonces =>

@@ -1,51 +1,70 @@
-import 'dart:io';
-
 import 'package:chedmed/blocs/profile_bloc.dart';
-import 'package:chedmed/models/annonce_request.dart';
-import 'package:chedmed/models/city.dart';
+import 'package:chedmed/models/annonce.dart';
 import 'package:chedmed/ressources/repository/repository.dart';
-import 'package:chedmed/ui/common/snackbar.dart';
-import 'package:chedmed/ui/navigation/bottom_navigation.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../ressources/shared_preference/shared_preference.dart';
-import 'locations_bloc.dart';
+import '../models/annonce_request.dart';
+import '../models/city.dart';
+import '../ui/common/snackbar.dart';
+import 'file_download.dart';
 
-class AddAnnonceBloc {
+class EditAnnonceBloc {
+  PublishSubject<Annonce> _initialAnnonceFetcher = PublishSubject();
+  PublishSubject<List<String>> _initialImagesFetcher = PublishSubject();
+
   BehaviorSubject<City> _selectedCityFetcher = BehaviorSubject<City>();
-  BehaviorSubject<String> _profilePhoneFetcher = BehaviorSubject<String>();
+  PublishSubject<void> _doneFetcher = PublishSubject<void>();
   PublishSubject<String> _imageErreurFetcher = PublishSubject<String>();
+  PublishSubject<bool> _initDataLoadingFetcher = PublishSubject<bool>();
+  PublishSubject<bool> _editLoadingFetcher = PublishSubject<bool>();
 
-  BehaviorSubject<bool> _loadingFetcher = BehaviorSubject<bool>();
-  BehaviorSubject<void> _doneFetcher = BehaviorSubject<void>();
-
-  Stream<City> get getSelectedCity => _selectedCityFetcher.stream;
-  Stream<String> get getProfilePhone => _profilePhoneFetcher.stream;
-  Stream<String> get getImageErreur => _imageErreurFetcher.stream;
-
-  Stream<bool> get getLoading => _loadingFetcher.stream;
+  Stream<Annonce> get getInitialAnnonce => _initialAnnonceFetcher.stream;
+  Stream<List<String>> get getInitialImages => _initialImagesFetcher.stream;
   Stream<void> get getDone => _doneFetcher.stream;
+  Stream<String> get getImageErreur => _imageErreurFetcher.stream;
+  Stream<bool> get getInitLoading => _initDataLoadingFetcher.stream;
+  Stream<bool> get getEditLoading => _editLoadingFetcher.stream;
 
+  int? annonceId;
   String titre = "";
   String description = "";
   String phone = "";
   int? category_id;
   int? underCategory_id;
   int price = 1;
-  List<String> imagePaths = [];
   bool delivery = false;
+  List<String> imagePaths = [];
 
-  init() {
-    _selectedCityFetcher.sink
-        .add(locationsBloc.getCityById(SharedPreferenceData.loadCityId()!));
-
-    _profilePhoneFetcher.sink.add(SharedPreferenceData.loadPhone());
+  loadInitialAnnonce(int annonceId) {
+    _initDataLoadingFetcher.sink.add(true);
+    this.annonceId = annonceId;
+    chedMedApi.getPostById(annonceId).then((value) {
+      _initialAnnonceFetcher.sink.add(value);
+      _selectedCityFetcher.sink.add(value.location);
+      category_id = value.category_id;
+      underCategory_id = value.underCategory_id;
+      titre = value.title;
+      description = value.description;
+      phone = value.phone;
+      price = value.price;
+      delivery = value.delivry;
+      loadInitialImages(value.images);
+    });
   }
 
-  selectCity(City city) {
-    _selectedCityFetcher.sink.add(city);
+  loadInitialImages(List<String> urls) async {
+    List<String> paths = [];
+    urls.forEach((element) async {
+      var file = await urlToFile(element);
+      paths.add(file.path);
+      if (paths.length == urls.length) {
+        _initialImagesFetcher.sink.add(paths);
+        imagePaths = paths;
+        _initDataLoadingFetcher.sink.add(false);
+      }
+    });
   }
 
   String? titleValidator(String? value) {
@@ -85,6 +104,10 @@ class AddAnnonceBloc {
     return null;
   }
 
+  selectCity(City city) {
+    _selectedCityFetcher.sink.add(city);
+  }
+
   bool imagesValidator() {
     if (imagePaths.isEmpty) {
       _imageErreurFetcher.sink.add("Veuillez choisir au moin une photo");
@@ -103,8 +126,9 @@ class AddAnnonceBloc {
   }
 
   handleValidation() async {
-    if (!addAnnonceFormKey.currentState!.validate()) return;
+    if (!editAnnonceFormKey.currentState!.validate()) return;
     if (!imagesValidator()) return;
+    _editLoadingFetcher.sink.add(true);
     AnnonceRequest request = AnnonceRequest(
         title: titre,
         description: description,
@@ -115,11 +139,10 @@ class AddAnnonceBloc {
         underCategory_id: underCategory_id,
         delivry: delivery,
         imagePaths: imagePaths);
+    print(request);
 
-    _loadingFetcher.sink.add(true);
-    chedMedApiFormData.addPost(request).then((value) {
-      displaySuccessSnackbar("Annonce ajoutée avec success");
-      navigationController.jumpToTab(2);
+    chedMedApiFormData.editPost(request, annonceId!).then((value) {
+      displaySuccessSnackbar("Annonce modifiée avec success");
       profileBloc.loadProfileAnnonces();
       _doneFetcher.sink.add(null);
     }).onError((error, stackTrace) {
@@ -131,10 +154,10 @@ class AddAnnonceBloc {
     }).catchError((e) {
       displayNetworkErrorSnackbar();
     }).whenComplete(() {
-      _loadingFetcher.sink.add(false);
+      _editLoadingFetcher.sink.add(false);
     });
   }
 }
 
-final addAnnonceBloc = AddAnnonceBloc();
-final addAnnonceFormKey = GlobalKey<FormState>();
+EditAnnonceBloc editAnnonceBloc = EditAnnonceBloc();
+final editAnnonceFormKey = GlobalKey<FormState>();

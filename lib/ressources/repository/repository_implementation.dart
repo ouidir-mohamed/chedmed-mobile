@@ -14,4 +14,11 @@ class _ChedMedApiFormData implements ChedMedApiFormData {
 
     return _dio.post(baseUrl + "post/", data: formData);
   }
+
+  @override
+  Future editPost(AnnonceRequest request, int annoceId) async {
+    FormData formData = await request.toFormData();
+
+    return _dio.put(baseUrl + "post/" + annoceId.toString(), data: formData);
+  }
 }

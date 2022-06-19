@@ -19,8 +19,15 @@ class FilterDialog extends StatefulWidget {
 }
 
 class _FilterDialogState extends State<FilterDialog> {
+  bool filterEnabled = false;
   @override
   void initState() {
+    homeBloc.getFiltersEnabled.listen((event) {
+      if (mounted)
+        setState(() {
+          filterEnabled = event;
+        });
+    });
     homeBloc.loadLatestFilters();
     super.initState();
   }
@@ -50,19 +57,38 @@ class _FilterDialogState extends State<FilterDialog> {
                       RangeSelection(),
                     ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 30, horizontal: 20),
-                    child: MyElevatedButtonWide(
-                      child: Text(
-                        "Filtrer",
-                      ),
-                      color: AppTheme.secondaryColor(context),
-                      onPressed: () {
-                        homeBloc.validateFilters();
-                        Navigator.of(context).pop();
-                      },
-                    ),
+                  Column(
+                    children: [
+                      filterEnabled
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 20),
+                              child: MyOutlinedButtonWide(
+                                child: Text(
+                                  "Effacer",
+                                ),
+                                // color: AppTheme.secondaryColor(context),
+                                onPressed: () {
+                                  homeBloc.resetFilters();
+                                },
+                              ),
+                            )
+                          : Container(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 20),
+                        child: MyElevatedButtonWide(
+                          child: Text(
+                            "Filtrer",
+                          ),
+                          color: AppTheme.secondaryColor(context),
+                          onPressed: () {
+                            homeBloc.validateFilters();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),
@@ -85,12 +111,6 @@ class _HeaderState extends State<Header> {
   bool filterEnabled = false;
   @override
   void initState() {
-    homeBloc.getFiltersEnabled.listen((event) {
-      if (mounted)
-        setState(() {
-          filterEnabled = event;
-        });
-    });
     super.initState();
   }
 
@@ -117,32 +137,6 @@ class _HeaderState extends State<Header> {
                       )),
                 ],
               ),
-              filterEnabled
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: MyElevatedButtonSmall(
-                        onPressed: () {
-                          homeBloc.resetFilters();
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              FontAwesome.times,
-                              size: 17,
-                              color: Colors.white,
-                            ),
-                            Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 3)),
-                            Text(
-                              "Effacer",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        color: AppTheme.primaryColor(context),
-                      ),
-                    )
-                  : Container()
             ],
           ),
         ],

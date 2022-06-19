@@ -1,67 +1,32 @@
-import 'package:chedmed/blocs/article_details_bloc.dart';
+import 'package:chedmed/blocs/delete_annonce_bloc.dart';
+import 'package:chedmed/ui/own_article_details/action_buttons.dart';
+import 'package:chedmed/ui/profile/self_annonce_presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
-import 'package:like_button/like_button.dart';
 
-import 'package:chedmed/ui/article_details/call_button.dart';
-import 'package:chedmed/ui/home/annonce_presentation.dart';
-import 'package:chedmed/ui/visitor_profile/visitor_profile.dart';
-
-import '../../blocs/home_bloc.dart';
 import '../common/app_theme.dart';
 import '../common/buttons.dart';
-import '../common/no_cache.dart';
-import '../common/transitions.dart';
 import 'image_display.dart';
 
-class ArticleDetails extends StatefulWidget {
-  AnnoncePresentation annonce;
-  ArticleDetails({
+class OwnArticleDetails extends StatefulWidget {
+  SelfAnnoncePresentation annonce;
+  OwnArticleDetails({
     Key? key,
     required this.annonce,
   }) : super(key: key);
 
   @override
-  State<ArticleDetails> createState() => _ArticleDetailsState();
+  State<OwnArticleDetails> createState() => _OwnArticleDetailsState();
 }
 
-class _ArticleDetailsState extends State<ArticleDetails> {
-  var _callExtended = true;
-  void shrinkButton() async {
-    if (!_callExtended) return;
-    await Future.delayed(Duration(seconds: 5));
-    if (mounted)
-      setState(() {
-        _callExtended = false;
-      });
-  }
-
-  expandButton() {
-    if (_callExtended) return;
-    setState(() {
-      _callExtended = true;
-    });
-    shrinkButton();
-  }
-
+class _OwnArticleDetailsState extends State<OwnArticleDetails> {
   @override
   void initState() {
-    articledetailsBloc.loadAnnonce(widget.annonce.id);
-    articledetailsBloc.getAnnonce.listen((event) {
+    deleteAnnonceBloc.getDone.listen((event) {
       if (mounted) {
-        // **** keeping last distance ****/
-        String lastLocation = widget.annonce.localisation;
-        //*** updating with new data */
-        widget.annonce = event;
-        //** putting back the old distance */
-        widget.annonce.localisation = lastLocation;
-
-        /** rendering :) */
-
-        setState(() {});
+        Navigator.of(context).pop();
       }
     });
-    shrinkButton();
     super.initState();
   }
 
@@ -107,6 +72,9 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                           children: [
                             ArticleContent(
                               annonce: widget.annonce,
+                            ),
+                            ActionButtons(
+                              annonceId: widget.annonce.id,
                             )
                           ],
                         ),
@@ -114,11 +82,6 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                     ),
                   )
                 ]),
-            Positioned(
-                child: CallButton(
-                    isExtended: _callExtended, phone: widget.annonce.phone),
-                bottom: 7,
-                right: 5),
             Positioned(
               child: ReturnButton(),
               top: 5,
@@ -159,7 +122,7 @@ class TitleHeader extends StatelessWidget {
 }
 
 class ArticleContent extends StatelessWidget {
-  AnnoncePresentation annonce;
+  SelfAnnoncePresentation annonce;
   ArticleContent({
     Key? key,
     required this.annonce,
@@ -305,78 +268,7 @@ class ArticleContent extends StatelessWidget {
                         ),
                       )
                     : Container(),
-                Author(name: annonce.username, id: annonce.userId)
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Author extends StatelessWidget {
-  String name;
-  int id;
-  Author({
-    Key? key,
-    required this.name,
-    required this.id,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 60, bottom: 5),
-            child: Text(
-              "Vendeur",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  SlideBottomRoute(
-                      widget: VisitorProfile(
-                    userId: id,
-                  )));
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80),
-                        color: // AppTheme.headlineColor(context).withOpacity(0.2)
-                            AppTheme.primaryColor(context)),
-                    child: Text(
-                      name.substring(0, 1).toUpperCase(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: AppTheme.containerColor(context)),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 3),
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                          fontSize: 15, color: AppTheme.textColor(context)),
-                    ),
-                  )
-                ],
-              ),
             ),
           ),
         ],

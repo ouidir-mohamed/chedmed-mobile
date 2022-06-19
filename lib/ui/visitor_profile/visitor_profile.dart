@@ -104,7 +104,7 @@ class Header extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ReturnButton(transparent: true),
-              Text("Kach titre hna",
+              Text("Profile de vendeur",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 23,

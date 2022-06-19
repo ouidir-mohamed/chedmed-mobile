@@ -6,12 +6,15 @@ class UserProfile {
   String phone;
   int nbPost;
   int nbFavorite;
+  int nbViews;
+
   UserProfile({
     required this.id,
     required this.username,
     required this.phone,
     required this.nbPost,
     required this.nbFavorite,
+    required this.nbViews,
   });
 
   Map<String, dynamic> toJson() {
@@ -29,6 +32,7 @@ class UserProfile {
       phone: map['phone'] ?? '',
       nbFavorite: map['nbFavorite'] ?? '',
       nbPost: map['nbPost'] ?? '',
+      nbViews: map['nbViews'] ?? 0,
     );
   }
 }

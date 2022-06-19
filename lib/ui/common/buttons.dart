@@ -43,7 +43,7 @@ class MyElevatedButton extends StatelessWidget {
       this.color,
       this.onPressed,
       this.borderRadius = 6,
-      this.padding = const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+      this.padding = const EdgeInsets.symmetric(horizontal: 33, vertical: 12),
       Key? key})
       : super(key: key);
   final Color? color;
@@ -224,6 +224,49 @@ class MyOutlinedButton extends StatelessWidget {
       ),
       onPressed: onPressed as void Function()?,
       child: child!,
+    );
+  }
+}
+
+class MyOutlinedButtonWide extends StatelessWidget {
+  const MyOutlinedButtonWide(
+      {this.child,
+      this.textColor,
+      this.outlineColor,
+      required this.onPressed,
+      this.borderRadius = 6,
+      this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      Key? key})
+      : super(key: key);
+  final Widget? child;
+  final Function onPressed;
+  final double borderRadius;
+  final Color? outlineColor;
+  final Color? textColor;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData currentTheme = Theme.of(context);
+    return Container(
+      width: double.infinity,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          splashFactory: MaterialInkSplash.splashFactory,
+          padding: padding,
+          textStyle: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: AppTheme.secondaryColor(context)),
+          side: BorderSide(color: AppTheme.secondaryColor(context)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          primary: AppTheme.secondaryColor(context),
+        ),
+        onPressed: onPressed as void Function()?,
+        child: child!,
+      ),
     );
   }
 }

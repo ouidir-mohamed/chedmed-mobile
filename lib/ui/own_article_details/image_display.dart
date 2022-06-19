@@ -1,13 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:faker/faker.dart';
+import 'package:chedmed/ui/own_article_details/image_full_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
-
-import 'package:chedmed/ui/article_details/image_full_screen.dart';
-import 'package:chedmed/ui/common/app_theme.dart';
 
 import '../common/buttons.dart';
-import '../common/no_cache.dart';
 
 class ImageDisplay extends StatefulWidget {
   List<String> images;

@@ -33,6 +33,9 @@ abstract class ChedMedApi {
   @POST("/post/filter")
   Future<List<Annonce>> filterPosts(@Body() FilterRequest request);
 
+  @GET("/post/{id}")
+  Future<Annonce> getPostById(@Path("id") int postId);
+
   @POST("/post/profile")
   Future<List<Annonce>> userPosts();
 
@@ -41,6 +44,9 @@ abstract class ChedMedApi {
 
   @GET("/post/profile/{userId}")
   Future<List<Annonce>> userPostsById(@Path("userId") userId);
+
+  @DELETE("/post/{annonceId}")
+  Future deletePost(@Path("annonceId") annonceId);
 
   @POST("/favorite")
   Future addToFavorite(@Body() FavRequest request);
@@ -58,6 +64,7 @@ abstract class ChedMedApi {
 abstract class ChedMedApiFormData {
   factory ChedMedApiFormData(Dio dio, String baseUrl) = _ChedMedApiFormData;
   Future addPost(AnnonceRequest request);
+  Future editPost(AnnonceRequest request, int annoceId);
 }
 
 final dio = Dio();

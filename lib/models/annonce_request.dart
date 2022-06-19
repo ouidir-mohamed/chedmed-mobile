@@ -6,6 +6,7 @@ class AnnonceRequest {
   String title;
   String description;
   String phone;
+  bool delivry;
 
   int price;
   int? category_id;
@@ -16,6 +17,7 @@ class AnnonceRequest {
     required this.title,
     required this.description,
     required this.phone,
+    required this.delivry,
     required this.price,
     this.category_id,
     this.underCategory_id,
@@ -32,6 +34,7 @@ class AnnonceRequest {
       'underCategory_id': underCategory_id,
       'location_id': location_id,
       'phone': phone,
+      'delivry': delivry
     };
   }
 
@@ -47,6 +50,6 @@ class AnnonceRequest {
 
   @override
   String toString() {
-    return 'AnnonceRequest(title: $title, description: $description, price: $price, category_id: $category_id, underCategory_id: $underCategory_id, location_id: $location_id, imagePaths: $imagePaths)';
+    return 'AnnonceRequest(title: $title, description: $description, phone: $phone, delivry: $delivry, price: $price, category_id: $category_id, underCategory_id: $underCategory_id, location_id: $location_id, imagePaths: $imagePaths)';
   }
 }

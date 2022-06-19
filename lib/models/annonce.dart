@@ -9,24 +9,33 @@ class Annonce {
   String createdAt;
   String title;
   String description;
+  int? category_id;
+  int? underCategory_id;
   int price;
   List<String> images;
+  bool delivry;
   City location;
   String phone;
   int nbFavorite;
+  int vues;
   User user;
-  Annonce({
-    required this.id,
-    required this.createdAt,
-    required this.title,
-    required this.description,
-    required this.price,
-    required this.images,
-    required this.location,
-    required this.phone,
-    required this.nbFavorite,
-    required this.user,
-  });
+  num? distance;
+  Annonce(
+      {required this.id,
+      required this.createdAt,
+      required this.title,
+      required this.description,
+      this.category_id,
+      this.underCategory_id,
+      required this.price,
+      required this.images,
+      required this.delivry,
+      required this.location,
+      required this.phone,
+      required this.nbFavorite,
+      required this.vues,
+      required this.user,
+      this.distance});
 
   factory Annonce.fromJson(Map<String, dynamic> map) {
     return Annonce(
@@ -34,11 +43,16 @@ class Annonce {
       createdAt: map['createdAt'] ?? '',
       title: map['title'] ?? '',
       description: map['description'] ?? '',
+      category_id: map['category_id'],
+      underCategory_id: map['underCategory_id'],
       price: map['price']?.toInt() ?? 0,
       nbFavorite: map['nbFavorite']?.toInt() ?? 0,
+      vues: map['vues']?.toInt() ?? 0,
       phone: map['phone'] ?? "",
+      delivry: map['delivry'] ?? false,
       images: List<String>.from(map['images']),
       location: City.fromJson(map['location']),
+      distance: (map['distance']),
       user: User.fromJson(map['user']),
     );
   }

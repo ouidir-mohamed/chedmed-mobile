@@ -8,20 +8,22 @@ class AnnoncePresentation {
   int prix;
   String description;
   String phone;
-
+  bool delivery;
   String localisation;
   String time;
   List<String> images;
-  int nbFavorite;
+  String nbFavorite;
   bool favorite;
   String username;
   int userId;
+  String vues;
   AnnoncePresentation({
     required this.id,
     required this.titre,
     required this.prix,
     required this.description,
     required this.phone,
+    required this.delivery,
     required this.localisation,
     required this.time,
     required this.images,
@@ -29,6 +31,7 @@ class AnnoncePresentation {
     required this.favorite,
     required this.username,
     required this.userId,
+    required this.vues,
   });
 
   static AnnoncePresentation toAnnoncePresentation(Annonce annonce) {
@@ -38,6 +41,10 @@ class AnnoncePresentation {
 
     bool favorite =
         SharedPreferenceData.loadFavoriteAnnonces().contains(annonce.id);
+    String localisation = annonce.location.name;
+    if (annonce.distance != null) {
+      localisation += " (" + annonce.distance!.round().toString() + " km)";
+    }
 
     return AnnoncePresentation(
         id: annonce.id,
@@ -45,12 +52,20 @@ class AnnoncePresentation {
         prix: annonce.price,
         description: annonce.description,
         phone: annonce.phone,
-        localisation: annonce.location.name,
+        localisation: localisation,
         images: annonce.images,
         time: time,
-        nbFavorite: annonce.nbFavorite,
+        nbFavorite: numberToText(annonce.nbFavorite),
         userId: annonce.user.id,
         username: annonce.user.username,
+        delivery: annonce.delivry,
+        vues: numberToText(annonce.vues),
         favorite: favorite);
+  }
+
+  static String numberToText(int number) {
+    if (number < 1000) return number.toString();
+    if (number < 1000000) return (number ~/ 1000).toString() + " k";
+    return (number ~/ 1000000).toString() + " m";
   }
 }

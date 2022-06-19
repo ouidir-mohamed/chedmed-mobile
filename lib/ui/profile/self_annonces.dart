@@ -1,4 +1,5 @@
 import 'package:chedmed/blocs/profile_bloc.dart';
+import 'package:chedmed/ui/own_article_details/own_article_details.dart';
 import 'package:chedmed/ui/profile/no_profile_article.dart';
 import 'package:chedmed/ui/profile/self_annonce_presentation.dart';
 import 'package:flutter/material.dart';
@@ -95,12 +96,12 @@ class SelfArticleCard extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     SlideRightRoute(
-              //         widget: ArticleDetails(
-              //       annonce: annonce,
-              //     )));
+              Navigator.push(
+                  context,
+                  SlideRightRoute(
+                      widget: OwnArticleDetails(
+                    annonce: annonce,
+                  )));
             },
             child: Row(
               children: [
