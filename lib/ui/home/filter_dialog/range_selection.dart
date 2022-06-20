@@ -47,9 +47,9 @@ class _RangeSelectionState extends State<RangeSelection> {
               Container(
                 width: double.infinity,
                 child: CupertinoSlider(
-                  // inactiveColor: AppTheme.secondaryColor(context).withAlpha(5),
-                  activeColor: AppTheme.secondaryColor(context),
-                  thumbColor: AppTheme.secondaryColor(context),
+                  // inactiveColor: AppTheme.primaryColor(context).withAlpha(5),
+                  activeColor: AppTheme.primaryColor(context),
+                  thumbColor: AppTheme.primaryColor(context),
                   value: _maxDistance,
                   min: 10,
                   max: 110,

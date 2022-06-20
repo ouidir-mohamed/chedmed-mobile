@@ -77,7 +77,7 @@ class _AnnoncesState extends State<Annonces> {
                 height: 20,
                 child: LoadingIndicator(
                   indicatorType: Indicator.ballPulseRise,
-                  colors: [AppTheme.secondaryColor(context)],
+                  colors: [AppTheme.primaryColor(context)],
                   strokeWidth: 0,
                 ),
               )
@@ -205,7 +205,7 @@ class ArticleCard extends StatelessWidget {
                       //  Icon(
                       //   annonce.favorite ? AntDesign.heart : AntDesign.hearto,
                       //   size: 20,
-                      //   color: AppTheme.secondaryColor(context),
+                      //   color: AppTheme.primaryColor(context),
                       // ),
                     ),
                     Positioned(

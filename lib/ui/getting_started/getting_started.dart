@@ -154,7 +154,7 @@ class _GettingStartedState extends State<GettingStarted> {
             style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
-                color: AppTheme.secondaryColor(context)),
+                color: AppTheme.primaryColor(context)),
           ),
         ),
         pages: pages,
@@ -172,7 +172,7 @@ class _GettingStartedState extends State<GettingStarted> {
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
-                      color: AppTheme.secondaryColor(context)),
+                      color: AppTheme.primaryColor(context)),
                 ),
         ),
         dotsDecorator: DotsDecorator(

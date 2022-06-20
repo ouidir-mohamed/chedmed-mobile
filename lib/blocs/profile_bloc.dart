@@ -1,11 +1,15 @@
 import 'package:chedmed/models/favorite_request.dart';
 import 'package:chedmed/models/profile.dart';
+import 'package:chedmed/models/user_request.dart';
 import 'package:chedmed/ressources/repository/repository.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/ui/home/annonce_presentation.dart';
 import 'package:chedmed/ui/profile/profile.dart';
 import 'package:chedmed/ui/profile/self_annonce_presentation.dart';
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+
+import '../ui/common/snackbar.dart';
 
 class ProfileBloc {
   BehaviorSubject<int> _tabFetcher = BehaviorSubject<int>();
@@ -19,6 +23,9 @@ class ProfileBloc {
   BehaviorSubject<List<AnnoncePresentation>> _favoriteAnnonceFetcher =
       BehaviorSubject<List<AnnoncePresentation>>();
   BehaviorSubject<bool> _favoriteLoadingFetcher = BehaviorSubject<bool>();
+
+  PublishSubject<bool> _editLoadingFetcher = PublishSubject<bool>();
+  PublishSubject<void> _editDoneFetcher = PublishSubject<void>();
 
   Stream<int> get getTab => _tabFetcher.stream;
   Stream<UserProfile> get getProfile =>
@@ -38,6 +45,8 @@ class ProfileBloc {
 
   Stream<bool> get getSelfLoading => _selfLoadingFetcher.stream;
   Stream<bool> get getFavoriteLoading => _favoriteLoadingFetcher.stream;
+  Stream<bool> get getEditLoading => _editLoadingFetcher.stream;
+  Stream<void> get getEditDone => _editDoneFetcher.stream;
 
   switchTo(int tab) {
     _tabFetcher.sink.add(tab);
@@ -83,6 +92,42 @@ class ProfileBloc {
       _profileFetcher.sink.add(value);
     });
   }
+
+  String username = "";
+  String? nameValidator(String? value) {
+    if (value == null || value.length == 0) return ("Le nom est obligatoire");
+    if (value.length > 50) return ("Le nom est trés long");
+    username = value;
+    return null;
+  }
+
+  String phone = "";
+  String? phoneValidator(String? value) {
+    if (value == null || value.length == 0 || value.length > 10)
+      return ("Ce numéro n'est pas valide");
+    phone = value;
+    return null;
+  }
+
+  editProfile() {
+    if (!profileFormKey.currentState!.validate()) return;
+    _validateProfile();
+  }
+
+  _validateProfile() {
+    _editLoadingFetcher.sink.add(true);
+    chedMedApi
+        .updateUser(UserRequest(username: username, phone: phone))
+        .then((value) {
+      loadProfile();
+      _editDoneFetcher.sink.add(null);
+      displayProfileEditSnackbar("Profile modifié avec succées");
+    }).whenComplete(() {
+      _editLoadingFetcher.sink.add(false);
+    });
+    print(username + " " + phone);
+  }
 }
 
 ProfileBloc profileBloc = ProfileBloc();
+final profileFormKey = GlobalKey<FormState>();

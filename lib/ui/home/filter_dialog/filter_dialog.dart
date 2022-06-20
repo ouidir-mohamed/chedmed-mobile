@@ -65,10 +65,11 @@ class _FilterDialogState extends State<FilterDialog> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 20),
                               child: MyOutlinedButtonWide(
-                                child: Text(
-                                  getTranslation.erease,
-                                ),
-                                // color: AppTheme.secondaryColor(context),
+                                child: Text(getTranslation.erease.toUpperCase(),
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold)),
+                                // color: AppTheme.primaryColor(context),
                                 onPressed: () {
                                   homeBloc.resetFilters();
                                 },
@@ -79,10 +80,10 @@ class _FilterDialogState extends State<FilterDialog> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 20),
                         child: MyElevatedButtonWide(
-                          child: Text(
-                            getTranslation.filter,
-                          ),
-                          color: AppTheme.secondaryColor(context),
+                          child: Text(getTranslation.filter.toUpperCase(),
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold)),
+                          color: AppTheme.primaryColor(context),
                           onPressed: () {
                             homeBloc.validateFilters();
                             Navigator.of(context).pop();

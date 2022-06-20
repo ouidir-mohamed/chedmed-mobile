@@ -90,12 +90,12 @@ class SelectedTheme {
   ).copyWith();
 }
 
-// const primary = Color(0xff2E6CFF);
-
-// const secondary = Color(0xfff7547b);
-const primary = Color(0xff30b3f8);
+const primary = Color(0xff2E6CFF);
 
 const secondary = Color(0xfff7547b);
+// const primary = Color(0xff30b3f8);
+
+// const secondary = Color(0xfff7547b);
 
 Color getColor(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -104,7 +104,7 @@ Color getColor(Set<MaterialState> states) {
     MaterialState.focused,
   };
 
-  return secondary;
+  return primary;
 }
 
 var checkBoxColor = MaterialStateProperty.resolveWith(getColor);

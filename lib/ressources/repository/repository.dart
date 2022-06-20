@@ -24,6 +24,9 @@ abstract class ChedMedApi {
   @POST("/user/")
   Future<UserResponse> signUp(@Body() UserRequest request);
 
+  @PUT("/user/")
+  Future updateUser(@Body() UserRequest request);
+
   @GET("/category/withunders/")
   Future<List<Category>> getAllCategories();
 

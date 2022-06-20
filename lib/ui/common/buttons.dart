@@ -28,7 +28,7 @@ class MyElevatedButtonSmall extends StatelessWidget {
         splashFactory: MaterialInkSplash.splashFactory,
         elevation: 1,
         padding: padding,
-        primary: color ?? AppTheme.secondaryColor(context),
+        primary: color ?? AppTheme.primaryColor(context),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
@@ -56,17 +56,18 @@ class MyElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return MaterialButton(
       child: child,
-      style: ElevatedButton.styleFrom(
-        splashFactory: MaterialInkSplash.splashFactory,
-        elevation: 0,
-        padding: padding,
-        primary: AppTheme.secondaryColor(context),
-        onPrimary: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
+      elevation: 0.0,
+      focusElevation: 0,
+      hoverElevation: 0,
+      disabledElevation: 0,
+      highlightElevation: 0,
+      padding: padding,
+      color: AppTheme.primaryColor(context),
+      textColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       onPressed: onPressed as void Function()?,
       autofocus: true,
@@ -94,19 +95,18 @@ class MyElevatedButtonWide extends StatelessWidget {
     ThemeData currentTheme = Theme.of(context);
     return Container(
       width: double.infinity,
-      child: ElevatedButton(
+      child: MaterialButton(
         child: child,
-        style: ElevatedButton.styleFrom(
-          splashFactory: MaterialInkSplash.splashFactory,
-          elevation: 0,
-          padding: padding,
-          shadowColor: Colors.transparent,
-          textStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-          primary: AppTheme.secondaryColor(context),
-          onPrimary: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
+        elevation: 0.0,
+        focusElevation: 0,
+        hoverElevation: 0,
+        disabledElevation: 0,
+        highlightElevation: 0,
+        padding: padding,
+        color: AppTheme.primaryColor(context),
+        textColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
         onPressed: onPressed as void Function()?,
         autofocus: true,
@@ -178,12 +178,12 @@ class MyTextButton extends StatelessWidget {
         splashFactory: MaterialInkSplash.splashFactory,
         padding: padding,
         textStyle:
-            TextStyle(color: AppTheme.secondaryColor(context), fontSize: 15),
+            TextStyle(color: AppTheme.primaryColor(context), fontSize: 15),
         side: BorderSide.none,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        primary: AppTheme.secondaryColor(context),
+        primary: AppTheme.primaryColor(context),
       ),
       onPressed: onPressed as void Function()?,
       child: child!,
@@ -215,12 +215,12 @@ class MyOutlinedButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         splashFactory: MaterialInkSplash.splashFactory,
         padding: padding,
-        textStyle: TextStyle(color: AppTheme.secondaryColor(context)),
-        side: BorderSide(color: AppTheme.secondaryColor(context)),
+        textStyle: TextStyle(color: AppTheme.primaryColor(context)),
+        side: BorderSide(color: AppTheme.primaryColor(context)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        primary: AppTheme.secondaryColor(context),
+        primary: AppTheme.primaryColor(context),
       ),
       onPressed: onPressed as void Function()?,
       child: child!,
@@ -257,12 +257,12 @@ class MyOutlinedButtonWide extends StatelessWidget {
           textStyle: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.bold,
-              color: AppTheme.secondaryColor(context)),
-          side: BorderSide(color: AppTheme.secondaryColor(context)),
+              color: AppTheme.primaryColor(context)),
+          side: BorderSide(color: AppTheme.primaryColor(context)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          primary: AppTheme.secondaryColor(context),
+          primary: AppTheme.primaryColor(context),
         ),
         onPressed: onPressed as void Function()?,
         child: child!,

@@ -157,7 +157,7 @@ class TitleHeader extends StatelessWidget {
           Icon(
             AntDesign.heart,
             size: 20,
-            color: AppTheme.secondaryColor(context),
+            color: AppTheme.primaryColor(context),
           ),
         ],
       ),

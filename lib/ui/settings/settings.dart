@@ -1,10 +1,12 @@
 import 'package:chedmed/blocs/settings_bloc.dart';
+import 'package:chedmed/ui/common/select_city.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../utils/language_helper.dart';
 import '../common/app_theme.dart';
+import '../common/transitions.dart';
 import 'language_menu.dart';
 import 'theme_menu.dart';
 
@@ -28,12 +30,18 @@ class SettingsInterface extends StatefulWidget {
 
 class _SettingsInterfaceState extends State<SettingsInterface> {
   String themeName = getTranslation.system_default;
+  String currentCity = "";
 
   @override
   void initState() {
     settingsBloc.selectedTheme.listen((event) {
       setState(() {
         themeName = event.name;
+      });
+    });
+    settingsBloc.getDefaultCity.listen((event) {
+      setState(() {
+        currentCity = event.name;
       });
     });
     super.initState();
@@ -58,6 +66,25 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
             value: Text(themeName),
             trailing: ArrowIcon(context),
             onPressed: displayThemeMenu,
+          ),
+        ],
+      ),
+      SettingsSection(
+        title: Text("Compte"),
+        tiles: <SettingsTile>[
+          SettingsTile.navigation(
+            leading: Icon(Ionicons.location_sharp),
+            title: Text(getTranslation.location),
+            value: Text(currentCity),
+            trailing: ArrowIcon(context),
+            onPressed: (ctx) {
+              Navigator.push(
+                  context,
+                  SlideRightRoute(
+                      widget: SelectCity(
+                          citySelected: settingsBloc.setUserCity,
+                          title: getTranslation.location)));
+            },
           ),
         ],
       ),

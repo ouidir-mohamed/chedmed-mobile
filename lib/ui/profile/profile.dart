@@ -37,7 +37,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
-          color: AppTheme.secondaryColor(context),
+          color: AppTheme.primaryColor(context),
           onRefresh: profileBloc.refresh,
           child: CustomScrollView(
             physics: AlwaysScrollableScrollPhysics(),

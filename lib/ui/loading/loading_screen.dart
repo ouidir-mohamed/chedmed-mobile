@@ -30,7 +30,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           width: 40,
           height: 40,
           child: CircularProgressIndicator(
-            color: AppTheme.secondaryColor(context),
+            color: AppTheme.primaryColor(context),
           ),
         ),
       ),

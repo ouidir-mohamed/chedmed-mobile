@@ -2,6 +2,7 @@ import 'package:chedmed/blocs/profile_bloc.dart';
 import 'package:chedmed/ui/own_article_details/own_article_details.dart';
 import 'package:chedmed/ui/profile/no_profile_article.dart';
 import 'package:chedmed/ui/profile/self_annonce_presentation.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -143,7 +144,8 @@ class SelfArticleCard extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(top: 2),
                             child: Text(
-                              annonce.prix.toString(),
+                              getTranslation
+                                  .curreny_var(annonce.prix.toString()),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,

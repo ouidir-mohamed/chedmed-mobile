@@ -135,8 +135,9 @@ class _EditButtonState extends State<EditButton> {
                 child: CircularProgressIndicator(
                   color: Colors.white,
                 ))
-            : Text(getTranslation.edit),
-        color: AppTheme.secondaryColor(context),
+            : Text(getTranslation.edit.toUpperCase(),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+        color: AppTheme.primaryColor(context),
         onPressed: loading
             ? () {}
             : () {

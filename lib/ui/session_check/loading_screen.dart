@@ -26,7 +26,7 @@ class _SessionLoadingScreenState extends State<SessionLoadingScreen> {
           width: 40,
           height: 40,
           child: CircularProgressIndicator(
-            color: AppTheme.secondaryColor(context),
+            color: AppTheme.primaryColor(context),
           ),
         ),
       ),

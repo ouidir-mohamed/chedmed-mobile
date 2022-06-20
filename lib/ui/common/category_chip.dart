@@ -34,7 +34,7 @@ class CategoryChip extends StatelessWidget {
                     category.icon,
                     size: 25,
                     color: category.selected
-                        ? AppTheme.secondaryColor(context)
+                        ? AppTheme.primaryColor(context)
                         : AppTheme.headlineColor(context),
                   ),
                 ),

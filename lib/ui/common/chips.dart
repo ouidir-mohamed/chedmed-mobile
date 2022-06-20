@@ -161,18 +161,16 @@ class CustomChip extends StatelessWidget {
           splashFactory: MaterialInkSplash.splashFactory,
           padding: padding,
           backgroundColor: isSelected
-              ? AppTheme.secondaryColor(context).withOpacity(0.2)
+              ? AppTheme.primaryColor(context)
               : AppTheme.cardColor(context),
           side: BorderSide(
               color: isSelected
-                  ? AppTheme.secondaryColor(context)
+                  ? AppTheme.primaryColor(context)
                   : Colors.transparent),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          primary: isSelected
-              ? AppTheme.secondaryColor(context)
-              : currentTheme.textTheme.bodyText1!.color!,
+          primary: isSelected ? Colors.white : AppTheme.textColor(context),
         ),
         onPressed: onPressed as void Function()?,
         child: Row(

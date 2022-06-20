@@ -81,7 +81,7 @@ class _UserInfosState extends State<UserInfos> {
               ),
               IconButton(
                   onPressed: () {
-                    displayEditDialog(context);
+                    displayEditDialog(context, profile.username, profile.phone);
                   },
                   icon: Icon(FontAwesome.pencil,
                       size: 20, color: AppTheme.textColor(context)))

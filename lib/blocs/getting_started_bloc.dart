@@ -28,7 +28,7 @@ class GettingStartedBloc {
   Stream<City> get getSelectedCity => _selectedCityFetcher.stream;
   Stream<bool> get getLoading => _loadingFetcher.stream;
   Stream<bool> get getError => _errorFetchr.stream;
-
+  String username = "";
   String? nameValidator(String? value) {
     if (value == null || value.length == 0) return ("Le nom est obligatoire");
     if (value.length > 50) return ("Le nom est trés long");
@@ -36,7 +36,6 @@ class GettingStartedBloc {
     return null;
   }
 
-  String username = "";
   String phone = "";
   String? phoneValidator(String? value) {
     if (value == null || value.length == 0 || value.length > 10)
@@ -63,6 +62,7 @@ class GettingStartedBloc {
       case 1:
         {
           checkPhone();
+
           break;
         }
       case 2:
@@ -79,6 +79,13 @@ class GettingStartedBloc {
     }
   }
 
+  requestCurrentCity() {
+    locationsBloc.requestCurrentLocation();
+    locationsBloc.getFoundCity.listen((event) {
+      _selectedCityFetcher.sink.add(event);
+    });
+  }
+
   checkName() {
     if (!nameFormKey.currentState!.validate()) return;
     introKey.currentState?.next();
@@ -89,6 +96,7 @@ class GettingStartedBloc {
     if (!numberFormKey.currentState!.validate()) return;
     introKey.currentState?.next();
     currentPage++;
+    requestCurrentCity();
   }
 
   checkCity() {

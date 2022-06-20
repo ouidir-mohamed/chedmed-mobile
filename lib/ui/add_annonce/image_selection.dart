@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:chedmed/blocs/add_annonce_bloc.dart';
+import 'package:chedmed/ui/common/snackbar.dart';
+import 'package:chedmed/ui/own_article_details/delete_annonce_dialog.dart';
 import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -23,8 +25,16 @@ class _ImageSelectionState extends State<ImageSelection> {
   final ImagePicker _picker = ImagePicker();
 
   openCamera() async {
+    if (pickedImages.length > 3) {
+      displayPhotoLimiteSnackbar(getTranslation.four_photos_max);
+      return;
+    }
     final XFile? photo = await _picker.pickImage(
-        source: ImageSource.camera, maxHeight: 600, maxWidth: 600);
+        source: ImageSource.camera,
+        maxHeight: 1100,
+        maxWidth: 1100,
+        imageQuality: 60,
+        preferredCameraDevice: CameraDevice.front);
     if (photo != null) {
       print(pickedImages);
       setState(() {
@@ -36,8 +46,15 @@ class _ImageSelectionState extends State<ImageSelection> {
   }
 
   openGallery() async {
-    final List<XFile>? images =
-        await _picker.pickMultiImage(maxHeight: 600, maxWidth: 600);
+    if (pickedImages.length > 3) {
+      displayPhotoLimiteSnackbar(getTranslation.four_photos_max);
+      return;
+    }
+    final List<XFile>? images = await _picker.pickMultiImage(
+      maxHeight: 1100,
+      maxWidth: 1100,
+      imageQuality: 60,
+    );
     if (images != null)
       setState(() {
         pickedImages.addAll(images.map((e) => e.path));
@@ -189,7 +206,7 @@ class AddPictureButton extends StatelessWidget {
                   children: [
                     Icon(
                       icon,
-                      color: AppTheme.secondaryColor(context),
+                      color: AppTheme.primaryColor(context),
                       size: 26,
                     ),
                     Text(

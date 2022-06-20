@@ -1,17 +1,50 @@
+import 'package:chedmed/blocs/profile_bloc.dart';
+import 'package:chedmed/ui/common/inputs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
+import 'package:chedmed/ui/profile/user_informations.dart.dart';
+
+import '../../models/profile.dart';
 import '../common/app_theme.dart';
 import '../common/buttons.dart';
 
 class EditProfileDialog extends StatefulWidget {
-  const EditProfileDialog({Key? key}) : super(key: key);
+  String username;
+  String phone;
+  EditProfileDialog({
+    Key? key,
+    required this.username,
+    required this.phone,
+  }) : super(key: key);
 
   @override
   State<EditProfileDialog> createState() => _EditProfileDialogState();
 }
 
 class _EditProfileDialogState extends State<EditProfileDialog> {
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  bool loading = false;
+  @override
+  void initState() {
+    userNameController.text = widget.username;
+    phoneController.text = widget.phone;
+
+    profileBloc.getEditDone.listen((event) {
+      if (mounted) Navigator.of(context).pop();
+    });
+
+    profileBloc.getEditLoading.listen((event) {
+      if (mounted)
+        setState(() {
+          loading = event;
+        });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // var height = MediaQuery.of(context).;
@@ -49,60 +82,72 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
         child: Container(
             padding: EdgeInsets.symmetric(horizontal: 5),
             width: 9000,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5, top: 20),
-                  child: Text("Nom",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                ),
-                TextFormField(
-                  //controller: departureAdressController,
-                  //readOnly: true,
-                  //  cursorColor: Colors.white,
-                  // focusNode: startFocusNode,
-
-                  decoration: InputDecoration(
-                      hintText: "Votre nom",
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
+                Form(
+                  key: profileFormKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5, top: 20),
+                        child: Text("Nom",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15)),
                       ),
-                      fillColor: AppTheme.cardColor(context),
-                      filled: true),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5, top: 20),
-                  child: Text("Téléphone",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                ),
-                TextFormField(
-                  //controller: departureAdressController,
-                  //readOnly: true,
-                  //  cursorColor: Colors.white,
-                  // focusNode: startFocusNode,
+                      TextFormField(
+                        controller: userNameController,
+                        validator: profileBloc.nameValidator,
+                        //readOnly: true,
+                        //  cursorColor: Colors.white,
+                        // focusNode: startFocusNode,
 
-                  decoration: InputDecoration(
-                      hintText: "Votre numéro",
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
+                        decoration: MyInputDecoration(
+                            title: "Votre nom", context: context),
                       ),
-                      fillColor: AppTheme.cardColor(context),
-                      filled: true),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5, top: 20),
+                        child: Text("Téléphone",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15)),
+                      ),
+                      TextFormField(
+                        controller: phoneController,
+                        validator: profileBloc.phoneValidator,
+
+                        //readOnly: true,
+                        //  cursorColor: Colors.white,
+                        // focusNode: startFocusNode,
+
+                        decoration: MyInputDecoration(
+                            title: "Votre numéro", context: context),
+                      ),
+                      Container(
+                        height: 50,
+                      ),
+                      Container(
+                        height: 0.1,
+                        width: double.infinity,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
                 ),
-                Container(
-                  height: 50,
-                ),
-                Container(
-                  height: 0.1,
-                  width: double.infinity,
-                  color: Colors.grey,
-                )
+                loading
+                    ? Positioned(
+                        bottom: 0,
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        child: Container(
+                          color: AppTheme.canvasColor(context),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      )
+                    : Container()
               ],
             )),
       ),
@@ -112,7 +157,11 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
           child: const Text('Annuler'),
         ),
         MyTextButton(
-          onPressed: () => {Navigator.of(context).pop()},
+          onPressed: loading
+              ? () {}
+              : () {
+                  profileBloc.editProfile();
+                },
           child: const Text('OK'),
         ),
       ],
@@ -120,9 +169,11 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
   }
 }
 
-displayEditDialog(
-  BuildContext context,
-) {
+displayEditDialog(BuildContext context, String userName, String phone) {
   showDialog<String>(
-      context: context, builder: (BuildContext context) => EditProfileDialog());
+      context: context,
+      builder: (BuildContext context) => EditProfileDialog(
+            username: userName,
+            phone: phone,
+          ));
 }

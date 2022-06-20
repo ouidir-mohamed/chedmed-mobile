@@ -73,7 +73,7 @@ class _SearchBarState extends State<SearchBar> {
             Container(
               decoration: BoxDecoration(
                 color: filterEnabled
-                    ? AppTheme.secondaryColor(context)
+                    ? AppTheme.primaryColor(context)
                     : AppTheme.cardColor(context),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),

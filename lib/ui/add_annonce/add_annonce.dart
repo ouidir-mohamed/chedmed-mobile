@@ -97,10 +97,9 @@ class _AddButtonState extends State<AddButton> {
                 child: CircularProgressIndicator(
                   color: Colors.white,
                 ))
-            : Text(
-                getTranslation.add,
-              ),
-        color: AppTheme.secondaryColor(context),
+            : Text(getTranslation.add.toUpperCase(),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+        color: AppTheme.primaryColor(context),
         onPressed: loading
             ? () {}
             : () {

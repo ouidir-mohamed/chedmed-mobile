@@ -121,7 +121,7 @@ class _ImageFullScreenGaleryState extends State<ImageFullScreenGalery> {
                         child: Icon(
                           FontAwesome.rotate_left,
                           size: 28,
-                          color: AppTheme.secondaryColor(context),
+                          color: AppTheme.primaryColor(context),
                         ),
                       ),
                     ),
@@ -135,7 +135,7 @@ class _ImageFullScreenGaleryState extends State<ImageFullScreenGalery> {
                         child: Icon(
                           FontAwesome.rotate_right,
                           size: 28,
-                          color: AppTheme.secondaryColor(context),
+                          color: AppTheme.primaryColor(context),
                         ),
                       ),
                     ),

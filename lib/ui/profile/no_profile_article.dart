@@ -44,8 +44,8 @@ class NoProfileArticle extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
             child: MyElevatedButton(
               child: Text(
-                getTranslation.add,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                getTranslation.add.toUpperCase(),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               onPressed: () {
                 navigationController.jumpToTab(1);

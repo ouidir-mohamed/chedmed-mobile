@@ -17,7 +17,7 @@ class ActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(right: 20, left: 20, top: 30),
+      padding: EdgeInsets.only(right: 20, left: 20, top: 20, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -31,8 +31,8 @@ class ActionButtons extends StatelessWidget {
                   )));
             },
             child: Text(
-              getTranslation.edit,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              getTranslation.edit.toUpperCase(),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
           ),
           Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
@@ -41,8 +41,8 @@ class ActionButtons extends StatelessWidget {
               displayDeleteAnnonceDialog(context, annonceId);
             },
             child: Text(
-              getTranslation.delete,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              getTranslation.delete.toUpperCase(),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
           )
         ],

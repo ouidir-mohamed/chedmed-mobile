@@ -25,7 +25,11 @@ class _ImageSelectionState extends State<ImageSelection> {
 
   openCamera() async {
     final XFile? photo = await _picker.pickImage(
-        source: ImageSource.camera, maxHeight: 600, maxWidth: 600);
+        source: ImageSource.camera,
+        maxHeight: 1100,
+        maxWidth: 1100,
+        imageQuality: 60,
+        preferredCameraDevice: CameraDevice.front);
     if (photo != null) {
       print(pickedImages);
       setState(() {
@@ -37,8 +41,11 @@ class _ImageSelectionState extends State<ImageSelection> {
   }
 
   openGallery() async {
-    final List<XFile>? images =
-        await _picker.pickMultiImage(maxHeight: 600, maxWidth: 600);
+    final List<XFile>? images = await _picker.pickMultiImage(
+      maxHeight: 1100,
+      maxWidth: 1100,
+      imageQuality: 60,
+    );
     if (images != null)
       setState(() {
         pickedImages.addAll(images.map((e) => e.path));
@@ -190,7 +197,7 @@ class AddPictureButton extends StatelessWidget {
                   children: [
                     Icon(
                       icon,
-                      color: AppTheme.secondaryColor(context),
+                      color: AppTheme.primaryColor(context),
                       size: 26,
                     ),
                     Text(

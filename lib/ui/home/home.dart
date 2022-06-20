@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       child: Stack(
         children: [
           RefreshIndicator(
-            color: AppTheme.secondaryColor(context),
+            color: AppTheme.primaryColor(context),
             onRefresh: homeBloc.refresh,
             child: CustomScrollView(
                 physics: AlwaysScrollableScrollPhysics(),

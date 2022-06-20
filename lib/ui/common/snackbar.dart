@@ -16,7 +16,7 @@ displayNetworkErrorSnackbar() {
         children: [
           Icon(
             Feather.alert_triangle,
-            color: AppTheme.secondaryColor(requireContext()),
+            color: AppTheme.primaryColor(requireContext()),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -112,6 +112,72 @@ displayRemovedFromFavoriteSnackbar(String message) {
         ],
       ),
     ),
+    duration: Duration(seconds: 5),
+  ));
+}
+
+displayPhotoLimiteSnackbar(String message) {
+  ScaffoldMessenger.of(requireContext()).clearSnackBars();
+  ScaffoldMessenger.of(requireContext()).showSnackBar(SnackBar(
+    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+    behavior: SnackBarBehavior.floating,
+    content: LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              MaterialCommunityIcons.camera_plus,
+              color: AppTheme.secondaryColor(requireContext()),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                width: constraints.maxWidth - 50,
+                child: Text(
+                  message,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }),
+    duration: Duration(seconds: 5),
+  ));
+}
+
+displayProfileEditSnackbar(String message) {
+  ScaffoldMessenger.of(requireContext()).clearSnackBars();
+  ScaffoldMessenger.of(requireContext()).showSnackBar(SnackBar(
+    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+    behavior: SnackBarBehavior.floating,
+    content: LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Ionicons.person,
+              color: AppTheme.primaryColor(requireContext()),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                width: constraints.maxWidth - 50,
+                child: Text(
+                  message,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }),
     duration: Duration(seconds: 5),
   ));
 }

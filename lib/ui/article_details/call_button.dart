@@ -26,7 +26,7 @@ class CallButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       isExtended: isExtended,
-      backgroundColor: AppTheme.secondaryColor(context),
+      backgroundColor: AppTheme.primaryColor(context),
       icon: Icon(Ionicons.call, color: Colors.white),
       label: Text(getTranslation.contact,
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),

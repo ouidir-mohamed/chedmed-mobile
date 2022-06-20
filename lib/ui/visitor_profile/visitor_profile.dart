@@ -33,7 +33,7 @@ class _VisitorProfileState extends State<VisitorProfile>
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
-          color: AppTheme.secondaryColor(context),
+          color: AppTheme.primaryColor(context),
           onRefresh: () => visitorProfileBloc.refresh(widget.userId),
           child: CustomScrollView(
             physics: AlwaysScrollableScrollPhysics(),
