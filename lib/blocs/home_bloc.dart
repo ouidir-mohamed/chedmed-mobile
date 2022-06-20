@@ -9,6 +9,7 @@ import 'package:chedmed/ressources/repository/repository.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/ui/common/snackbar.dart';
 import 'package:chedmed/ui/home/annonce_presentation.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -187,7 +188,7 @@ class HomeBloc {
 
     _annoncesFetcher.sink.add(oldList);
 
-    displayAddedToFavoriteSnackbar("Annonce ajoutée aux favoris");
+    displayAddedToFavoriteSnackbar(getTranslation.added_to_fav);
     profileBloc.loadFavoriteAnnonces();
   }
 
@@ -203,7 +204,7 @@ class HomeBloc {
     });
 
     _annoncesFetcher.sink.add(oldList);
-    displayRemovedFromFavoriteSnackbar("Annonce supprimée des favoris");
+    displayRemovedFromFavoriteSnackbar(getTranslation.removed_from_fav);
     profileBloc.loadFavoriteAnnonces();
   }
 }

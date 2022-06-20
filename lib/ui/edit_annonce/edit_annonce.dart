@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chedmed/blocs/edit_annonce_bloc.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
@@ -89,7 +90,7 @@ class Header extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ReturnButton(transparent: true),
-              Text("Modifier l'annonce",
+              Text(getTranslation.edit_post,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 23,
@@ -134,9 +135,7 @@ class _EditButtonState extends State<EditButton> {
                 child: CircularProgressIndicator(
                   color: Colors.white,
                 ))
-            : Text(
-                "Modifier",
-              ),
+            : Text(getTranslation.edit),
         color: AppTheme.secondaryColor(context),
         onPressed: loading
             ? () {}

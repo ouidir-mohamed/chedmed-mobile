@@ -1,4 +1,5 @@
 import 'package:chedmed/ui/common/app_theme.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -23,14 +24,14 @@ class NoItemFound extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 10, bottom: 3),
             child: Text(
-              "Aucun article trouvé",
+              getTranslation.no_post_found,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
             ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 5),
             child: Text(
-              "Aucun article trouver, essayer de changer vos filtres et agrandir votre distance de recherche.",
+              getTranslation.no_post_found_description,
               style: TextStyle(
                   fontSize: 16, color: AppTheme.headlineColor(context)),
               textAlign: TextAlign.center,

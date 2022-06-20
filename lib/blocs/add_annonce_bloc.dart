@@ -6,6 +6,7 @@ import 'package:chedmed/models/city.dart';
 import 'package:chedmed/ressources/repository/repository.dart';
 import 'package:chedmed/ui/common/snackbar.dart';
 import 'package:chedmed/ui/navigation/bottom_navigation.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -49,7 +50,8 @@ class AddAnnonceBloc {
   }
 
   String? titleValidator(String? value) {
-    if (value == null || value.length == 0) return ("Le titre est obligatoire");
+    if (value == null || value.length == 0)
+      return (getTranslation.title_required);
     if (value.length > 50) return ("Le titre est trés long");
     titre = value;
     return null;
@@ -57,7 +59,7 @@ class AddAnnonceBloc {
 
   String? descriptionValidator(String? value) {
     if (value == null || value.length == 0)
-      return ("Une description est obligatoire");
+      return (getTranslation.description_required);
     if (value.length > 400) return ("Le discription");
     description = value;
     return null;
@@ -72,28 +74,27 @@ class AddAnnonceBloc {
 
   String? phoneValidator(String? value) {
     if (value == null || value.length == 0 || value.length > 10)
-      return ("Ce numéro n'est pas valide");
+      return (getTranslation.phone_invalide);
     phone = value;
     return null;
   }
 
   String? priceValidator(String? value) {
     int? parsedValue = int.tryParse(value!);
-    if (parsedValue == null) return ("Veuillez ..");
-    if (parsedValue < 0) return ("Veuillez ..");
+    if (parsedValue == null) return (getTranslation.price_invalide);
+    if (parsedValue < 0) return (getTranslation.price_invalide);
     price = parsedValue;
     return null;
   }
 
   bool imagesValidator() {
     if (imagePaths.isEmpty) {
-      _imageErreurFetcher.sink.add("Veuillez choisir au moin une photo");
+      _imageErreurFetcher.sink.add(getTranslation.one_photo_at_least);
       return false;
     }
 
     if (imagePaths.length > 4) {
-      _imageErreurFetcher.sink
-          .add("Vous ne pouvez pas choisir plus de 4 photos");
+      _imageErreurFetcher.sink.add(getTranslation.four_photos_max);
       return false;
     }
 
@@ -118,7 +119,7 @@ class AddAnnonceBloc {
 
     _loadingFetcher.sink.add(true);
     chedMedApiFormData.addPost(request).then((value) {
-      displaySuccessSnackbar("Annonce ajoutée avec success");
+      displaySuccessSnackbar(getTranslation.post_added);
       navigationController.jumpToTab(2);
       profileBloc.loadProfileAnnonces();
       _doneFetcher.sink.add(null);

@@ -1,4 +1,5 @@
 import 'package:chedmed/blocs/delete_annonce_bloc.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -31,7 +32,7 @@ class _DeleteAnnonceDialogState extends State<DeleteAnnonceDialog> {
             children: [
               Container(
                 padding: EdgeInsets.only(bottom: 10),
-                child: Text("Supprimer l'annonce"),
+                child: Text(getTranslation.delete_post),
                 width: double.infinity,
               ),
             ],
@@ -48,7 +49,7 @@ class _DeleteAnnonceDialogState extends State<DeleteAnnonceDialog> {
             child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Voulez vous supprimer votre annonce ?"),
+            Text(getTranslation.delete_post_description),
             Container(
               margin: EdgeInsets.only(top: 20),
             )
@@ -58,7 +59,7 @@ class _DeleteAnnonceDialogState extends State<DeleteAnnonceDialog> {
       actions: <Widget>[
         MyTextButton(
           onPressed: () => Navigator.pop(context, 'Annuler'),
-          child: const Text('Annuler'),
+          child: Text(getTranslation.cancel),
         ),
         MyTextButton(
           onPressed: () {
@@ -66,7 +67,7 @@ class _DeleteAnnonceDialogState extends State<DeleteAnnonceDialog> {
 
             Navigator.of(context).pop();
           },
-          child: const Text('OK'),
+          child: Text(getTranslation.ok),
         ),
       ],
     );

@@ -8,6 +8,7 @@ import 'package:chedmed/ui/common/transitions.dart';
 import 'package:chedmed/ui/home/annonces.dart';
 import 'package:chedmed/ui/profile/articles_to_display.dart';
 import 'package:chedmed/ui/profile/user_informations.dart.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -42,7 +43,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
             physics: AlwaysScrollableScrollPhysics(),
             slivers: [
               SliverAppBar(
-                  expandedHeight: 300,
+                  expandedHeight: 308,
                   floating: false,
                   pinned: true,
                   elevation: 0,
@@ -100,7 +101,7 @@ class Header extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Mon profile",
+              Text(getTranslation.my_profile,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 23,

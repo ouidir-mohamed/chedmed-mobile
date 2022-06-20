@@ -87,9 +87,12 @@ class SelectedTheme {
     radioTheme: RadioThemeData(fillColor: checkBoxColor),
     brightness: Brightness.dark,
     splashFactory: MaterialInkSplash.splashFactory,
-  );
+  ).copyWith();
 }
 
+// const primary = Color(0xff2E6CFF);
+
+// const secondary = Color(0xfff7547b);
 const primary = Color(0xff30b3f8);
 
 const secondary = Color(0xfff7547b);

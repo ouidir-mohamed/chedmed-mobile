@@ -1,3 +1,4 @@
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +28,7 @@ class CallButton extends StatelessWidget {
       isExtended: isExtended,
       backgroundColor: AppTheme.secondaryColor(context),
       icon: Icon(Ionicons.call, color: Colors.white),
-      label: Text("Contacter",
+      label: Text(getTranslation.contact,
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       onPressed: () {
         callPhone();

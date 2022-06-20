@@ -1,5 +1,6 @@
 import 'package:chedmed/models/annonce.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:chedmed/utils/time_formatter.dart';
 
 class AnnoncePresentation {
@@ -43,7 +44,8 @@ class AnnoncePresentation {
         SharedPreferenceData.loadFavoriteAnnonces().contains(annonce.id);
     String localisation = annonce.location.name;
     if (annonce.distance != null) {
-      localisation += " (" + annonce.distance!.round().toString() + " km)";
+      localisation +=
+          getTranslation.km_var_brackets(annonce.distance!.round().toString());
     }
 
     return AnnoncePresentation(

@@ -1,4 +1,5 @@
 import 'package:chedmed/ui/common/app_theme.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -23,7 +24,7 @@ displayThemeMenu(BuildContext context) {
                     settingsBloc.useDefaultTheme();
                   },
                   groupValue: snapshot.data!.code,
-                  title: Text("Selon le systéme"),
+                  title: Text(getTranslation.system_default),
                   contentPadding: EdgeInsets.all(0),
                 ),
                 RadioListTile(
@@ -32,7 +33,7 @@ displayThemeMenu(BuildContext context) {
                     settingsBloc.forceLightTheme();
                   },
                   groupValue: snapshot.data!.code,
-                  title: Text("Claire"),
+                  title: Text(getTranslation.bright),
                   contentPadding: EdgeInsets.all(0),
                 ),
                 RadioListTile(
@@ -41,7 +42,7 @@ displayThemeMenu(BuildContext context) {
                     settingsBloc.forceDarkTheme();
                   },
                   groupValue: snapshot.data!.code,
-                  title: Text("Sombre"),
+                  title: Text(getTranslation.dark),
                   contentPadding: EdgeInsets.all(0),
                 ),
               ],

@@ -27,7 +27,7 @@ class SettingsInterface extends StatefulWidget {
 }
 
 class _SettingsInterfaceState extends State<SettingsInterface> {
-  String themeName = "Selon le systéme";
+  String themeName = getTranslation.system_default;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
   Widget build(BuildContext context) {
     return SettingsList(sections: [
       SettingsSection(
-        title: Text("Général"),
+        title: Text(getTranslation.global),
         tiles: <SettingsTile>[
           SettingsTile.navigation(
             leading: Icon(Icons.language),
@@ -54,7 +54,7 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
           ),
           SettingsTile.navigation(
             leading: Icon(MaterialIcons.brightness_6),
-            title: Text("Théme"),
+            title: Text(getTranslation.theme),
             value: Text(themeName),
             trailing: ArrowIcon(context),
             onPressed: displayThemeMenu,

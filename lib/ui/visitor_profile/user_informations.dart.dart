@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
@@ -52,12 +53,12 @@ class _UserInfosState extends State<UserInfos> {
     return Container(
       color: AppTheme.containerColor(context),
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       child: Column(
         children: [
           loading ? _Loading() : _UserInfoHasData(),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 20),
+            padding: EdgeInsets.symmetric(vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -67,7 +68,7 @@ class _UserInfosState extends State<UserInfos> {
                       profile.nbPost.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text("ANNONCES",
+                    Text(getTranslation.posts,
                         style: TextStyle(
                           color: AppTheme.headlineColor(context),
                         )),
@@ -79,7 +80,7 @@ class _UserInfosState extends State<UserInfos> {
                       profile.nbViews.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text("VUES",
+                    Text(getTranslation.views,
                         style: TextStyle(
                           color: AppTheme.headlineColor(context),
                         )),
@@ -91,7 +92,7 @@ class _UserInfosState extends State<UserInfos> {
                       profile.nbFavorite.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text("J'AIMES",
+                    Text(getTranslation.likes,
                         style: TextStyle(
                           color: AppTheme.headlineColor(context),
                         )),

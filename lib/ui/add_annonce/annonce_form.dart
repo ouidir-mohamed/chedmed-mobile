@@ -1,6 +1,7 @@
 import 'package:chedmed/blocs/add_annonce_bloc.dart';
 import 'package:chedmed/ui/common/inputs.dart';
 import 'package:chedmed/ui/common/location_selection.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/city.dart';
@@ -63,19 +64,19 @@ class _AnnonceFormState extends State<AnnonceForm> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Text("Titre",
+                  child: Text(getTranslation.title,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
                 TextFormField(
                   controller: titleController,
                   validator: addAnnonceBloc.titleValidator,
-                  decoration:
-                      MyInputDecoration(title: "Titre", context: context),
+                  decoration: MyInputDecoration(
+                      title: getTranslation.title, context: context),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 3),
-                  child: Text("Description",
+                  child: Text(getTranslation.description,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
@@ -83,25 +84,25 @@ class _AnnonceFormState extends State<AnnonceForm> {
                     validator: addAnnonceBloc.descriptionValidator,
                     controller: descriptionController,
                     maxLines: 5,
-                    decoration:
-                        MyInputDecorationMultiLine("Description", context)),
+                    decoration: MyInputDecorationMultiLine(
+                        getTranslation.description, context)),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 3),
-                  child: Text("Emplacement",
+                  child: Text(getTranslation.description,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
                 TextFormField(
                   validator: addAnnonceBloc.cityValidator,
                   decoration: MyInputDecoration(
-                      title: "L'emplacement de l'annonce", context: context),
+                      title: getTranslation.post_location, context: context),
                   controller: cityController,
                   onTap: () {
                     Navigator.push(
                         context,
                         SlideBottomRoute(
                             widget: SelectCity(
-                          title: "L'mplacement de l'annonce",
+                          title: getTranslation.post_location,
                           citySelected: addAnnonceBloc.selectCity,
                         )));
                   },
@@ -109,19 +110,19 @@ class _AnnonceFormState extends State<AnnonceForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 3),
-                  child: Text("Téléphone",
+                  child: Text(getTranslation.phone,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
                 TextFormField(
                   validator: addAnnonceBloc.phoneValidator,
-                  decoration:
-                      MyInputDecoration(title: "Téléphone", context: context),
+                  decoration: MyInputDecoration(
+                      title: getTranslation.phone, context: context),
                   controller: phoneController,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 3),
-                  child: Text("Prix (DA)",
+                  child: Text(getTranslation.price_da,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
@@ -161,7 +162,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                               })),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Text("Avec livraison",
+                        child: Text(getTranslation.with_delivery,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16)),
                       ),

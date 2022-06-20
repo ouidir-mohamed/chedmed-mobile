@@ -5,6 +5,7 @@ import 'package:chedmed/models/profile.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/common/buttons.dart';
 import 'package:chedmed/ui/profile/edit_dialog.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
@@ -97,7 +98,7 @@ class _UserInfosState extends State<UserInfos> {
                       profile.nbPost.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text("ANNONCES",
+                    Text(getTranslation.posts,
                         style: TextStyle(
                           color: AppTheme.headlineColor(context),
                         )),
@@ -109,7 +110,7 @@ class _UserInfosState extends State<UserInfos> {
                       profile.nbViews.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text("VUES",
+                    Text(getTranslation.views,
                         style: TextStyle(
                           color: AppTheme.headlineColor(context),
                         )),
@@ -121,7 +122,7 @@ class _UserInfosState extends State<UserInfos> {
                       profile.nbFavorite.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text("J'AIMES",
+                    Text(getTranslation.likes,
                         style: TextStyle(
                           color: AppTheme.headlineColor(context),
                         )),

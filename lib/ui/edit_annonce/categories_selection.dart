@@ -1,5 +1,6 @@
 import 'package:chedmed/blocs/add_annonce_bloc.dart';
 import 'package:chedmed/blocs/edit_annonce_bloc.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -101,7 +102,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
         children: [
           DynamicChipView(
             key: categoryChipsKey,
-            title: "Catégorie",
+            title: getTranslation.category,
             chips: categories
                 .map(
                   (e) => ChipModel(
@@ -116,7 +117,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
           ),
           DynamicChipView(
             key: typeChipsKey,
-            title: "Type",
+            title: getTranslation.type,
             chips: underCategories
                 .map(
                   (e) => ChipModel(

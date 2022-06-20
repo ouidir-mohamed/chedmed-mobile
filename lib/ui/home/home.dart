@@ -1,4 +1,5 @@
 import 'package:chedmed/blocs/home_bloc.dart';
+import 'package:chedmed/utils/language_helper.dart';
 
 import 'package:flutter/material.dart';
 
@@ -123,14 +124,14 @@ class Header extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text("Chedmed",
+              Text(getTranslation.app_name,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 26,
                   )),
             ],
           ),
-          Text("Trouver tout ce que vous voulez",
+          Text(getTranslation.app_name_description,
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: AppTheme.headlineColor(context),
@@ -151,7 +152,7 @@ class ArticlesHeader extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       child: Row(
         children: [
-          Text("Articles a proximité",
+          Text(getTranslation.nearby_posts,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 23,

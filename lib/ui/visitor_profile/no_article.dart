@@ -1,5 +1,6 @@
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/common/buttons.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -26,14 +27,14 @@ class NoArticle extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 10, bottom: 3),
             child: Text(
-              "Pas d'articles",
+              getTranslation.no_posts,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
             ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 5),
             child: Text(
-              "Ce profile n'a publiée aucun article",
+              getTranslation.profile_no_posts,
               style: TextStyle(
                   fontSize: 16, color: AppTheme.headlineColor(context)),
               textAlign: TextAlign.center,

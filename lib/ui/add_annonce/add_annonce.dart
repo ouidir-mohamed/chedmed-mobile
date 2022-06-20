@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chedmed/blocs/add_annonce_bloc.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -50,7 +51,7 @@ class Header extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Nouvelle annonce",
+              Text(getTranslation.new_post,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 23,
@@ -97,7 +98,7 @@ class _AddButtonState extends State<AddButton> {
                   color: Colors.white,
                 ))
             : Text(
-                "Ajouter",
+                getTranslation.add,
               ),
         color: AppTheme.secondaryColor(context),
         onPressed: loading

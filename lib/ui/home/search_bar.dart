@@ -1,5 +1,6 @@
 import 'package:chedmed/blocs/home_bloc.dart';
 import 'package:chedmed/ui/home/filter_dialog/filter_dialog.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -53,9 +54,6 @@ class _SearchBarState extends State<SearchBar> {
                 controller: searchController,
                 // readOnly: true,
                 // cursorColor: Colors.white,
-                onEditingComplete: () {
-                  print("compleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeted");
-                },
 
                 focusNode: focueNode,
                 decoration: InputDecoration(
@@ -63,7 +61,7 @@ class _SearchBarState extends State<SearchBar> {
                       Icons.search,
                       color: AppTheme.textColor(context),
                     ),
-                    hintText: "Recherche ici",
+                    hintText: getTranslation.search_here,
                     contentPadding: EdgeInsets.symmetric(horizontal: 10),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,

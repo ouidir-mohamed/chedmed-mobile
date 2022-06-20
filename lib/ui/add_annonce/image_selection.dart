@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chedmed/blocs/add_annonce_bloc.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,8 +28,6 @@ class _ImageSelectionState extends State<ImageSelection> {
     if (photo != null) {
       print(pickedImages);
       setState(() {
-        print("im aadddddding ");
-
         pickedImages.addAll([photo.path]);
         addAnnonceBloc.imagePaths = pickedImages;
       });
@@ -90,7 +89,7 @@ class _ImageSelectionState extends State<ImageSelection> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text("Ajouter des photos",
+              child: Text(getTranslation.add_photos,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             ),
             AnimatedSize(
@@ -133,7 +132,7 @@ class _ImageSelectionState extends State<ImageSelection> {
                       onTap: () {
                         openCamera();
                       },
-                      title: "Caméra",
+                      title: getTranslation.camera,
                       icon: MaterialCommunityIcons.camera_plus),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -141,7 +140,7 @@ class _ImageSelectionState extends State<ImageSelection> {
                         onTap: () {
                           openGallery();
                         },
-                        title: "Gallerie",
+                        title: getTranslation.gallery,
                         icon: FontAwesome.picture_o),
                   ),
                   selectedImages.isNotEmpty
@@ -149,7 +148,7 @@ class _ImageSelectionState extends State<ImageSelection> {
                           onTap: () {
                             deleteImages();
                           },
-                          title: "Supprimer",
+                          title: getTranslation.delete,
                           icon: FontAwesome.trash)
                       : Container(),
                 ],

@@ -1,4 +1,5 @@
 import 'package:chedmed/models/category.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -22,10 +23,15 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
 
   List<CategoryPresentation> categories = [
     CategoryPresentation(
-        id: null, name: "Tout", selected: true, icon: Icons.select_all)
+        id: null,
+        name: getTranslation.all,
+        selected: true,
+        icon: Icons.select_all)
   ];
 
-  List<UnderCategory> underCategories = [UnderCategory(id: null, name: "Tout")];
+  List<UnderCategory> underCategories = [
+    UnderCategory(id: null, name: getTranslation.all)
+  ];
 
   @override
   void initState() {
@@ -60,7 +66,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
   selectCategoty(int? categoryId) {
     setState(() {
       selectUnderCategory(null);
-      underCategories = [UnderCategory(id: null, name: "Tout")];
+      underCategories = [UnderCategory(id: null, name: getTranslation.all)];
       chipsUnderCategoryKey.currentState!.selectItem(0);
 
       if (categoryId != null)
@@ -78,7 +84,6 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuilld");
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       width: double.infinity,
@@ -87,7 +92,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
         children: [
           DynamicChipView(
             key: chipsCategoryKey,
-            title: "Catégorie",
+            title: getTranslation.category,
             chips: categories
                 .map(
                   (e) => ChipModel(
@@ -103,7 +108,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
           ),
           DynamicChipView(
             key: chipsUnderCategoryKey,
-            title: "Type",
+            title: getTranslation.type,
             chips: underCategories
                 .map(
                   (e) => ChipModel(

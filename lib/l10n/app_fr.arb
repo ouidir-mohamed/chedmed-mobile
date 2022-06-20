@@ -1,123 +1,124 @@
 {
   "language_name":"Français",
   
-  "@__GETTING_STARTED": {},
-  "your_location":"Votre emplacement",
-  "your_location_description":"Selectionner d'abbord votre ville actuelle puis appuyer sur suivant",
-  "select_city_first": "Veillez choisir un emplacement d'abord",
-  "next":"Suivant",
-  "select_your_city":"Selectionner votre ville",
-                  
-
-"@__HOME_PAGE": {},
-
-    "today_collections": "Collections d'aujourd'hui",
-    "tomorrow_collections": "Collections de demain",
-    "weekly_collections": "Collections de cette semaine",
-    "no_collect":"Aucune collecte",
-    "no_collect_description":"Aucune collecte dens votre ville pour cette journée",
+  "@__HOME": {},
 
 
+  "app_name":"CHEDMED",
+  "app_name_description":"Trouvez tout ce que voulez",
+  "search_here":"Recherche ici",
 
-"@__NOTIFICATION_DIALOG": {},  
+  "category":"Catégorie",
+  "type":"Type",
+  "all":"Tout",
 
-    "notify_me":"Me notifier",
-    "before_departure":"Avant le départ",
-    "before_departure_description":"Recevez une notification {minutes} minutes avant le départ de la collection vous pouvez adjuster ce temps dans les paramétres",
-    "@before_departure_description": {
-      "placeholders": {
-          "minutes": {
-              "type": "String",
-              "example": "30"
-          }
-      }
+
+  "nearby_posts":"Annonces à proximité",
+  "added_to_fav":"Annonce ajoutée aux favoris",
+  "removed_from_fav":"Annonce supprimée des favoris",
+
+
+  "no_post_found":"Aucune annonce trouvée",
+  "no_post_found_description":"Aucune annonce trouver, éssayer de changer vos filtres et agrandir votre distance de recherche",
+  "filters":"Filtres",
+  "distance":"Distance",
+  "more_than_100":"Plus de 100 km",
+  "km_var":"{value} km",
+  "@km_var":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
   },
-    "before_arrival":"Juste avant l'arrivée",
-    "before_arrival_description":"Recevez une notification {minutes} minutes avant l'arrivée a votre point plus proche vous pouvez adjuster ce temps dans les paramétres",
-    "@before_arrival_description": {
-      "placeholders": {
-          "minutes": {
-              "type": "String",
-              "example": "30"
-          }
-      }
+  "km_var_brackets":"({value} km)",
+  "@km_var_brackets":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
   },
 
-  "nearest_point":"Point plus proche",
+
+  "curreny_var":"{value} DA",
+  "@curreny_var":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
+  },
+
+  "your_location":"Votre emplacemnt",
+  "erease":"Effacer",
+  "filter":"Filtrer",
+  
+  "@__Details": {},
+
+  "description":"Description",
+  "delivery_available":"Livraison disponible",
+  "seller":"Vendeur",
+
+  
+  "@__Add__POST": {},
+  "new_post":"Nouvelle annonce",
+  "title":"Titre",
+  "location":"Emplacement",
+  "post_location":"L'emplacement de l'annonce",
+  
+  "phone":"Téléphone",
+  "price":"Prix",
+  "price_da":"Prix (DA)",
+  "with_delivery":"Avec livraison",
+  "add_photos":"Ajouter des photos",
+  "camera":"Caméra",
+  "gallery":"Gallerie",
+  "add":"Ajouter",
+  "title_required":"Le titre est obligatoire",
+  "description_required":"La description est obligatoire",
+  "phone_invalide":"Ce numéro n'est pas valide",
+  "price_invalide":"Ce prix n'est pas valide",
+  "contact":"Contacter",
+  "one_photo_at_least":"Veuillez choisir au moins une photo",
+  "four_photos_max":"Vous ne pouvez pas choisir plus de 04 photos",
+  "post_added":"Votre annonce a été ajouter",
+
+  "@___PROFILE": {},
+  "my_profile":"Mon profile",
+  "seller_profile":"Profile de vendeur",
+  "my_posts":"Mes annonces",
+  "favorite_posts":"Annonces favorites",
+  "posts":"ANNONCES",
+  "views":"VUES",
+  "likes":"J'AIMES",
+  "no_posts":"Pas d'annonces",
+  "no_posts_description":"Vous n'vez publier aucune annonce, cliquez sur le boutton ajouter pour publier votre premiére annonce.",
+  "no_favorites":"Pas de favoris",
+  "no_favorites_description":"Vous n'avez aucune annonce dans la liste des favoris, vous pouvez ajouter n'importe quelle annonce trouvée dans vos recherche a vos favoris afin de la retrouvée rapidement",
+  "profile_no_posts":"Ce profile n'a publiée aucun article",
+  "@___POST__EDIT": {},
+  "edit":"Modifier",
+  "delete":"Supprimer",
+  "delete_post":"Supprimer l'annonce",
+  "delete_post_description":"Voulez vous supprimer l'annonce ?",
   "ok":"OK",
   "cancel":"Annuler",
+  "edit_post":"Modifier l'annonce",
+  "post_edited":"Votre annonce a été modifiée",
+  "post_deleted":"Votre annonce a été supprimée",
 
 
-"@__COLLECTION_DETAILS": {},
-
-    "your_rating":"Votre avis",
-    "departure_at":"Départ à",
-    "minutes":" minutes",
-  "expand":"Agrandir",
-   "min":" min",
-   "deperaure_tomorrow_at":"Départ demain à :",
-   "departure_date_at":" Départ {date} à:",
-   "@departure_date_at":{
-     "placeholders":{
-      "date": {
-        "type": "String",
-        "example": " "
-    }
-     }
-   },
-   "currently_at": "Actuellement a: ",
-   "collection_finished": "Fin de trajet ",
-   "park":"Parc",
-
-
-   "@__RATINGS": {},
-"how_was_the_service":"Comment a été le service ?",
-"your_rating_helps_us":"Votre ais nous aide a améliorer",
-"bad":"Mauvais",
-"good":"Bien",
-"excellent":"Excellent",
-"send":"Envoyer",
-"thanks_fo_rating":"Merci pour votre avis",
-"thanks_fo_rating_description": "Nous sommes vraiment désolés si vous avez eu une mauvaise expérience \nVos avis nous aideront à améliorer notre service",
-"close":"Fermer",
-
-
-
-
-"@__NOTIFICATIONS": {},
-
-  "notifications":"Notifications",
-  "no_notifications":"Aucune notification",
-  "no_notifications_decription":"Lorsquevous avez des notifications, vouz pouvez les voir ici ",
-
-"@__SETTINGS": {},
-  
-  "global":"Générale",
-  "settings":"Paramétres",
-
+  "@___SETTINGS": {},
+  "global":"Général",
   "language":"Langue",
-  "location":"Emplacement",
-  "time_beforee_departure":"Temps avant le départ",
-  "time_beforee_departure_description":"Choisissez le temps avant la réception des notifications avant les départs favorites",
-   "minutes_var":"{minutes} minutes",
-   "@minutes_var":{
-    "placeholders": {
-      "minutes": {
-          "type": "String",
-          "example": "30"
-      }
-  }
-   },
-  "time_beforee_arrival":"Temps avant l'arrivée",
-  "time_beforee_arrival_description":"Choisissez le temps avant la réception des notifications avant les points de collecte ",
-  "apply":"Valider",
-
-
-
-  "other":"Autre",
-  "about":"A propos"
-
-
+  "theme":"Thémé",
+  "system_default":"Selon le systéme",
+  "bright":"Claire",
+  "dark":"Sombre"
 
 
 

@@ -1,124 +1,126 @@
 {
+  "language_name":"العربية",
+  
+  "@__HOME": {},
 
-    "language_name":"العربية",
 
-    "@__GETTING_STARTED": {},
-    "your_location":"موقعك",
-    "your_location_description":"اختر مدينتك ثم اضغط على التالي",
-    "select_city_first": "يرجى اختيار مدينة",
-    "next":"التالي",
-    "select_your_city":"اختر مدينتك",
-                  
-    
-    "@__HOME_PAGE": {},
-    
-        "today_collections": "تجميعات اليوم",
-        "tomorrow_collections": "تجميعات الغد",
-        "weekly_collections": "تجميعات الاسبوع",
-        "no_collect":"لا توجد تجميعات",
-        "no_collect_description":"لا توجد تجميعات تخص مدينتك هذا اليوم",
-    
-    
-    
-    "@__NOTIFICATION_DIALOG": {},  
-    
-    "notify_me":"تلقي تنبيه",
-    
-        "before_departure":"قبل الانطلاق",
-        "before_departure_description":"تلقي تنبيه {minutes} دقيقية قبل انطلاق الشاحنة يمكنكم تعديل هذه المدة في الاعدادات ",
-        "@before_departure_description": {
-          "placeholders": {
-              "minutes": {
-                  "type": "String",
-                  "example": "30"
-              }
-          }
-      },
-        "before_arrival":"قبل الوصول",
-        "before_arrival_description":"تلقي تنبيه {minutes} دقيقية قبل وصول الشاحنة الى اقرب نقطة تجميع يمكنكم تعديل هذه المدة في الاعدادات ",
-        "@before_arrival_description": {
-          "placeholders": {
-              "minutes": {
-                  "type": "String",
-                  "example": "30"
-              }
-          }
-      },
-    
-      "nearest_point":"اقرب نقطة تجميع",
-      "ok":"موافقة",
-      "cancel":"الغاء",
-    
-    
-    "@__COLLECTION_DETAILS": {},
-    
-        "your_rating":"تقييمك",
-        "departure_at":"الانطلاق على",
-        "minutes":" دقائق",
-      "expand":"تكبير",
-      "min":" min",
-      "deperaure_tomorrow_at":"الانطلاق غدا على :",
-      "departure_date_at":" الانطلاق {date} على:",
-      "@departure_date_at":{
-        "placeholders":{
-         "date": {
-           "type": "String",
-           "example": " "
-       }
-        }
-      },
-      "currently_at": "حاليا في: ",
-      "collection_finished": "نهاية التجميع ",
-   "park":"موقف",
+  "app_name":"CHEDMED",
+  "app_name_description":"كاين كولش",
+  "search_here":"ابحث هنا",
 
-"@__RATINGS": {},
-    "how_was_the_service":"كيف كانت الخدمة ؟",
-    "your_rating_helps_us":"تقييمكم يساعدنا على تحسين خدماتنا",
-    "bad":"سيئة",
-    "good":"جيدة",
-    "excellent":"ممتازة",
-    "send":"ارسال",
-    "thanks_fo_rating":"شكرا على تقييمكم",
-    "thanks_fo_rating_description": "نحن نتاسف اذا كانت لديكم تجبة سيئة معنا \n تقييماتكم تساعدنا على تحسين خدماتنا",
-    "close":"غلق",
+  "category":"الفئة",
+  "type":"النوع",
+  "all":"الكل",
 
-    
-    "@__NOTIFICATIONS": {},
-    
-      "notifications":"الاشعارات",
-      "no_notifications":"لا توجد اشعارات",
-      "no_notifications_decription":"عندما تكون اشعارات يمكنكم الاطلاع عليها هنا",
-    
-    "@__SETTINGS": {},
-      
-      "global":"عامة",
-      "settings":"الاعدادات",
-    
-      "language":"اللغة",
-      "location":"الموقع",
-      "time_beforee_departure":"الوقت قبل انطلاق الشاحنة",
-      "time_beforee_departure_description":"اختر وقت وصول الاشعار قبل انطلاق الشاحنة ",
-    
-      "time_beforee_arrival":"قبل الوصول",
-      "time_beforee_arrival_description":"اختر وقت وصول الاشعار قبل وصول الشاحنة الى نقطة التجميع",
-      "apply":"تاكيد",
-      "minutes_var":"{minutes} دقيقية",
-   "@minutes_var":{
-    "placeholders": {
-      "minutes": {
-          "type": "String",
-          "example": "30"
-      }
 
-    }
-  },    
-    
-      "other":"اخرى",
-      "about":"حول التطبيق"
-    
-    
-    
-    
-    
-      
-    }
+  "nearby_posts":"اعلانات قريبة منكم",
+  "added_to_fav":"تمت اصافة الاعلان الى المفصلات",
+  "removed_from_fav":"تم حذف الاعلان من المفضلات",
+
+
+  "no_post_found":"لم يتم العثور على اي اعلان",
+  "no_post_found_description":"لم يتم العثور على اي اعلان, حاول تغيير الاعدادات او تكبير مسافة البحث",
+  "filters":"اعدادات البحث",
+  "distance":"مسافة البحث",
+  "more_than_100":"اكبر من 100 كم",
+  "km_var":"{value} كم",
+  "@km_var":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
+  },
+  "km_var_brackets":"({value} كم)",
+  "@km_var_brackets":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
+  },
+
+
+  "curreny_var":"{value} دج",
+  "@curreny_var":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
+  },
+
+  "your_location":"منطقتك",
+  "erease":"مسح",
+  "filter":"حفظ",
+  
+  "@__Details": {},
+
+  "description":"المواصفات",
+  "delivery_available":"التوصيل متوفر",
+  "seller":"البائع",
+
+  
+  "@__Add__POST": {},
+  "new_post":"اعلان جديد",
+  "title":"العنوان",
+  "location":"المنطقة",
+  "post_location":"منطقة الاعلان",
+  
+  "phone":"الهاتف",
+  "price":"السعر",
+  "price_da":"السعر (دج)",
+  "with_delivery":"امكانية التوصيل",
+  "add_photos":"اصافة صور",
+  "camera":"كاميرا",
+  "gallery":"الهاتف",
+  "add":"اصافة",
+  "title_required":"العنوان اجباري",
+  "description_required":"الوصف اجباري",
+  "phone_invalide":"الرقم غير صحيح",
+  "price_invalide":"السعر غير صحيح",
+  "contact":"الاتصال",
+  "one_photo_at_least":"يرجى اختيار صورة على الاقل",
+  "four_photos_max":"لا يمكنكم اختيار اكثر من 4 صور ",
+  "post_added":"تمت اصافة الاعلان",
+
+  "@___PROFILE": {},
+  "my_profile":"حسابي",
+  "seller_profile":"حساب البائع",
+  "my_posts":"اعلاناتي",
+  "favorite_posts":"الاعلانات المفضلة",
+  "posts":"الاعلانات",
+  "views":"المشاهدات",
+  "likes":"الاعجابات",
+  "no_posts":"لا توجد اعلانات",
+  "no_posts_description":"لا يوجد اي اعلان اضغط على زر اضافة كي تنشر اعلانك الاول",
+  "no_favorites":"لا توجد مفضلات",
+  "no_favorites_description":"لا يوجد اي اعلان مفضل",
+  "profile_no_posts":"هذا الحساب لم ينشؤ اي اعلان",
+  "@___POST__EDIT": {},
+  "edit":"تعديل",
+  "delete":"حذف",
+  "delete_post":"حذف الاعلان",
+  "delete_post_description":"هل تريد حذف الاعلان ؟",
+  "ok":"نعم",
+  "cancel":"الغاء",
+  "edit_post":"تعديل الاعلان",
+  "post_edited":"تم تعديل الاعلان ",
+  "post_deleted":"تم حذف الاعلان",
+
+
+  "@___SETTINGS": {},
+  "global":"عامة",
+  "language":"اللغة",
+  "theme":"الالوان",
+  "system_default":"حسب الهاتف",
+  "bright":"عادي",
+  "dark":"مظلم"
+
+
+
+  
+}

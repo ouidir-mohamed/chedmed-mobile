@@ -1,6 +1,7 @@
 import 'package:chedmed/blocs/home_bloc.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/home/filter_dialog/range_selection.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -65,7 +66,7 @@ class _FilterDialogState extends State<FilterDialog> {
                                   vertical: 5, horizontal: 20),
                               child: MyOutlinedButtonWide(
                                 child: Text(
-                                  "Effacer",
+                                  getTranslation.erease,
                                 ),
                                 // color: AppTheme.secondaryColor(context),
                                 onPressed: () {
@@ -79,7 +80,7 @@ class _FilterDialogState extends State<FilterDialog> {
                             vertical: 5, horizontal: 20),
                         child: MyElevatedButtonWide(
                           child: Text(
-                            "Filtrer",
+                            getTranslation.filter,
                           ),
                           color: AppTheme.secondaryColor(context),
                           onPressed: () {
@@ -130,7 +131,7 @@ class _HeaderState extends State<Header> {
                   ReturnButton(
                     transparent: true,
                   ),
-                  Text("Filtres",
+                  Text(getTranslation.filters,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 26,
@@ -181,15 +182,15 @@ class _LocationSelectorState extends State<LocationSelector> {
         children: [
           TextFormField(
             //    validator: addAnnonceBloc.cityValidator,
-            decoration:
-                MyInputDecoration(title: "Votre emplacement", context: context),
+            decoration: MyInputDecoration(
+                title: getTranslation.your_location, context: context),
             controller: cityController,
             onTap: () {
               Navigator.push(
                   context,
                   SlideBottomRoute(
                       widget: SelectCity(
-                    title: "Votre emplacement",
+                    title: getTranslation.your_location,
                     citySelected: homeBloc.selectCity,
                   )));
             },

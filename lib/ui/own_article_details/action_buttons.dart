@@ -1,5 +1,6 @@
 import 'package:chedmed/ui/edit_annonce/edit_annonce.dart';
 import 'package:chedmed/ui/own_article_details/delete_annonce_dialog.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chedmed/ui/common/buttons.dart';
@@ -16,7 +17,7 @@ class ActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.only(right: 20, left: 20, top: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -30,7 +31,7 @@ class ActionButtons extends StatelessWidget {
                   )));
             },
             child: Text(
-              "Modifier",
+              getTranslation.edit,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -40,7 +41,7 @@ class ActionButtons extends StatelessWidget {
               displayDeleteAnnonceDialog(context, annonceId);
             },
             child: Text(
-              "Supprimer",
+              getTranslation.delete,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           )

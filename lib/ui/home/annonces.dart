@@ -3,6 +3,7 @@ import 'package:chedmed/ui/article_details/article_details.dart';
 import 'package:chedmed/ui/common/transitions.dart';
 import 'package:chedmed/ui/home/annonce_presentation.dart';
 import 'package:chedmed/ui/home/no_item_found.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -154,7 +155,8 @@ class ArticleCard extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(top: 2),
                             child: Text(
-                              annonce.prix.toString() + " DA",
+                              getTranslation
+                                  .curreny_var(annonce.prix.toString()),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
@@ -232,20 +234,6 @@ class ArticleCard extends StatelessWidget {
       ),
     );
   }
-}
-
-@Deprecated("RAyha ttbedel frr")
-class Annonce {
-  String titre;
-  String prix;
-  String localisation;
-  String image;
-  Annonce({
-    required this.titre,
-    required this.prix,
-    required this.localisation,
-    required this.image,
-  });
 }
 
 class ArticleCardLoading extends StatelessWidget {

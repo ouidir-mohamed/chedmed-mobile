@@ -1,5 +1,6 @@
 import 'package:chedmed/blocs/home_bloc.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class _RangeSelectionState extends State<RangeSelection> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 3),
-                child: Text("Distance",
+                child: Text(getTranslation.distance,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               ),
@@ -62,8 +63,8 @@ class _RangeSelectionState extends State<RangeSelection> {
               ),
               Text(
                 _moreThan100
-                    ? "Plus de 100 Km"
-                    : _maxDistance.toInt().toString() + " Km",
+                    ? getTranslation.more_than_100
+                    : getTranslation.km_var(_maxDistance.toInt().toString()),
                 style: TextStyle(fontSize: 15),
               ),
             ]));

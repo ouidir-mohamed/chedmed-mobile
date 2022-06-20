@@ -1,6 +1,7 @@
 import 'package:chedmed/blocs/delete_annonce_bloc.dart';
 import 'package:chedmed/ui/own_article_details/action_buttons.dart';
 import 'package:chedmed/ui/profile/self_annonce_presentation.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -178,7 +179,7 @@ class ArticleContent extends StatelessWidget {
                 ),
               ),
               Text(
-                annonce.prix.toString() + " DA",
+                getTranslation.curreny_var(annonce.prix.toString()),
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -189,7 +190,7 @@ class ArticleContent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 20, bottom: 10),
             child: Text(
-              "Description",
+              getTranslation.description,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
@@ -259,7 +260,7 @@ class ArticleContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "Livraison disponible",
+                              getTranslation.delivery_available,
                               style: TextStyle(
                                   fontSize: 15,
                                   color: AppTheme.textColor(context)),

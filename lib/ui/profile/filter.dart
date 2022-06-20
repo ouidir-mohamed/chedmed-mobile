@@ -1,4 +1,5 @@
 import 'package:chedmed/blocs/profile_bloc.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -25,7 +26,7 @@ class _FiltersState extends State<Filters> {
         child: Row(
           children: [
             CustomChip(
-              text: "Mes articles",
+              text: getTranslation.my_posts,
               isSelected: selected == 0,
               icon: Ionicons.person,
               onPressed: () {
@@ -36,7 +37,7 @@ class _FiltersState extends State<Filters> {
               },
             ),
             CustomChip(
-              text: "Articles favoris",
+              text: getTranslation.favorite_posts,
               isSelected: selected == 1,
               icon: Ionicons.heart,
               onPressed: () {

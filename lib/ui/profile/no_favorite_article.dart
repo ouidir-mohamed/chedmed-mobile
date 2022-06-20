@@ -1,5 +1,6 @@
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/common/buttons.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -26,14 +27,14 @@ class NoFavoriteArticle extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 10, bottom: 3),
             child: Text(
-              "Pas de favoris",
+              getTranslation.no_favorites,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
             ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 5),
             child: Text(
-              "Vous n'avez aucun article dans la liste des favoris, vous pouvez ajouter n'importe quelle articles trouvé dans vos rechercher a vos favoris afin de le retrouvé rapidement",
+              getTranslation.no_favorites_description,
               style: TextStyle(
                   fontSize: 16, color: AppTheme.headlineColor(context)),
               textAlign: TextAlign.center,

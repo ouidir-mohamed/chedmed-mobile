@@ -1,5 +1,6 @@
 import 'package:chedmed/blocs/visitor_profile_bloc.dart';
 import 'package:chedmed/ui/visitor_profile/articles_to_display.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chedmed/blocs/profile_bloc.dart';
@@ -38,7 +39,7 @@ class _VisitorProfileState extends State<VisitorProfile>
             physics: AlwaysScrollableScrollPhysics(),
             slivers: [
               SliverAppBar(
-                  expandedHeight: 260,
+                  expandedHeight: 268,
                   floating: false,
                   pinned: true,
                   elevation: 0,
@@ -104,7 +105,7 @@ class Header extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ReturnButton(transparent: true),
-              Text("Profile de vendeur",
+              Text(getTranslation.seller_profile,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 23,

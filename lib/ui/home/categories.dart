@@ -1,6 +1,7 @@
 import 'package:chedmed/blocs/home_bloc.dart';
 import 'package:chedmed/blocs/loading_ressources_bloc.dart';
 import 'package:chedmed/ui/common/category_presentation.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -20,7 +21,10 @@ class _CategoriesState extends State<Categories> {
 
   List<CategoryPresentation> categories = [
     CategoryPresentation(
-        id: null, name: "Tout", selected: true, icon: Icons.select_all)
+        id: null,
+        name: getTranslation.all,
+        selected: true,
+        icon: Icons.select_all)
   ];
 
   @override
@@ -46,7 +50,7 @@ class _CategoriesState extends State<Categories> {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: DynamicChipView(
         key: chipsKey,
-        title: "Catégorie",
+        title: getTranslation.category,
         chips: categories
             .map(
               (e) => ChipModel(

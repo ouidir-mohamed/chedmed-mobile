@@ -3,6 +3,8 @@ import 'package:chedmed/ui/common/ripple_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
+import '../../utils/language_helper.dart';
+
 class MyElevatedButtonSmall extends StatelessWidget {
   const MyElevatedButtonSmall(
       {this.child,
@@ -137,11 +139,9 @@ class ReturnButton extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.only(left: 14, right: 6, top: 10, bottom: 10),
             child: Icon(
-              // isDirectionRTL(context)
-              //     ? AntDesign.arrowright
-              //     :
-
-              MaterialIcons.arrow_back_ios,
+              isDirectionRTL(context)
+                  ? MaterialIcons.arrow_forward_ios
+                  : MaterialIcons.arrow_back_ios,
               color: textColor,
             ),
             decoration: BoxDecoration(
