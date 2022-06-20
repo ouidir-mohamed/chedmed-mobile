@@ -88,6 +88,26 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
           ),
         ],
       ),
+      SettingsSection(
+        title: Text("Autre"),
+        tiles: <SettingsTile>[
+          SettingsTile.navigation(
+            leading: Icon(Ionicons.information_circle),
+            title: Text("A proopos"),
+            trailing: ArrowIcon(context),
+            onPressed: (ctx) {
+              showAboutDialog(
+                  context: context,
+                  applicationName: "Ched Med",
+                  applicationVersion: "beta 1",
+                  useRootNavigator: true,
+                  children: [
+                    Text("Application de vente et achat gratuite ...."),
+                  ]);
+            },
+          ),
+        ],
+      ),
     ]);
   }
 }

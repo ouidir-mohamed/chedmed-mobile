@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   floating: false,
                   pinned: true,
                   elevation: 0,
-                  collapsedHeight: 75,
+                  collapsedHeight: 65,
                   toolbarHeight: 1,
                   shadowColor: Colors.transparent,
                   primary: false,
