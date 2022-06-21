@@ -125,7 +125,7 @@ class ArticleCard extends StatelessWidget {
                         topLeft: Radius.circular(8),
                         bottomLeft: Radius.circular(8)),
                     child: Image.network(
-                      annonce.images.first,
+                      AnnoncePresentation.getMiniImage(annonce.images.first),
                       fit: BoxFit.cover,
                       frameBuilder: (ctx, b, c, d) {
                         if (c == null) return Loading();

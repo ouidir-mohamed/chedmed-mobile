@@ -10,6 +10,7 @@ import '../article_details/article_details.dart';
 import '../common/app_theme.dart';
 import '../common/no_cache.dart';
 import '../common/transitions.dart';
+import '../home/annonce_presentation.dart';
 
 class SelfAnnonces extends StatefulWidget {
   const SelfAnnonces({Key? key}) : super(key: key);
@@ -114,7 +115,7 @@ class SelfArticleCard extends StatelessWidget {
                         topLeft: Radius.circular(8),
                         bottomLeft: Radius.circular(8)),
                     child: Image.network(
-                      annonce.images.first,
+                      AnnoncePresentation.getMiniImage((annonce.images.first)),
                       fit: BoxFit.cover,
                       frameBuilder: (ctx, b, c, d) {
                         if (c == null) return Loading();

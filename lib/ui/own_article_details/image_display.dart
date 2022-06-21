@@ -2,6 +2,7 @@ import 'package:chedmed/ui/own_article_details/image_full_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../common/buttons.dart';
+import '../home/annonce_presentation.dart';
 
 class ImageDisplay extends StatefulWidget {
   List<String> images;
@@ -86,7 +87,7 @@ class _ImageDisplayState extends State<ImageDisplay> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: images
                     .map((e) => ImagePreview(
-                          imageUrl: e,
+                          imageUrl: AnnoncePresentation.getMiniImage(e),
                           selected: e == selected,
                           imageTapped: () {
                             selectImage(e);

@@ -43,6 +43,10 @@ class _AnnonceFormState extends State<AnnonceForm> {
       });
     });
 
+    editAnnonceBloc.getSelectedCity.listen((event) {
+      cityController.text = event.name;
+    });
+
     super.initState();
   }
 

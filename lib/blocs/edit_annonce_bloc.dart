@@ -23,6 +23,8 @@ class EditAnnonceBloc {
 
   Stream<Annonce> get getInitialAnnonce => _initialAnnonceFetcher.stream;
   Stream<List<String>> get getInitialImages => _initialImagesFetcher.stream;
+
+  Stream<City> get getSelectedCity => _selectedCityFetcher.stream;
   Stream<void> get getDone => _doneFetcher.stream;
   Stream<String> get getImageErreur => _imageErreurFetcher.stream;
   Stream<bool> get getInitLoading => _initDataLoadingFetcher.stream;
@@ -99,7 +101,7 @@ class EditAnnonceBloc {
   }
 
   String? priceValidator(String? value) {
-    int? parsedValue = int.tryParse(value!);
+    int? parsedValue = int.tryParse(value!.replaceAll(" ", ""));
     if (parsedValue == null) return (getTranslation.price_invalide);
     if (parsedValue < 0) return (getTranslation.price_invalide);
     price = parsedValue;

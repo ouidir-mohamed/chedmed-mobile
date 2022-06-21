@@ -80,7 +80,7 @@ class AddAnnonceBloc {
   }
 
   String? priceValidator(String? value) {
-    int? parsedValue = int.tryParse(value!);
+    int? parsedValue = int.tryParse(value!.replaceAll(" ", ""));
     if (parsedValue == null) return (getTranslation.price_invalide);
     if (parsedValue < 0) return (getTranslation.price_invalide);
     price = parsedValue;

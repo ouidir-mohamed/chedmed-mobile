@@ -88,7 +88,7 @@ class _AnnonceFormState extends State<AnnonceForm> {
                         getTranslation.description, context)),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 3),
-                  child: Text(getTranslation.description,
+                  child: Text(getTranslation.location,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ),
