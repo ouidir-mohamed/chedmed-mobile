@@ -1,5 +1,6 @@
 import 'package:chedmed/blocs/home_bloc.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
+import 'package:chedmed/ui/home/filter_dialog/price_selection.dart';
 import 'package:chedmed/ui/home/filter_dialog/range_selection.dart';
 import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,7 @@ class _FilterDialogState extends State<FilterDialog> {
                       LocationSelector(),
                       DistanceSelection(),
                       RangeSelection(),
+                      PriceSelection()
                     ],
                   ),
                   Column(

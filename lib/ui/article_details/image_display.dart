@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
@@ -61,13 +63,14 @@ class _ImageDisplayState extends State<ImageDisplay> {
                               )));
                 },
                 child: Container(
-                  height: 250,
-                  width: double.infinity,
-                  child: Image.network(
-                    images.where((element) => element == selected).first,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    height: 250,
+                    width: double.infinity,
+                    child: DynamicImagePreview(
+                      fullSizePath:
+                          images.where((element) => element == selected).first,
+                      smallSizePath: AnnoncePresentation.getMiniImage(
+                          images.where((element) => element == selected).first),
+                    )),
               ),
               Positioned(
                 child: ZoomButton(
@@ -183,6 +186,61 @@ class ZoomButton extends StatelessWidget {
             // )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DynamicImagePreview extends StatelessWidget {
+  String fullSizePath;
+  String smallSizePath;
+  DynamicImagePreview({
+    Key? key,
+    required this.fullSizePath,
+    required this.smallSizePath,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    bool loaded = false;
+    return Container(
+      child: Image.network(
+        fullSizePath,
+        fit: BoxFit.cover,
+        loadingBuilder: (a, b, event) {
+          final expectedBytes = event?.expectedTotalBytes;
+          final loadedBytes = event?.cumulativeBytesLoaded;
+          final value = loadedBytes != null && expectedBytes != null
+              ? loadedBytes / expectedBytes
+              : null;
+
+          if (value == null) return b;
+          return Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                child: Image.network(
+                  smallSizePath,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                  child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                child: Center(
+                  child: SizedBox(
+                    width: 28,
+                    height: 28,
+                    child: CircularProgressIndicator(
+                      color: Colors.white.withOpacity(0.3),
+                      value: value,
+                    ),
+                  ),
+                ),
+              ))
+            ],
+          );
+        },
       ),
     );
   }

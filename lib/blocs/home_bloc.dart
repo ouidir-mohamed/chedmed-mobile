@@ -38,7 +38,11 @@ class HomeBloc {
         query: query,
         rayon: _maxDistanceFetcher.valueOrNull,
         category_id: _categorieFetcher.valueOrNull,
-        underCategory_id: _underCategoryFetcher.valueOrNull);
+        underCategory_id: _underCategoryFetcher.valueOrNull,
+        maxPrice: _maxPriceFetcher.valueOrNull,
+        minPrice: _minPriceFetcher.valueOrNull);
+
+    print(request.maxPrice.toString() + " " + request.minPrice.toString());
     await chedMedApi.filterPosts(request).then((value) {
       List<AnnoncePresentation> newAnnonces = [];
 
@@ -85,12 +89,18 @@ class HomeBloc {
   BehaviorSubject<City> _cityFetcher = BehaviorSubject<City>();
 
   BehaviorSubject<double> _maxDistanceFetcher = BehaviorSubject<double>();
+  BehaviorSubject<double?> _maxPriceFetcher = BehaviorSubject<double?>();
+
+  BehaviorSubject<double?> _minPriceFetcher = BehaviorSubject<double?>();
+
   BehaviorSubject<bool> _filtersEnabledFetcher = BehaviorSubject<bool>();
 
   Stream<int?> get getCategorie => _categorieFetcher.stream;
   Stream<int?> get getUnderCategorie => _underCategoryFetcher.stream;
   Stream<City> get getCity => _cityFetcher.stream;
   Stream<double> get getMaxDistance => _maxDistanceFetcher.stream;
+  Stream<double?> get getMaxPrice => _maxPriceFetcher.stream;
+  Stream<double?> get getMinPrice => _minPriceFetcher.stream;
 
   Stream<bool> get getFiltersEnabled =>
       _filtersEnabledFetcher.stream.startWith(false);
@@ -99,12 +109,16 @@ class HomeBloc {
   int? underCategoryCandidate;
   late City cityCandidate;
   double? distanceCandidate;
+  double? maxPriceCandidate;
+  double? minPriceCandidate;
 
   loadLatestFilters() {
     categoryCandidate = _categorieFetcher.valueOrNull;
     underCategoryCandidate = _underCategoryFetcher.valueOrNull;
     cityCandidate = _cityFetcher.value;
     distanceCandidate = _maxDistanceFetcher.valueOrNull;
+    minPriceCandidate = _minPriceFetcher.valueOrNull;
+    maxPriceCandidate = _maxPriceFetcher.valueOrNull;
   }
 
   initFilters() {
@@ -142,16 +156,22 @@ class HomeBloc {
     distanceCandidate = distance;
   }
 
+  setMaxPrice(String text) {
+    maxPriceCandidate = double.tryParse(text);
+  }
+
+  setMinPrice(String text) {
+    minPriceCandidate = double.tryParse(text);
+  }
+
   validateFilters() {
     _categorieFetcher.sink.add(categoryCandidate);
     _underCategoryFetcher.sink.add(underCategoryCandidate);
     _cityFetcher.sink.add(cityCandidate);
     _maxDistanceFetcher.sink.add(distanceCandidate!);
+    _minPriceFetcher.sink.add(minPriceCandidate);
+    _maxPriceFetcher.sink.add(maxPriceCandidate);
 
-    print(_categorieFetcher.value);
-    print(_underCategoryFetcher.value);
-    print(_cityFetcher.value);
-    print(_maxDistanceFetcher.value);
     _filtersEnabledFetcher.sink.add(true);
     currentPage = 1;
     getALl(displayShimmer: true);
@@ -162,10 +182,14 @@ class HomeBloc {
     _underCategoryFetcher.sink.add(null);
     _categorieFetcher.sink.add(null);
     _maxDistanceFetcher.sink.add(60);
+    _maxPriceFetcher.sink.add(null);
+    _minPriceFetcher.sink.add(null);
 
     categoryCandidate = null;
     underCategoryCandidate = null;
     distanceCandidate = 60;
+    maxPriceCandidate = null;
+    minPriceCandidate = null;
 
     currentPage = 1;
     getALl(displayShimmer: true);
