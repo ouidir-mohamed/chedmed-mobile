@@ -71,6 +71,13 @@ dev_dependencies:
     sdk: flutter
   retrofit_generator: any
   build_runner: any 
+  change_app_package_name: ^1.1.0
+  flutter_launcher_icons: "^0.9.3"
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -1,4 +1,4 @@
-package com.example.chedmed
+package com.sahel.mayva
 
 import io.flutter.embedding.android.FlutterActivity
 
