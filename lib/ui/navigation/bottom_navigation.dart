@@ -64,7 +64,9 @@ List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
       //activeColorSecondary: Colors.white
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(MaterialIcons.add_circle_outline),
+      icon: Icon(
+        FontAwesome.plus_square_o,
+      ),
       iconSize: 28,
       title: ("Ajouter"),
       activeColorPrimary: AppTheme.textColor(context),

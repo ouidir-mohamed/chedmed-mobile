@@ -88,7 +88,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
+      padding: const EdgeInsets.only(top: 0, bottom: 20, right: 20, left: 20),
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -18,8 +18,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
+  // make the launcher appear for 1 more second :)
+  await Future.delayed(Duration(seconds: 1));
   WidgetsFlutterBinding.ensureInitialized();
-
   HttpOverrides.global = new MyHttpOverrides();
   await SharedPreferenceData.init();
   locationsBloc.loadCties();

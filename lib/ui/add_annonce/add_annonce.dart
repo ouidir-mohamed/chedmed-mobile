@@ -26,9 +26,9 @@ class AddAnnonce extends StatelessWidget {
           child: Column(
             children: [
               Header(),
+              ImageSelection(),
               CategoriesSelection(),
               AnnonceForm(),
-              ImageSelection(),
               AddButton()
             ],
           ),

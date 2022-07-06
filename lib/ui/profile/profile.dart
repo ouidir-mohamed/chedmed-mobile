@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../navigation/bottom_navigation.dart';
 import 'filter.dart';
 
 class Profile extends StatefulWidget {
@@ -101,11 +102,23 @@ class Header extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(getTranslation.my_profile,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 23,
-                      color: AppTheme.textColor(context))),
+              Expanded(
+                child: Text(getTranslation.my_profile,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 23,
+                        color: AppTheme.textColor(context))),
+              ),
+              InkWell(
+                onTap: () {
+                  navigationController.jumpToTab(1);
+                },
+                child: Icon(
+                  FontAwesome.plus_square_o,
+                  color: AppTheme.textColor(context),
+                  size: 33,
+                ),
+              )
             ],
           ),
         ],

@@ -1,9 +1,12 @@
 import 'package:chedmed/blocs/home_bloc.dart';
+import 'package:chedmed/ui/home/add_button.dart';
+import 'package:chedmed/ui/navigation/bottom_navigation.dart';
 import 'package:chedmed/utils/language_helper.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:chedmed/ui/common/app_theme.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 
 import 'annonces.dart';
 import 'categories.dart';
@@ -21,12 +24,16 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    shrinkButton();
     homeBloc.initFilters();
     homeBloc.getALl(displayShimmer: true);
     controller.addListener(() {
       bool bottomReached =
           controller.position.pixels == controller.position.maxScrollExtent;
       if (bottomReached) homeBloc.getExtra();
+      bool topReached =
+          controller.position.pixels == controller.position.minScrollExtent;
+      if (topReached) expandButton();
     });
 
     homeBloc.getScrollDown.listen((event) {
@@ -34,6 +41,24 @@ class _HomePageState extends State<HomePage> {
           duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
     super.initState();
+  }
+
+  var _addExtended = true;
+  void shrinkButton() async {
+    if (!_addExtended) return;
+    await Future.delayed(Duration(seconds: 5));
+    if (mounted)
+      setState(() {
+        _addExtended = false;
+      });
+  }
+
+  expandButton() {
+    if (_addExtended) return;
+    setState(() {
+      _addExtended = true;
+    });
+    shrinkButton();
   }
 
   @override
@@ -93,18 +118,7 @@ class _HomePageState extends State<HomePage> {
                 ]),
           ),
           // Positioned(
-          //     bottom: 8,
-          //     right: 8,
-          //     child: FloatingActionButton(
-          //       onPressed: () {
-          //         Navigator.push(
-          //             context, SlideRightRoute(widget: AddAnnonce()));
-          //       },
-          //       child: Icon(
-          //         FontAwesome.plus,
-          //         color: AppTheme.cardColor(context),
-          //       ),
-          //     ))
+          //     child: AddButton(isExtended: _addExtended), bottom: 7, right: 5),
         ],
       ),
     ));
@@ -116,28 +130,43 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(getTranslation.app_name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26,
-                  )),
-            ],
-          ),
-          Text(getTranslation.app_name_description,
-              style: TextStyle(
-                fontWeight: FontWeight.normal,
-                color: AppTheme.headlineColor(context),
-                fontSize: 16,
-              )),
-        ],
+      child: Container(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(getTranslation.app_name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26,
+                      )),
+                  Text(getTranslation.app_name_description,
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        color: AppTheme.headlineColor(context),
+                        fontSize: 16,
+                      )),
+                ],
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                navigationController.jumpToTab(1);
+              },
+              child: Icon(
+                FontAwesome.plus_square_o,
+                color: AppTheme.textColor(context),
+                size: 33,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

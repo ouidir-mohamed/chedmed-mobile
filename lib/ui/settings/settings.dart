@@ -98,7 +98,7 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
             onPressed: (ctx) {
               showAboutDialog(
                   context: context,
-                  applicationName: "Ched Med",
+                  applicationName: "Sahel ",
                   applicationVersion: "beta 1",
                   useRootNavigator: true,
                   children: [
