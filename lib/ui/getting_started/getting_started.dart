@@ -48,8 +48,7 @@ class _GettingStartedState extends State<GettingStarted> {
       MyPageViewModel(
           asset: "./assets/name.svg",
           title: "Votre nom",
-          body:
-              "Choisir un nom pour votre profile dans l'application, votre nom sera pas partagé avec les autres utilisateurs",
+          body: "Choisir un nom pour votre profile dans l'application",
           input: Form(
             key: gettingStartedBloc.nameFormKey,
             child: TextFormField(

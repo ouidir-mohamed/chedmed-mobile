@@ -10,7 +10,7 @@ part of 'repository.dart';
 
 class _ChedMedApi implements ChedMedApi {
   _ChedMedApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://51.68.120.55/api/';
+    baseUrl ??= 'http://51.77.137.247:5000/api/';
   }
 
   final Dio _dio;
@@ -249,6 +249,23 @@ class _ChedMedApi implements ChedMedApi {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UserProfile.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<VersionCheckResponse> versionCheck(request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<VersionCheckResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/version/',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = VersionCheckResponse.fromJson(_result.data!);
     return value;
   }
 

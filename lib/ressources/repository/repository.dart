@@ -7,6 +7,7 @@ import 'package:chedmed/models/profile.dart';
 import 'package:chedmed/models/user_request.dart';
 import 'package:chedmed/models/user_response.dart';
 import 'package:chedmed/models/annonce.dart';
+import 'package:chedmed/models/version_check.dart';
 
 import 'package:chedmed/ressources/repository/fake_repository.dart';
 import 'package:chedmed/ui/profile/profile.dart';
@@ -15,7 +16,7 @@ import 'package:dio/dio.dart';
 part "repository_implementation.dart";
 part 'repository.g.dart';
 
-const BASE_URL = "http://51.68.120.55/api/";
+const BASE_URL = "http://51.77.137.247:5000/api/";
 
 @RestApi(baseUrl: BASE_URL)
 abstract class ChedMedApi {
@@ -62,6 +63,10 @@ abstract class ChedMedApi {
 
   @GET("/user/informations/{userId}")
   Future<UserProfile> userPublicInfo(@Path("userId") userId);
+
+  @POST("/version/")
+  Future<VersionCheckResponse> versionCheck(
+      @Body() VersionCheckRequest request);
 }
 
 abstract class ChedMedApiFormData {

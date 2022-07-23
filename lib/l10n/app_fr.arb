@@ -116,10 +116,15 @@
   "@___SETTINGS": {},
   "global":"Général",
   "language":"Langue",
+  "acount":"Compte",
+  "other":"Autre",
+  "about":"A propos",
+
   "theme":"Thémé",
   "system_default":"Selon le systéme",
   "bright":"Claire",
-  "dark":"Sombre"
+  "dark":"Sombre",
+  "choose_your_language":"Choisissez votre langue"
 
 
 

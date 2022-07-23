@@ -24,7 +24,7 @@ displayLanguageMenu(BuildContext context) {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Text(
-                    "Choisissez votre langue",
+                    getTranslation.choose_your_language,
                     style: TextStyle(fontSize: 17),
                   ),
                 ),

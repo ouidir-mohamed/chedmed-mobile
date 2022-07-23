@@ -70,7 +70,7 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
         ],
       ),
       SettingsSection(
-        title: Text("Compte"),
+        title: Text(getTranslation.acount),
         tiles: <SettingsTile>[
           SettingsTile.navigation(
             leading: Icon(Ionicons.location_sharp),
@@ -89,11 +89,11 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
         ],
       ),
       SettingsSection(
-        title: Text("Autre"),
+        title: Text(getTranslation.other),
         tiles: <SettingsTile>[
           SettingsTile.navigation(
             leading: Icon(Ionicons.information_circle),
-            title: Text("A proopos"),
+            title: Text(getTranslation.about),
             trailing: ArrowIcon(context),
             onPressed: (ctx) {
               showAboutDialog(

@@ -5,43 +5,24 @@ import 'package:collection/collection.dart';
 class Category {
   int id;
   String name;
+  String nameAr;
   List<UnderCategory> underCategory;
   Category({
     required this.id,
     required this.name,
+    required this.nameAr,
     required this.underCategory,
   });
-
-  Category copyWith({
-    int? id,
-    String? name,
-    List<UnderCategory>? underCategory,
-  }) {
-    return Category(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      underCategory: underCategory ?? this.underCategory,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'underCategory': underCategory.map((x) => x.toMap()).toList(),
-    };
-  }
 
   factory Category.fromJson(Map<String, dynamic> map) {
     return Category(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
+      nameAr: map['nameAr'] ?? '',
       underCategory: List<UnderCategory>.from(
           map['underCategory']?.map((x) => UnderCategory.fromJson(x))),
     );
   }
-
-  String toJson() => json.encode(toMap());
 
   @override
   String toString() =>
@@ -65,36 +46,15 @@ class Category {
 class UnderCategory {
   int? id;
   String name;
-  UnderCategory({
-    required this.id,
-    required this.name,
-  });
-
-  UnderCategory copyWith({
-    int? id,
-    String? name,
-  }) {
-    return UnderCategory(
-      id: id ?? this.id,
-      name: name ?? this.name,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-    };
-  }
+  String nameAr;
+  UnderCategory({required this.id, required this.name, required this.nameAr});
 
   factory UnderCategory.fromJson(Map<String, dynamic> map) {
     return UnderCategory(
-      id: map['id']?.toInt() ?? 0,
-      name: map['name'] ?? '',
-    );
+        id: map['id']?.toInt() ?? 0,
+        name: map['name'] ?? '',
+        nameAr: map["nameAr"] ?? "");
   }
-
-  String toJson() => json.encode(toMap());
 
   @override
   String toString() => 'UnderCategory(id: $id, name: $name)';

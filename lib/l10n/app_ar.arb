@@ -114,11 +114,17 @@
 
   "@___SETTINGS": {},
   "global":"عامة",
+  "acount":"الحساب",
+  "other":"اخرى",
   "language":"اللغة",
+  "about":"حول التطبيق",
+
   "theme":"الالوان",
   "system_default":"حسب الهاتف",
   "bright":"عادي",
-  "dark":"مظلم"
+  "dark":"مظلم",
+  "choose_your_language":" اختر لغتك"
+
 
 
 

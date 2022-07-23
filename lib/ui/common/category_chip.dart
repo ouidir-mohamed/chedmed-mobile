@@ -1,18 +1,21 @@
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/common/category_presentation.dart';
 import 'package:chedmed/ui/home/categories.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/category.dart';
 
-class CategoryChip extends StatelessWidget {
+class CategoryChipZ extends StatelessWidget {
   CategoryPresentation category;
   void Function()? onTap;
-  CategoryChip({Key? key, required this.category, this.onTap})
+  CategoryChipZ({Key? key, required this.category, this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var local = currentLocale(context).languageCode;
+    print(local);
     return Container(
       decoration: BoxDecoration(
         color: AppTheme.cardColor(context),
@@ -39,7 +42,7 @@ class CategoryChip extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  category.name,
+                  local == "ar" ? category.nameAr : category.name,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: category.selected

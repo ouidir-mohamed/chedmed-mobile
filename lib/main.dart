@@ -4,6 +4,7 @@ import 'package:chedmed/blocs/location_helper.dart';
 import 'package:chedmed/blocs/locations_bloc.dart';
 import 'package:chedmed/blocs/settings_bloc.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
+import 'package:chedmed/ui/check_version/check_version.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:chedmed/ui/common/ripple_effect.dart';
 import 'package:chedmed/ui/getting_started/getting_started.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
                       GlobalCupertinoLocalizations.delegate,
                     ],
                     supportedLocales: AppLocalizations.supportedLocales,
-                    home: SessionLoadingScreen());
+                    home: CheckVersion());
               });
         });
   }

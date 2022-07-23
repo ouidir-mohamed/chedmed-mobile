@@ -2,6 +2,7 @@ import 'package:chedmed/ui/common/ripple_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
+import '../../utils/language_helper.dart';
 import 'app_theme.dart';
 
 class ChipModel {
@@ -177,12 +178,16 @@ class CustomChip extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             icon != null
-                ? Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: Icon(
-                      icon,
-                      size: 18,
-                    ),
+                ? Row(
+                    children: [
+                      Icon(
+                        icon,
+                        size: 18,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                      )
+                    ],
                   )
                 : Container(),
             Text(text),

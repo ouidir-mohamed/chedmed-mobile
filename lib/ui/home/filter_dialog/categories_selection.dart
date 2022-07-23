@@ -25,12 +25,14 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
     CategoryPresentation(
         id: null,
         name: getTranslation.all,
+        nameAr: getTranslation.all,
         selected: true,
         icon: Icons.select_all)
   ];
 
   List<UnderCategory> underCategories = [
-    UnderCategory(id: null, name: getTranslation.all)
+    UnderCategory(
+        id: null, name: getTranslation.all, nameAr: getTranslation.all)
   ];
 
   @override
@@ -66,7 +68,10 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
   selectCategoty(int? categoryId) {
     setState(() {
       selectUnderCategory(null);
-      underCategories = [UnderCategory(id: null, name: getTranslation.all)];
+      underCategories = [
+        UnderCategory(
+            id: null, name: getTranslation.all, nameAr: getTranslation.all)
+      ];
       chipsUnderCategoryKey.currentState!.selectItem(0);
 
       if (categoryId != null)
@@ -84,6 +89,8 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
 
   @override
   Widget build(BuildContext context) {
+    var local = currentLocale(context).languageCode;
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       width: double.infinity,
@@ -96,7 +103,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
             chips: categories
                 .map(
                   (e) => ChipModel(
-                    title: e.name,
+                    title: local == "ar" ? e.nameAr : e.name,
                     icon: e.icon,
                     onPressed: () {
                       selectCategoty(e.id);
@@ -112,7 +119,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
             chips: underCategories
                 .map(
                   (e) => ChipModel(
-                    title: e.name,
+                    title: local == "ar" ? e.nameAr : e.name,
                     onPressed: () {
                       selectUnderCategory(e.id);
                     },

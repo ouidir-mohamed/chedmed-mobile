@@ -1,8 +1,10 @@
+import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
+
 import 'package:chedmed/models/annonce.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/utils/language_helper.dart';
 import 'package:chedmed/utils/time_formatter.dart';
-import 'package:intl/intl.dart';
 
 class AnnoncePresentation {
   int id;
@@ -20,6 +22,8 @@ class AnnoncePresentation {
   String username;
   int userId;
   String vues;
+  LatLng geoLocation;
+  String locationName;
   AnnoncePresentation({
     required this.id,
     required this.titre,
@@ -35,6 +39,8 @@ class AnnoncePresentation {
     required this.username,
     required this.userId,
     required this.vues,
+    required this.geoLocation,
+    required this.locationName,
   });
 
   static AnnoncePresentation toAnnoncePresentation(Annonce annonce) {
@@ -64,7 +70,9 @@ class AnnoncePresentation {
         username: annonce.user.username,
         delivery: annonce.delivry,
         vues: numberToText(annonce.vues),
-        favorite: favorite);
+        favorite: favorite,
+        geoLocation: LatLng(annonce.location.lat, annonce.location.long),
+        locationName: annonce.location.name);
   }
 
   static String numberToText(int number) {

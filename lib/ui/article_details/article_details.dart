@@ -2,6 +2,7 @@ import 'package:chedmed/blocs/article_details_bloc.dart';
 import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:like_button/like_button.dart';
 
 import 'package:chedmed/ui/article_details/call_button.dart';
@@ -14,6 +15,7 @@ import '../common/buttons.dart';
 import '../common/no_cache.dart';
 import '../common/transitions.dart';
 import 'image_display.dart';
+import 'map_view.dart';
 
 class ArticleDetails extends StatefulWidget {
   AnnoncePresentation annonce;
@@ -254,27 +256,6 @@ class ArticleContent extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 3),
                         child: Icon(
-                          Ionicons.location_sharp,
-                          color: AppTheme.primaryColor(context),
-                          size: 20,
-                        ),
-                      ),
-                      Text(
-                        annonce.localisation,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: AppTheme.headlineColor(context)),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 1),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 3),
-                        child: Icon(
                           Ionicons.md_time_sharp,
                           color: AppTheme.primaryColor(context),
                           size: 20,
@@ -287,6 +268,36 @@ class ArticleContent extends StatelessWidget {
                             color: AppTheme.headlineColor(context)),
                       )
                     ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    showMapBottomSheet(
+                        context, annonce.geoLocation, annonce.locationName);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 3),
+                          child: Icon(
+                            Ionicons.location_sharp,
+                            color: AppTheme.primaryColor(context),
+                            size: 20,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            annonce.localisation,
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: AppTheme.headlineColor(context)),
+                          ),
+                        ),
+                        Icon(Icons.map, color: AppTheme.primaryColor(context))
+                      ],
+                    ),
                   ),
                 ),
                 annonce.delivery

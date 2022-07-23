@@ -146,12 +146,12 @@ class Header extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 26,
                       )),
-                  Text(getTranslation.app_name_description,
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        color: AppTheme.headlineColor(context),
-                        fontSize: 16,
-                      )),
+                  // Text(getTranslation.app_name_description,
+                  //     style: TextStyle(
+                  //       fontWeight: FontWeight.normal,
+                  //       color: AppTheme.headlineColor(context),
+                  //       fontSize: 16,
+                  //     )),
                 ],
               ),
             ),

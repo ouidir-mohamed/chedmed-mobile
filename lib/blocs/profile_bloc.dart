@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../ui/common/snackbar.dart';
+import '../utils/language_helper.dart';
 
 class ProfileBloc {
   BehaviorSubject<int> _tabFetcher = BehaviorSubject<int>();
@@ -103,8 +104,9 @@ class ProfileBloc {
 
   String phone = "";
   String? phoneValidator(String? value) {
-    if (value == null || value.length == 0 || value.length > 10)
-      return ("Ce numéro n'est pas valide");
+    var reg = RegExp(r'^(0)(5|6|7|)[0-9]{8}$');
+    if (!reg.hasMatch(value!)) return (getTranslation.phone_invalide);
+
     phone = value;
     return null;
   }

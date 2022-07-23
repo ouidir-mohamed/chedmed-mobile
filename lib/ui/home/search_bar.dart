@@ -70,6 +70,9 @@ class _SearchBarState extends State<SearchBar> {
                     filled: true),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+            ),
             Container(
               decoration: BoxDecoration(
                 color: filterEnabled
@@ -77,7 +80,6 @@ class _SearchBarState extends State<SearchBar> {
                     : AppTheme.cardColor(context),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
-              margin: EdgeInsets.only(left: 10),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(

@@ -94,6 +94,8 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
 
   @override
   Widget build(BuildContext context) {
+    var local = currentLocale(context).languageCode;
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
       width: double.infinity,
@@ -106,7 +108,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
             chips: categories
                 .map(
                   (e) => ChipModel(
-                    title: e.name,
+                    title: local == "ar" ? e.nameAr : e.name,
                     icon: e.icon,
                     onPressed: () {
                       select(e.id);
@@ -121,7 +123,7 @@ class _CategoriesSelectionState extends State<CategoriesSelection> {
             chips: underCategories
                 .map(
                   (e) => ChipModel(
-                    title: e.name,
+                    title: local == "ar" ? e.nameAr : e.name,
                     onPressed: () {
                       selectType(e.id);
                     },
