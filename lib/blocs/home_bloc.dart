@@ -49,18 +49,19 @@ class HomeBloc {
     }
 
     if (displayShimmer) _loadingFetcher.sink.add(true);
+    var rayon = _maxDistanceFetcher.valueOrNull;
+    if (!(_filtersEnabledFetcher.valueOrNull ?? false)) rayon = 110;
 
     var request = FilterRequest(
         page: currentPage,
         point: _cityFetcher.value,
         query: query,
-        rayon: _maxDistanceFetcher.valueOrNull,
+        rayon: rayon,
         category_id: _categorieFetcher.valueOrNull,
         underCategory_id: _underCategoryFetcher.valueOrNull,
         maxPrice: _maxPriceFetcher.valueOrNull,
         minPrice: _minPriceFetcher.valueOrNull);
 
-    print(request.maxPrice.toString() + " " + request.minPrice.toString());
     await chedMedApi.filterPosts(request).then((value) {
       List<AnnoncePresentation> newAnnonces = [];
 

@@ -223,12 +223,27 @@ class ArticleContent extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
-                getTranslation.curreny_var(annonce.prix.toString()),
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.primaryColor(context)),
+              Row(
+                children: [
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Text(
+                      annonce.prix.toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: AppTheme.primaryColor(context)),
+                    ),
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 2)),
+                  Text(
+                    getTranslation.curreny,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: AppTheme.primaryColor(context)),
+                  ),
+                ],
               ),
             ],
           ),

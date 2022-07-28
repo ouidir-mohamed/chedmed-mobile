@@ -182,7 +182,13 @@ class _LocationSelectorState extends State<LocationSelector> {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 3),
+            child: Text(getTranslation.location,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          ),
           TextFormField(
             //    validator: addAnnonceBloc.cityValidator,
             decoration: MyInputDecoration(

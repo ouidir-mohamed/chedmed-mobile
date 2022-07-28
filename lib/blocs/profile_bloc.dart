@@ -96,8 +96,9 @@ class ProfileBloc {
 
   String username = "";
   String? nameValidator(String? value) {
-    if (value == null || value.length == 0) return ("Le nom est obligatoire");
-    if (value.length > 50) return ("Le nom est trés long");
+    if (value == null || value.length == 0)
+      return (getTranslation.name_required);
+    if (value.length > 50) return (getTranslation.name_too_long);
     username = value;
     return null;
   }
@@ -123,7 +124,7 @@ class ProfileBloc {
         .then((value) {
       loadProfile();
       _editDoneFetcher.sink.add(null);
-      displayProfileEditSnackbar("Profile modifié avec succées");
+      displayProfileEditSnackbar(getTranslation.profile_edited);
     }).whenComplete(() {
       _editLoadingFetcher.sink.add(false);
     });

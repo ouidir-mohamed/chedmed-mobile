@@ -144,13 +144,29 @@ class SelfArticleCard extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 2),
-                            child: Text(
-                              getTranslation
-                                  .curreny_var(annonce.prix.toString()),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: AppTheme.primaryColor(context)),
+                            child: Row(
+                              children: [
+                                Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: Text(
+                                    annonce.prix.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: AppTheme.primaryColor(context)),
+                                  ),
+                                ),
+                                Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 2)),
+                                Text(
+                                  getTranslation.curreny,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: AppTheme.primaryColor(context)),
+                                ),
+                              ],
                             ),
                           ),
                         ],

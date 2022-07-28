@@ -139,9 +139,9 @@ class _UserInfosState extends State<UserInfos> {
                 profile.username,
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
               ),
-              Text(profile.phone,
-                  style: TextStyle(
-                      fontSize: 15, color: AppTheme.headlineColor(context))),
+              // Text(profile.phone,
+              //     style: TextStyle(
+              //         fontSize: 15, color: AppTheme.headlineColor(context))),
             ],
           ),
         ),

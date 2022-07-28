@@ -6,6 +6,7 @@ import 'package:chedmed/ui/common/location_selection.dart';
 import 'package:chedmed/ui/common/transitions.dart';
 import 'package:chedmed/ui/common/select_city.dart';
 import 'package:chedmed/ui/navigation/bottom_navigation.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -47,26 +48,26 @@ class _GettingStartedState extends State<GettingStarted> {
     final pages = [
       MyPageViewModel(
           asset: "./assets/name.svg",
-          title: "Votre nom",
-          body: "Choisir un nom pour votre profile dans l'application",
+          title: getTranslation.your_name,
+          body: getTranslation.your_name_desc,
           input: Form(
             key: gettingStartedBloc.nameFormKey,
             child: TextFormField(
-              decoration: MyInputDecoration(title: "Nom", context: context),
+              decoration: MyInputDecoration(
+                  title: getTranslation.name, context: context),
               validator: gettingStartedBloc.nameValidator,
             ),
           ),
           context: context),
       MyPageViewModel(
           asset: "./assets/phone.svg",
-          title: "Votre numéro de téléphone",
-          body:
-              "C'est le numéro de téléphone qui sera attribuée a vos annonces",
+          title: getTranslation.your_phone,
+          body: getTranslation.your_phone_desc,
           input: Form(
             key: gettingStartedBloc.numberFormKey,
             child: TextFormField(
-              decoration:
-                  MyInputDecoration(title: "Téléphone", context: context),
+              decoration: MyInputDecoration(
+                  title: getTranslation.phone, context: context),
               validator: gettingStartedBloc.phoneValidator,
               keyboardType: TextInputType.phone,
             ),
@@ -74,8 +75,8 @@ class _GettingStartedState extends State<GettingStarted> {
           context: context),
       MyPageViewModel(
           asset: "./assets/location.svg",
-          title: "Votre emplacement",
-          body: "Pour trouver des annonces a proximitée de votre emplacement",
+          title: getTranslation.your_location,
+          body: getTranslation.your_location_desc,
           input: Form(
             key: gettingStartedBloc.cityFormKey,
             child: Row(
@@ -89,14 +90,14 @@ class _GettingStartedState extends State<GettingStarted> {
                           context,
                           SlideBottomRoute(
                               widget: SelectCity(
-                            title: "Votre emplacement",
+                            title: getTranslation.your_location,
                             citySelected: gettingStartedBloc.selectCity,
                           )));
                     },
                     readOnly: true,
                     controller: cityController,
                     decoration: MyInputDecoration(
-                        title: "Emplacement", context: context),
+                        title: getTranslation.location, context: context),
                   ),
                 ),
                 // Container(
@@ -126,8 +127,8 @@ class _GettingStartedState extends State<GettingStarted> {
           context: context),
       MyPageViewModel(
           asset: "./assets/awesome.svg",
-          title: "Parfait",
-          body: "Tout est prét, vous pouvez commencer a utiliser l'application",
+          title: getTranslation.great,
+          body: getTranslation.great_desc,
           context: context),
     ];
     return Scaffold(
@@ -138,7 +139,9 @@ class _GettingStartedState extends State<GettingStarted> {
         showBackButton: true,
         overrideBack: MyTextButton(
             child: Icon(
-              MaterialIcons.arrow_back_ios,
+              isDirectionRTL(context)
+                  ? MaterialIcons.arrow_forward_ios
+                  : MaterialIcons.arrow_back_ios,
               color: AppTheme.textColor(context),
             ),
             onPressed: () {
@@ -149,7 +152,7 @@ class _GettingStartedState extends State<GettingStarted> {
             gettingStartedBloc.handleNext();
           },
           child: Text(
-            "Suivant",
+            getTranslation.next,
             style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
@@ -167,7 +170,7 @@ class _GettingStartedState extends State<GettingStarted> {
               ? Container(
                   width: 15, height: 15, child: CircularProgressIndicator())
               : Text(
-                  "Commencer",
+                  getTranslation.start,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,

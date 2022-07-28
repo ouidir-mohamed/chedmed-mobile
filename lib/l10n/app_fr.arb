@@ -1,6 +1,32 @@
 {
   "language_name":"Français",
   
+
+
+  
+  "@__GETTING_STARTED": {},
+     "name":"Nom",
+     "your_name":"Votre Nom",
+     "your_name_desc": "Choisir un nom pour votre profile dans l'application",
+     
+     "your_phone":"Votre numéro de téléphone",
+     "your_phone_desc": "C'est le numéro de téléphone qui sera attribuée a vos annonces. \nVotre numéro sera pas partagé sauf si vous avez posté desannonce",
+
+     "your_location_desc": "Pour trouver des annonces a proximitée de votre emplacement",
+     
+
+     "great":"Parfait !",
+     "great_desc":"Tout est prét, vous pouvez commencer a utiliser l'application",
+     "next":"Suivant",
+     "start":"Commencer",
+
+
+     "name_required":"Le nom est obligatoire",
+     "name_too_long":"Le nom trés long",
+     "city_required":"Veuillez sélectionnez une ville",
+   
+
+
   "@__HOME": {},
 
 
@@ -14,6 +40,8 @@
 
 
   "nearby_posts":"Annonces à proximité",
+  "all_posts":"Toutes les annonces",
+
   "added_to_fav":"Annonce ajoutée aux favoris",
   "removed_from_fav":"Annonce supprimée des favoris",
 
@@ -42,6 +70,7 @@
  }
   },
 
+  "curreny":"DA",
 
   "curreny_var":"{value} DA",
   "@curreny_var":{
@@ -111,6 +140,7 @@
   "edit_post":"Modifier l'annonce",
   "post_edited":"Votre annonce a été modifiée",
   "post_deleted":"Votre annonce a été supprimée",
+  "profile_edited":"Profile modifié avec succées",
 
 
   "@___SETTINGS": {},
@@ -120,7 +150,7 @@
   "other":"Autre",
   "about":"A propos",
 
-  "theme":"Thémé",
+  "theme":"Théme",
   "system_default":"Selon le systéme",
   "bright":"Claire",
   "dark":"Sombre",

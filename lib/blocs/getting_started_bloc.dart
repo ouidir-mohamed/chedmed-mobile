@@ -31,8 +31,9 @@ class GettingStartedBloc {
   Stream<bool> get getError => _errorFetchr.stream;
   String username = "";
   String? nameValidator(String? value) {
-    if (value == null || value.length == 0) return ("Le nom est obligatoire");
-    if (value.length > 50) return ("Le nom est trés long");
+    if (value == null || value.length == 0)
+      return (getTranslation.name_required);
+    if (value.length > 50) return (getTranslation.name_too_long);
     username = value;
     return null;
   }
@@ -46,8 +47,7 @@ class GettingStartedBloc {
   }
 
   String? cityValidator(String? value) {
-    if (!_selectedCityFetcher.hasValue)
-      return ("Veuillez sélectionnez une ville");
+    if (!_selectedCityFetcher.hasValue) return (getTranslation.city_required);
     return null;
   }
 
@@ -166,9 +166,9 @@ addTokenInterceptor(String token) {
   }));
 }
 
-bypassStart() {
-  addTokenInterceptor(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjYyLCJ1c2VybmFtZSI6ImFrIGNoYXllZiAiLCJwaG9vbmUiOiI2NjY2IiwiaWF0IjoxNjU0NzI1NjQ1LCJleHAiOjE2NTczMTc2NDV9.Ld20WGPwqzoCgZrkNDoYGXt7EWK3ewmhYxhO_Ze--mY");
-  Navigator.pushReplacement(requireContext(),
-      MaterialPageRoute(builder: (context) => LoadingScreen()));
-}
+// bypassStart() {
+//   addTokenInterceptor(
+//       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjYyLCJ1c2VybmFtZSI6ImFrIGNoYXllZiAiLCJwaG9vbmUiOiI2NjY2IiwiaWF0IjoxNjU0NzI1NjQ1LCJleHAiOjE2NTczMTc2NDV9.Ld20WGPwqzoCgZrkNDoYGXt7EWK3ewmhYxhO_Ze--mY");
+//   Navigator.pushReplacement(requireContext(),
+//       MaterialPageRoute(builder: (context) => LoadingScreen()));
+// }

@@ -187,8 +187,33 @@ class Header extends StatelessWidget {
   }
 }
 
-class ArticlesHeader extends StatelessWidget {
+class ArticlesHeader extends StatefulWidget {
   const ArticlesHeader({Key? key}) : super(key: key);
+
+  @override
+  State<ArticlesHeader> createState() => _ArticlesHeaderState();
+}
+
+class _ArticlesHeaderState extends State<ArticlesHeader> {
+  bool filtersEnabled = false;
+  double? maxDistance = null;
+
+  @override
+  void initState() {
+    homeBloc.getFiltersEnabled.listen((event) {
+      setState(() {
+        filtersEnabled = event;
+      });
+    });
+
+    homeBloc.getMaxDistance.listen((event) {
+      setState(() {
+        maxDistance = event;
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +221,10 @@ class ArticlesHeader extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       child: Row(
         children: [
-          Text(getTranslation.nearby_posts,
+          Text(
+              (filtersEnabled && (maxDistance ?? 110) < 100)
+                  ? getTranslation.nearby_posts
+                  : getTranslation.all_posts,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 23,

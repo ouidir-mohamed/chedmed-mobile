@@ -36,7 +36,17 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
   void initState() {
     settingsBloc.selectedTheme.listen((event) {
       setState(() {
-        themeName = event.name;
+        switch (event.code) {
+          case "light":
+            themeName = getTranslation.bright;
+            break;
+          case "dark":
+            themeName = getTranslation.dark;
+            break;
+          default:
+            themeName = getTranslation.system_default;
+            break;
+        }
       });
     });
     settingsBloc.getDefaultCity.listen((event) {

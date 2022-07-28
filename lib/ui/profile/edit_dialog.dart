@@ -1,5 +1,6 @@
 import 'package:chedmed/blocs/profile_bloc.dart';
 import 'package:chedmed/ui/common/inputs.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
@@ -58,16 +59,18 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
+          Row(
             children: [
-              Container(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Text('Modifier '),
-                width: double.infinity,
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Text(getTranslation.edit),
+                  width: double.infinity,
+                ),
               ),
-              Positioned(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Icon(Entypo.edit),
-                right: 0,
               ),
             ],
           ),
@@ -92,7 +95,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, top: 20),
-                        child: Text("Nom",
+                        child: Text(getTranslation.name,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
                       ),
@@ -104,11 +107,11 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                         // focusNode: startFocusNode,
 
                         decoration: MyInputDecoration(
-                            title: "Votre nom", context: context),
+                            title: getTranslation.your_name, context: context),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, top: 20),
-                        child: Text("Téléphone",
+                        child: Text(getTranslation.phone,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
                       ),
@@ -121,7 +124,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                         // focusNode: startFocusNode,
 
                         decoration: MyInputDecoration(
-                            title: "Votre numéro", context: context),
+                            title: getTranslation.your_phone, context: context),
                       ),
                       Container(
                         height: 50,
@@ -154,7 +157,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
       actions: <Widget>[
         MyTextButton(
           onPressed: () => Navigator.pop(context, 'Annuler'),
-          child: const Text('Annuler'),
+          child: Text(getTranslation.cancel),
         ),
         MyTextButton(
           onPressed: loading
@@ -162,7 +165,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
               : () {
                   profileBloc.editProfile();
                 },
-          child: const Text('OK'),
+          child: Text(getTranslation.edit),
         ),
       ],
     );
