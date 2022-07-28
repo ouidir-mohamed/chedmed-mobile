@@ -61,6 +61,26 @@ class Annonce {
   String toString() {
     return 'Annonce(id: $id, createdAt: $createdAt, title: $title, description: $description, price: $price, images: $images, location: $location)';
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'createdAt': createdAt,
+      'title': title,
+      'description': description,
+      'category_id': category_id,
+      'underCategory_id': underCategory_id,
+      'price': price,
+      'images': images,
+      'delivry': delivry,
+      'location': location.toJson(),
+      'phone': phone,
+      'nbFavorite': nbFavorite,
+      'vues': vues,
+      'user': user.toJson(),
+      'distance': distance,
+    };
+  }
 }
 
 class User {
@@ -79,5 +99,13 @@ class User {
       username: map['username'] ?? '',
       phone: map['phone'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'phone': phone,
+    };
   }
 }

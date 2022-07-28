@@ -1,3 +1,4 @@
+import 'package:chedmed/blocs/notifications_bloc.dart.dart';
 import 'package:chedmed/blocs/locations_bloc.dart';
 import 'package:chedmed/blocs/profile_bloc.dart';
 import 'package:chedmed/main.dart';
@@ -10,10 +11,14 @@ import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/ui/common/snackbar.dart';
 import 'package:chedmed/ui/home/annonce_presentation.dart';
 import 'package:chedmed/utils/language_helper.dart';
+import 'package:chedmed/utils/time_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
+
+import '../models/search_history.dart';
+import '../ressources/dao/sahel_dao.dart';
 
 class HomeBloc {
   //data fetching
@@ -30,6 +35,19 @@ class HomeBloc {
 
   int currentPage = 1;
   Future<void> getALl({required bool displayShimmer}) async {
+    if (_categorieFetcher.hasValue && _categorieFetcher.value != null) {
+      var searchHistory = SearchHistory(
+          null,
+          DateTime.now().subtract(Duration(days: 2)).toDateTimeString(),
+          DateTime.now().subtract(Duration(days: 2)).toDateTimeString(),
+          _categorieFetcher.value!,
+          _underCategoryFetcher.valueOrNull,
+          _cityFetcher.value.id,
+          _cityFetcher.value.lat,
+          _cityFetcher.value.long);
+      sahelDao.addToHistory(searchHistory);
+    }
+
     if (displayShimmer) _loadingFetcher.sink.add(true);
 
     var request = FilterRequest(

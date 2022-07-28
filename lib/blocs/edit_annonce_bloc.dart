@@ -96,7 +96,6 @@ class EditAnnonceBloc {
   String? phoneValidator(String? value) {
     var reg = RegExp(r'^(0)(5|6|7|)[0-9]{8}$');
     if (!reg.hasMatch(value!)) return (getTranslation.phone_invalide);
-    return (getTranslation.phone_invalide);
     phone = value;
     return null;
   }

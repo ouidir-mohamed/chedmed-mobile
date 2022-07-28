@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:chedmed/blocs/location_helper.dart';
 import 'package:chedmed/blocs/locations_bloc.dart';
 import 'package:chedmed/blocs/settings_bloc.dart';
+import 'package:chedmed/models/notifications_request.dart';
+import 'package:chedmed/ressources/dao/sahel_dao.dart';
+import 'package:chedmed/ressources/repository/repository.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/ui/check_version/check_version.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
@@ -10,18 +13,28 @@ import 'package:chedmed/ui/common/ripple_effect.dart';
 import 'package:chedmed/ui/getting_started/getting_started.dart';
 import 'package:chedmed/ui/home/home.dart';
 import 'package:chedmed/ui/session_check/loading_screen.dart';
+import 'package:chedmed/utils/notification_helper.dart';
+import 'package:chedmed/utils/worker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-
+import 'package:workmanager/workmanager.dart';
+import 'package:logger/logger.dart';
 import 'ui/navigation/bottom_navigation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   // make the launcher appear for 1 more second :)
-  await Future.delayed(Duration(seconds: 1));
   WidgetsFlutterBinding.ensureInitialized();
+  await initNotifications();
+  await handleAppStartup();
+  initWorker();
+  await initDatabaseInstance();
+  initSahelApi();
+  await Future.delayed(Duration(seconds: 1));
+
   HttpOverrides.global = new MyHttpOverrides();
   await SharedPreferenceData.init();
   locationsBloc.loadCties();

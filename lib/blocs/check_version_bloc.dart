@@ -12,10 +12,12 @@ class CheckVersionBloc {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     int buildNumber = int.parse(packageInfo.buildNumber);
+    print("trying to call api ...");
     //buildNumber = 5;
     chedMedApi
         .versionCheck(VersionCheckRequest(buildNumber: buildNumber))
         .then((value) {
+      print(value);
       _versionCheckFetcher.sink.add(value.getVersionCheck());
     }).catchError((e) {
       print(e);

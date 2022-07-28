@@ -1,13 +1,16 @@
 import 'package:chedmed/blocs/home_bloc.dart';
+import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/ui/home/add_button.dart';
 import 'package:chedmed/ui/navigation/bottom_navigation.dart';
 import 'package:chedmed/utils/language_helper.dart';
+import 'package:chedmed/utils/notification_helper.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:chedmed/ui/common/app_theme.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
+import '../recommendations/recommendations.dart';
 import 'annonces.dart';
 import 'categories.dart';
 import 'search_bar.dart';
@@ -24,6 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    checkNotificationClick();
     shrinkButton();
     homeBloc.initFilters();
     homeBloc.getALl(displayShimmer: true);
@@ -59,6 +63,17 @@ class _HomePageState extends State<HomePage> {
       _addExtended = true;
     });
     shrinkButton();
+  }
+
+  checkNotificationClick() async {
+    bool isPending = await SharedPreferenceData.loadNotificationPending();
+    //displayNotification("title", isPending.toString() + " pending state");
+    if (isPending) {
+      await SharedPreferenceData.saveNotificationPending(false);
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Recommendations()));
+    }
   }
 
   @override

@@ -12,6 +12,11 @@ extension TimePassed on DateTime {
     return formatter.format(this);
   }
 
+  String toDateTimeString() {
+    final DateFormat formatter = DateFormat('yyyy-MM-ddTHH:mm:ss');
+    return formatter.format(this) + "Z";
+  }
+
   String timePassedString() {
     var now = DateTime.now();
     var difference = now.difference(this);

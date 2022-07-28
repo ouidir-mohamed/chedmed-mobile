@@ -56,6 +56,14 @@ class SharedPreferenceData {
     return prefs.getString('phone') ?? "";
   }
 
+  static saveNotificationPending(bool pending) async {
+    await prefs.setBool('notificationPending', pending);
+  }
+
+  static bool loadNotificationPending() {
+    return prefs.getBool('notificationPending') ?? false;
+  }
+
   static addToFavoriteAnnonces(int annonceId) async {
     var oldList = prefs.getStringList('favorites') ?? [];
     oldList.add(annonceId.toString());

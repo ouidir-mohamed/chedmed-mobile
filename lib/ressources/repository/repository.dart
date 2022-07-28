@@ -3,6 +3,8 @@ import 'package:chedmed/models/category.dart';
 import 'package:chedmed/models/fav_request.dart';
 import 'package:chedmed/models/favorite_request.dart';
 import 'package:chedmed/models/filter_request.dart';
+import 'package:chedmed/models/notification_check_response.dart';
+import 'package:chedmed/models/notifications_request.dart';
 import 'package:chedmed/models/profile.dart';
 import 'package:chedmed/models/user_request.dart';
 import 'package:chedmed/models/user_response.dart';
@@ -16,7 +18,7 @@ import 'package:dio/dio.dart';
 part "repository_implementation.dart";
 part 'repository.g.dart';
 
-const BASE_URL = "http://51.77.137.247:5000/api/";
+const BASE_URL = "https://www.sahel-app.com/api/";
 
 @RestApi(baseUrl: BASE_URL)
 abstract class ChedMedApi {
@@ -64,6 +66,14 @@ abstract class ChedMedApi {
   @GET("/user/informations/{userId}")
   Future<UserProfile> userPublicInfo(@Path("userId") userId);
 
+  @POST("/notification/check/")
+  Future<NotificationCheckResponse> checkNotifications(
+      @Body() NotificationsRequest request);
+
+  @POST("/notification/posts/")
+  Future<List<Annonce>> getNotificationPosts(
+      @Body() NotificationsRequest request);
+
   @POST("/version/")
   Future<VersionCheckResponse> versionCheck(
       @Body() VersionCheckRequest request);
@@ -75,9 +85,13 @@ abstract class ChedMedApiFormData {
   Future editPost(AnnonceRequest request, int annoceId);
 }
 
-final dio = Dio();
+late Dio dio;
+late ChedMedApi chedMedApi;
+late ChedMedApiFormData chedMedApiFormData;
 
-final chedMedApi = ChedMedApi(dio);
-final chedMedApiFormData = ChedMedApiFormData(dio, BASE_URL);
-
+initSahelApi() {
+  dio = Dio();
+  chedMedApi = ChedMedApi(dio);
+  chedMedApiFormData = ChedMedApiFormData(dio, BASE_URL);
+}
 //final chedMedApi = FakeApi();

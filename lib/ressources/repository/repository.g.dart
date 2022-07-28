@@ -10,7 +10,7 @@ part of 'repository.dart';
 
 class _ChedMedApi implements ChedMedApi {
   _ChedMedApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://51.77.137.247:5000/api/';
+    baseUrl ??= 'https://www.sahel-app.com/api/';
   }
 
   final Dio _dio;
@@ -249,6 +249,42 @@ class _ChedMedApi implements ChedMedApi {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UserProfile.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<NotificationCheckResponse> checkNotifications(request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<NotificationCheckResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/notification/check/',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = NotificationCheckResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<Annonce>> getNotificationPosts(request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<Annonce>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/notification/posts/',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => Annonce.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
