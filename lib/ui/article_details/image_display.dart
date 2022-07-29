@@ -43,6 +43,32 @@ class _ImageDisplayState extends State<ImageDisplay> {
 
   @override
   Widget build(BuildContext context) {
+    var fullDisplayedImagesLinks =
+        images.length <= 4 ? images : images.sublist(0, 3);
+    List<Widget> displayedImagesWidgets = fullDisplayedImagesLinks
+        .map((e) => ImagePreview(
+              imageUrl: AnnoncePresentation.getMiniImage(e),
+              selected: e == selected,
+              imageTapped: () {
+                selectImage(e);
+              },
+            ) as Widget)
+        .toList();
+
+    if (images.length > 4) {
+      displayedImagesWidgets.add(LatestImagePreview(
+          imagesLeftNumber: images.length - 3,
+          imageUrl: images[4],
+          imageTapped: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ImageFullScreenGalery(
+                          images: images,
+                        )));
+          }) as Widget);
+    }
+
     return Container(
       //padding: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
@@ -94,15 +120,7 @@ class _ImageDisplayState extends State<ImageDisplay> {
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: images
-                    .map((e) => ImagePreview(
-                          imageUrl: AnnoncePresentation.getMiniImage(e),
-                          selected: e == selected,
-                          imageTapped: () {
-                            selectImage(e);
-                          },
-                        ))
-                    .toList()),
+                children: displayedImagesWidgets),
           ),
         ],
       ),
@@ -136,6 +154,57 @@ class ImagePreview extends StatelessWidget {
               imageUrl,
               fit: BoxFit.cover,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LatestImagePreview extends StatelessWidget {
+  String imageUrl;
+  int imagesLeftNumber;
+  void Function() imageTapped;
+  LatestImagePreview({
+    Key? key,
+    required this.imageUrl,
+    required this.imagesLeftNumber,
+    required this.imageTapped,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 70,
+      width: 70,
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+        child: InkWell(
+          onTap: imageTapped,
+          child: Stack(
+            children: [
+              Container(
+                height: 70,
+                width: 70,
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Container(
+                height: 70,
+                width: 70,
+                color: Colors.black.withOpacity(0.7),
+                child: Center(
+                    child: Text(
+                  "+" + imagesLeftNumber.toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
+                )),
+              )
+            ],
           ),
         ),
       ),

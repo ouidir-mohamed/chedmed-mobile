@@ -93,7 +93,7 @@ class AddAnnonceBloc {
       return false;
     }
 
-    if (imagePaths.length > 4) {
+    if (imagePaths.length > 8) {
       _imageErreurFetcher.sink.add(getTranslation.four_photos_max);
       return false;
     }
