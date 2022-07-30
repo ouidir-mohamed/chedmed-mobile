@@ -54,10 +54,13 @@ class _ArticleDetailsState extends State<ArticleDetails> {
       if (mounted) {
         // **** keeping last distance ****/
         String lastLocation = widget.annonce.localisation;
+        String lastLocationWithWilaya = widget.annonce.localisationWithWilaya;
+
         //*** updating with new data */
         widget.annonce = event;
         //** putting back the old distance */
         widget.annonce.localisation = lastLocation;
+        widget.annonce.localisationWithWilaya = lastLocationWithWilaya;
 
         /** rendering :) */
 
@@ -304,7 +307,7 @@ class ArticleContent extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            annonce.localisation,
+                            annonce.localisationWithWilaya,
                             style: TextStyle(
                                 fontSize: 15,
                                 color: AppTheme.headlineColor(context)),

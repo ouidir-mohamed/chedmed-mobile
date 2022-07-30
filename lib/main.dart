@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:logger/logger.dart';
 import 'ui/navigation/bottom_navigation.dart';
@@ -37,6 +38,7 @@ void main() async {
 
   HttpOverrides.global = new MyHttpOverrides();
   await SharedPreferenceData.init();
+  await initPackageInfo();
   locationsBloc.loadCties();
 
   runApp(const MyApp());
@@ -76,6 +78,11 @@ class MyApp extends StatelessWidget {
               });
         });
   }
+}
+
+late PackageInfo packageInfo;
+initPackageInfo() async {
+  packageInfo = await PackageInfo.fromPlatform();
 }
 
 class MyHttpOverrides extends HttpOverrides {

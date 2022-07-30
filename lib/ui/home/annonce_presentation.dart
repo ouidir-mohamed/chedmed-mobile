@@ -14,6 +14,8 @@ class AnnoncePresentation {
   String phone;
   bool delivery;
   String localisation;
+  String localisationWithWilaya;
+
   String time;
   List<String> images;
 
@@ -32,6 +34,7 @@ class AnnoncePresentation {
     required this.phone,
     required this.delivery,
     required this.localisation,
+    required this.localisationWithWilaya,
     required this.time,
     required this.images,
     required this.nbFavorite,
@@ -50,9 +53,15 @@ class AnnoncePresentation {
 
     bool favorite =
         SharedPreferenceData.loadFavoriteAnnonces().contains(annonce.id);
-    String localisation = annonce.location.name;
+    String localisation = annonce.location.name + " ";
+    String localisationWithWilaya =
+        annonce.location.name + ", " + annonce.location.wilaya + " ";
+
     if (annonce.distance != null) {
       localisation +=
+          getTranslation.km_var_brackets(annonce.distance!.round().toString());
+
+      localisationWithWilaya +=
           getTranslation.km_var_brackets(annonce.distance!.round().toString());
     }
 
@@ -63,6 +72,7 @@ class AnnoncePresentation {
         description: annonce.description,
         phone: annonce.phone,
         localisation: localisation,
+        localisationWithWilaya: localisationWithWilaya,
         images: annonce.images,
         time: time,
         nbFavorite: numberToText(annonce.nbFavorite),

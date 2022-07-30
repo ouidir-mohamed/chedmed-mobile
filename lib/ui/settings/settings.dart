@@ -1,5 +1,6 @@
 import 'package:chedmed/blocs/settings_bloc.dart';
 import 'package:chedmed/ui/common/select_city.dart';
+import 'package:chedmed/ui/settings/about.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -106,14 +107,15 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
             title: Text(getTranslation.about),
             trailing: ArrowIcon(context),
             onPressed: (ctx) {
-              showAboutDialog(
-                  context: context,
-                  applicationName: "Sahel ",
-                  applicationVersion: "beta 1",
-                  useRootNavigator: true,
-                  children: [
-                    Text("Application de vente et achat gratuite ...."),
-                  ]);
+              Navigator.push(context, SlideRightRoute(widget: About()));
+              // showAboutDialog(
+              //     context: context,
+              //     applicationName: "Sahel ",
+              //     applicationVersion: "beta 1",
+              //     useRootNavigator: true,
+              //     children: [
+              //       Text("Application de vente et achat gratuite ...."),
+              //     ]);
             },
           ),
         ],
