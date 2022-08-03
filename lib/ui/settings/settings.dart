@@ -1,4 +1,5 @@
 import 'package:chedmed/blocs/settings_bloc.dart';
+import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/ui/common/select_city.dart';
 import 'package:chedmed/ui/settings/about.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class SettingsInterface extends StatefulWidget {
 class _SettingsInterfaceState extends State<SettingsInterface> {
   String themeName = getTranslation.system_default;
   String currentCity = "";
+  bool notificationEnabled = SharedPreferenceData.loadNotificaionEnabled();
 
   @override
   void initState() {
@@ -60,67 +62,84 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
 
   @override
   Widget build(BuildContext context) {
-    return SettingsList(sections: [
-      SettingsSection(
-        title: Text(getTranslation.global),
-        tiles: <SettingsTile>[
-          SettingsTile.navigation(
-            leading: Icon(Icons.language),
-            title: Text(getTranslation.language),
-            value: Text(getTranslation.language_name),
-            trailing: ArrowIcon(context),
-            onPressed: displayLanguageMenu,
+    return SettingsList(
+        darkTheme: SettingsThemeData(
+            settingsListBackground: AppTheme.canvasColor(context)),
+        sections: [
+          CustomSettingsSection(child: Header()),
+          SettingsSection(
+            title: Text(getTranslation.global),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: Icon(Icons.language),
+                title: Text(getTranslation.language),
+                value: Text(getTranslation.language_name),
+                trailing: ArrowIcon(context),
+                onPressed: displayLanguageMenu,
+              ),
+              SettingsTile.navigation(
+                leading: Icon(MaterialIcons.brightness_6),
+                title: Text(getTranslation.theme),
+                value: Text(themeName),
+                trailing: ArrowIcon(context),
+                onPressed: displayThemeMenu,
+              ),
+              SettingsTile.switchTile(
+                initialValue: notificationEnabled,
+                activeSwitchColor: AppTheme.primaryColor(context),
+                onToggle: (checked) {
+                  SharedPreferenceData.saveNotificationEnabled(checked);
+                  setState(() {
+                    notificationEnabled = checked;
+                  });
+                },
+                leading: Icon(Ionicons.notifications),
+                title: Text(getTranslation.notifications),
+                description: Text(getTranslation.notifications_desc),
+              )
+            ],
           ),
-          SettingsTile.navigation(
-            leading: Icon(MaterialIcons.brightness_6),
-            title: Text(getTranslation.theme),
-            value: Text(themeName),
-            trailing: ArrowIcon(context),
-            onPressed: displayThemeMenu,
+          SettingsSection(
+            title: Text(getTranslation.acount),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: Icon(Ionicons.location_sharp),
+                title: Text(getTranslation.location),
+                value: Text(currentCity),
+                trailing: ArrowIcon(context),
+                onPressed: (ctx) {
+                  Navigator.push(
+                      context,
+                      SlideRightRoute(
+                          widget: SelectCity(
+                              citySelected: settingsBloc.setUserCity,
+                              title: getTranslation.location)));
+                },
+              ),
+            ],
           ),
-        ],
-      ),
-      SettingsSection(
-        title: Text(getTranslation.acount),
-        tiles: <SettingsTile>[
-          SettingsTile.navigation(
-            leading: Icon(Ionicons.location_sharp),
-            title: Text(getTranslation.location),
-            value: Text(currentCity),
-            trailing: ArrowIcon(context),
-            onPressed: (ctx) {
-              Navigator.push(
-                  context,
-                  SlideRightRoute(
-                      widget: SelectCity(
-                          citySelected: settingsBloc.setUserCity,
-                          title: getTranslation.location)));
-            },
+          SettingsSection(
+            title: Text(getTranslation.other),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: Icon(Ionicons.information_circle),
+                title: Text(getTranslation.about),
+                trailing: ArrowIcon(context),
+                onPressed: (ctx) {
+                  Navigator.push(context, SlideRightRoute(widget: About()));
+                  // showAboutDialog(
+                  //     context: context,
+                  //     applicationName: "Sahel ",
+                  //     applicationVersion: "beta 1",
+                  //     useRootNavigator: true,
+                  //     children: [
+                  //       Text("Application de vente et achat gratuite ...."),
+                  //     ]);
+                },
+              ),
+            ],
           ),
-        ],
-      ),
-      SettingsSection(
-        title: Text(getTranslation.other),
-        tiles: <SettingsTile>[
-          SettingsTile.navigation(
-            leading: Icon(Ionicons.information_circle),
-            title: Text(getTranslation.about),
-            trailing: ArrowIcon(context),
-            onPressed: (ctx) {
-              Navigator.push(context, SlideRightRoute(widget: About()));
-              // showAboutDialog(
-              //     context: context,
-              //     applicationName: "Sahel ",
-              //     applicationVersion: "beta 1",
-              //     useRootNavigator: true,
-              //     children: [
-              //       Text("Application de vente et achat gratuite ...."),
-              //     ]);
-            },
-          ),
-        ],
-      ),
-    ]);
+        ]);
   }
 }
 
@@ -130,7 +149,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppTheme.containerColor(context),
+      color: AppTheme.canvasColor(context),
       padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,7 +157,7 @@ class Header extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Paramétres",
+              Text(getTranslation.settings,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 23,

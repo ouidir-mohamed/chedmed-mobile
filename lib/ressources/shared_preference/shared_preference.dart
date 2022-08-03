@@ -64,6 +64,22 @@ class SharedPreferenceData {
     return prefs.getBool('notificationPending') ?? false;
   }
 
+  static saveLastReceivedNotificationDate(String date) {
+    return prefs.setString('lastRecivedNotificationDate', date);
+  }
+
+  static String loadLastReceivedNotificationDate() {
+    return prefs.getString('lastRecivedNotificationDate') ?? "";
+  }
+
+  static saveNotificationEnabled(bool enabled) {
+    return prefs.setBool('notificationEnabled', enabled);
+  }
+
+  static bool loadNotificaionEnabled() {
+    return prefs.getBool('notificationEnabled') ?? true;
+  }
+
   static addToFavoriteAnnonces(int annonceId) async {
     var oldList = prefs.getStringList('favorites') ?? [];
     oldList.add(annonceId.toString());

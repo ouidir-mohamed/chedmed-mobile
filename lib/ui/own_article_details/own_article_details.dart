@@ -223,14 +223,12 @@ class ArticleContent extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 1),
                   child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 3),
-                        child: Icon(
-                          Ionicons.location_sharp,
-                          color: AppTheme.primaryColor(context),
-                          size: 20,
-                        ),
+                      Icon(
+                        Ionicons.location_sharp,
+                        color: AppTheme.primaryColor(context),
+                        size: 20,
                       ),
+                      Padding(padding: EdgeInsets.symmetric(horizontal: 3)),
                       Text(
                         annonce.localisation,
                         style: TextStyle(
@@ -244,14 +242,12 @@ class ArticleContent extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 1),
                   child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 3),
-                        child: Icon(
-                          Ionicons.md_time_sharp,
-                          color: AppTheme.primaryColor(context),
-                          size: 20,
-                        ),
+                      Icon(
+                        Ionicons.md_time_sharp,
+                        color: AppTheme.primaryColor(context),
+                        size: 20,
                       ),
+                      Padding(padding: EdgeInsets.symmetric(horizontal: 3)),
                       Text(
                         annonce.time,
                         style: TextStyle(
@@ -266,14 +262,13 @@ class ArticleContent extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 20),
                         child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 3),
-                              child: Icon(
-                                MaterialCommunityIcons.truck_check,
-                                color: AppTheme.primaryColor(context),
-                                size: 22,
-                              ),
+                            Icon(
+                              MaterialCommunityIcons.truck_check,
+                              color: AppTheme.primaryColor(context),
+                              size: 22,
                             ),
+                            Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 3)),
                             Text(
                               getTranslation.delivery_available,
                               style: TextStyle(

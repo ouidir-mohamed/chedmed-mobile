@@ -1,6 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:chedmed/blocs/home_bloc.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
-import 'package:chedmed/ui/home/add_button.dart';
+import 'package:chedmed/ui/home/scroll_top_button.dart';
 import 'package:chedmed/ui/navigation/bottom_navigation.dart';
 import 'package:chedmed/utils/language_helper.dart';
 import 'package:chedmed/utils/notification_helper.dart';
@@ -28,16 +30,21 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     checkNotificationClick();
-    shrinkButton();
     homeBloc.initFilters();
     homeBloc.getALl(displayShimmer: true);
     controller.addListener(() {
       bool bottomReached =
           controller.position.pixels == controller.position.maxScrollExtent;
       if (bottomReached) homeBloc.getExtra();
-      bool topReached =
-          controller.position.pixels == controller.position.minScrollExtent;
-      if (topReached) expandButton();
+
+      bool almostTop = controller.position.pixels < 400;
+      if (almostTop) hideButton();
+
+      if (lastScrollPosition > controller.position.pixels)
+        isScrollingUp();
+      else
+        isScrollingDown();
+      lastScrollPosition = controller.position.pixels;
     });
 
     homeBloc.getScrollDown.listen((event) {
@@ -47,22 +54,43 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  var _addExtended = true;
-  void shrinkButton() async {
-    if (!_addExtended) return;
-    await Future.delayed(Duration(seconds: 5));
+  double lastScrollPosition = 0;
+
+  var _scrollTopVisible = false;
+  isScrollingUp() {
+    if (controller.position.pixels > 1000) showButton();
+  }
+
+  isScrollingDown() {
+    hideButton();
+  }
+
+  goToTop() async {
+    controller.animateTo(0,
+        duration: Duration(milliseconds: 500), curve: Curves.ease);
+    // await Future.delayed(Duration(milliseconds: 600));
+    // hideButton();
+  }
+
+  void hideButton() async {
+    print("hidding");
+    if (!_scrollTopVisible) return;
+    //await Future.delayed(Duration(seconds: 1));
     if (mounted)
       setState(() {
-        _addExtended = false;
+        _scrollTopVisible = false;
       });
   }
 
-  expandButton() {
-    if (_addExtended) return;
+  showButton() async {
+    if (_scrollTopVisible) return;
+
+    //await Future.delayed(Duration(seconds: 1));
+
+    if (_scrollTopVisible) return;
     setState(() {
-      _addExtended = true;
+      _scrollTopVisible = true;
     });
-    shrinkButton();
   }
 
   checkNotificationClick() async {
@@ -79,64 +107,72 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButtonLocation: _scrollTopVisible
+            ? FloatingActionButtonLocation.endFloat
+            : CustomFabLocation(),
+        floatingActionButtonAnimator: LinearMovementFabAnimator(),
+        floatingActionButton: ScrollTopButton(
+            isExtended: _scrollTopVisible,
+            onPressed: () {
+              goToTop();
+            },
+            context: context),
         body: SafeArea(
-      child: Stack(
-        children: [
-          RefreshIndicator(
-            color: AppTheme.primaryColor(context),
-            onRefresh: homeBloc.refresh,
-            child: CustomScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                //scrollBehavior: MyBehavior(),
-                controller: controller,
-                slivers: [
-                  SliverAppBar(
-                      expandedHeight: 170,
-                      floating: false,
-                      pinned: true,
-                      elevation: 0,
-                      collapsedHeight: 60,
-                      toolbarHeight: 60,
-                      shadowColor: Colors.transparent,
-                      primary: false,
-                      leading: Container(),
-                      backgroundColor: Colors.transparent,
-                      flexibleSpace:
-                          LayoutBuilder(builder: (context, constraints) {
-                        return FlexibleSpaceBar(
-                            collapseMode: CollapseMode.parallax,
-                            expandedTitleScale: 1,
-                            centerTitle: true,
-                            titlePadding: EdgeInsets.all(0),
-                            background: Stack(
+          child: Stack(
+            children: [
+              RefreshIndicator(
+                color: AppTheme.primaryColor(context),
+                onRefresh: homeBloc.refresh,
+                child: CustomScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    //scrollBehavior: MyBehavior(),
+                    controller: controller,
+                    slivers: [
+                      SliverAppBar(
+                          expandedHeight: 170,
+                          floating: false,
+                          pinned: true,
+                          elevation: 0,
+                          collapsedHeight: 60,
+                          toolbarHeight: 60,
+                          shadowColor: Colors.transparent,
+                          primary: false,
+                          leading: Container(),
+                          backgroundColor: Colors.transparent,
+                          flexibleSpace:
+                              LayoutBuilder(builder: (context, constraints) {
+                            return FlexibleSpaceBar(
+                                collapseMode: CollapseMode.parallax,
+                                expandedTitleScale: 1,
+                                centerTitle: true,
+                                titlePadding: EdgeInsets.all(0),
+                                background: Stack(
+                                  children: [
+                                    Header(),
+                                  ],
+                                ),
+                                title: SearchBar());
+                          })),
+                      SliverToBoxAdapter(
+                        child: SingleChildScrollView(
+                          physics: NeverScrollableScrollPhysics(),
+                          primary: false,
+                          child: Container(
+                            child: Column(
                               children: [
-                                Header(),
+                                Categories(),
+                                ArticlesHeader(),
+                                Annonces()
                               ],
                             ),
-                            title: SearchBar());
-                      })),
-                  SliverToBoxAdapter(
-                    child: SingleChildScrollView(
-                      physics: NeverScrollableScrollPhysics(),
-                      primary: false,
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Categories(),
-                            ArticlesHeader(),
-                            Annonces()
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  )
-                ]),
+                      )
+                    ]),
+              ),
+            ],
           ),
-          // Positioned(
-          //     child: AddButton(isExtended: _addExtended), bottom: 7, right: 5),
-        ],
-      ),
-    ));
+        ));
   }
 }
 

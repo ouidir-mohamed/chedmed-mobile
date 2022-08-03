@@ -143,33 +143,6 @@ class _ArticleDetailsState extends State<ArticleDetails> {
   }
 }
 
-class TitleHeader extends StatelessWidget {
-  const TitleHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(
-            MaterialIcons.arrow_back_ios,
-            size: 25,
-          ),
-          Text("Annonce titre",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
-          Icon(
-            AntDesign.heart,
-            size: 20,
-            color: AppTheme.primaryColor(context),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class ArticleContent extends StatelessWidget {
   AnnoncePresentation annonce;
   ArticleContent({
@@ -271,14 +244,12 @@ class ArticleContent extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 1),
                   child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 3),
-                        child: Icon(
-                          Ionicons.md_time_sharp,
-                          color: AppTheme.primaryColor(context),
-                          size: 20,
-                        ),
+                      Icon(
+                        Ionicons.md_time_sharp,
+                        color: AppTheme.primaryColor(context),
+                        size: 20,
                       ),
+                      Padding(padding: EdgeInsets.symmetric(horizontal: 3)),
                       Text(
                         annonce.time,
                         style: TextStyle(
@@ -297,14 +268,12 @@ class ArticleContent extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 3),
                     child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 3),
-                          child: Icon(
-                            Ionicons.location_sharp,
-                            color: AppTheme.primaryColor(context),
-                            size: 20,
-                          ),
+                        Icon(
+                          Ionicons.location_sharp,
+                          color: AppTheme.primaryColor(context),
+                          size: 20,
                         ),
+                        Padding(padding: EdgeInsets.symmetric(horizontal: 3)),
                         Expanded(
                           child: Text(
                             annonce.localisationWithWilaya,
@@ -323,14 +292,13 @@ class ArticleContent extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 20),
                         child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 3),
-                              child: Icon(
-                                MaterialCommunityIcons.truck_check,
-                                color: AppTheme.primaryColor(context),
-                                size: 22,
-                              ),
+                            Icon(
+                              MaterialCommunityIcons.truck_check,
+                              color: AppTheme.primaryColor(context),
+                              size: 22,
                             ),
+                            Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 3)),
                             Text(
                               getTranslation.delivery_available,
                               style: TextStyle(

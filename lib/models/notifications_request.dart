@@ -4,16 +4,21 @@ class NotificationsRequest {
   final int page;
   final List<RequestItem> items;
   final String username;
-  NotificationsRequest({
-    required this.page,
-    required this.items,
-    required this.username,
-  });
+  final String? languageCode;
+  final String? lastRecivedNotificationDate;
+  NotificationsRequest(
+      {required this.page,
+      required this.items,
+      required this.username,
+      this.languageCode,
+      this.lastRecivedNotificationDate});
 
   Map<String, dynamic> toJson() {
     return {
       'page': page,
       'username': username,
+      'languageCode': languageCode ?? "",
+      'lastRecivedNotificationDate': lastRecivedNotificationDate ?? "",
       'items': items.map((x) => x.toJson()).toList(),
     };
   }

@@ -94,8 +94,11 @@ class EditAnnonceBloc {
   }
 
   String? phoneValidator(String? value) {
-    var reg = RegExp(r'^(0)(5|6|7|)[0-9]{8}$');
-    if (!reg.hasMatch(value!)) return (getTranslation.phone_invalide);
+    var reg = RegExp(r'^(0)(5|6|7)[0-9]{8}$');
+    var regFix = RegExp(r'^(0)(2|3|4)[0-9]{7}$');
+
+    if (!(reg.hasMatch(value!) || regFix.hasMatch(value)))
+      return (getTranslation.phone_invalide);
     phone = value;
     return null;
   }
@@ -132,6 +135,7 @@ class EditAnnonceBloc {
     if (!editAnnonceFormKey.currentState!.validate()) return;
     if (!imagesValidator()) return;
     _editLoadingFetcher.sink.add(true);
+
     AnnonceRequest request = AnnonceRequest(
         title: titre,
         description: description,
@@ -146,7 +150,8 @@ class EditAnnonceBloc {
 
     chedMedApiFormData.editPost(request, annonceId!).then((value) {
       displaySuccessSnackbar(getTranslation.post_edited);
-      profileBloc.loadProfileAnnonces();
+      profileBloc.refresh();
+      ;
       _doneFetcher.sink.add(null);
     }).onError((error, stackTrace) {
       if (error.runtimeType == DioError) {

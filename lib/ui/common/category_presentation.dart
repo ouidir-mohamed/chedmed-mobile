@@ -70,6 +70,18 @@ class CategoryPresentation {
       case 15:
         icon = MaterialIcons.pets;
         break;
+      case 16:
+        icon = Fontisto.island;
+        break;
+      case 17:
+        icon = MaterialIcons.electric_scooter;
+        break;
+      case 18:
+        icon = MaterialCommunityIcons.dots_horizontal;
+        break;
+      case 19:
+        icon = MaterialIcons.engineering;
+        break;
       default:
         icon = Icons.question_mark;
         break;

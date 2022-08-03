@@ -55,7 +55,9 @@ class AnnoncePresentation {
         SharedPreferenceData.loadFavoriteAnnonces().contains(annonce.id);
     String localisation = annonce.location.name + " ";
     String localisationWithWilaya =
-        annonce.location.name + ", " + annonce.location.wilaya + " ";
+        annonce.location.name == annonce.location.wilaya
+            ? annonce.location.name + " "
+            : annonce.location.name + ", " + annonce.location.wilaya + " ";
 
     if (annonce.distance != null) {
       localisation +=

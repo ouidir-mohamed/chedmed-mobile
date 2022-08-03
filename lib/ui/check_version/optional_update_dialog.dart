@@ -1,5 +1,6 @@
 import 'package:chedmed/ui/loading/loading_screen.dart';
 import 'package:chedmed/ui/session_check/loading_screen.dart';
+import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:store_redirect/store_redirect.dart';
@@ -25,7 +26,7 @@ class OptionalUpdateDialog extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.only(bottom: 10),
-                child: Text('Mise a jour'),
+                child: Text(getTranslation.update),
                 width: double.infinity,
               ),
               Positioned(
@@ -46,15 +47,14 @@ class OptionalUpdateDialog extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 5),
               width: 9000,
               child: Container(
-                child: Text(
-                    "Une nouvelle verion de l'application est disponible, cliquez sur Mettre a jour pour obtenir la derniére version"),
+                child: Text(getTranslation.update_optional_desc),
               ))),
       actions: <Widget>[
         MyTextButton(
           onPressed: () {
             StoreRedirect.redirect(androidAppId: "com.sahel.mayva");
           },
-          child: const Text('Mettre a jour'),
+          child: Text(getTranslation.upgrade),
         ),
         MyTextButton(
           onPressed: () {
@@ -63,7 +63,7 @@ class OptionalUpdateDialog extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => SessionLoadingScreen()));
           },
-          child: const Text('Continuer'),
+          child: Text(getTranslation.skip),
         ),
       ],
     );

@@ -25,13 +25,24 @@ class NotificationsBloc {
     if (Platform.isAndroid) SharedPreferencesAndroid.registerWith();
     if (Platform.isIOS) SharedPreferencesIOS.registerWith();
     await SharedPreferenceData.init();
-    print("task nnn 3");
+
+//check if notification are disabled by user then return
+    if (!SharedPreferenceData.loadNotificaionEnabled()) return;
+//get user's locale
+    var languageCode = SharedPreferenceData.loadLocale();
+    if (languageCode.isEmpty) languageCode = Platform.localeName;
+
+    print("task nnn 4 " + languageCode);
+//get search history
     var serachHistory = await sahelDao.getAllHistory();
 
     print(serachHistory.first.lastVisitedDate);
     if (serachHistory.isEmpty) return;
 
     NotificationsRequest notificationsRequest = NotificationsRequest(
+        lastRecivedNotificationDate:
+            SharedPreferenceData.loadLastReceivedNotificationDate(),
+        languageCode: languageCode,
         username: SharedPreferenceData.loadUserName(),
         page: 1,
         items: serachHistory.map((e) {
@@ -44,10 +55,8 @@ class NotificationsBloc {
                   Point(id: e.location_id, lat: e.latitude, long: e.longitude));
         }).toList());
 
-    print(notificationsRequest);
-
+//get token
     String? token = SharedPreferenceData.loadToken();
-    print(token! + " wlh hada");
     if (token == null) return;
     dio.interceptors.add(InterceptorsWrapper(onRequest: (request, handler) {
       request.headers["Authorization"] = "Bearer " + token;
@@ -56,8 +65,14 @@ class NotificationsBloc {
     NotificationCheckResponse res =
         await chedMedApi.checkNotifications(notificationsRequest);
 
-    print(res.available.toString() + " wellllllllah");
-    if (res.available) displayNotification(res.title, res.message);
+    if (!res.available) return;
+    //display notification
+    displayNotification(res.title, res.message);
+
+//save the last time since the notification was received
+    SharedPreferenceData.saveLastReceivedNotificationDate(
+        DateTime.now().toDateTimeString());
+// remove old history items
     int lastValidId = serachHistory.last.id!;
     await sahelDao.deleteOldHistoryItems(lastValidId);
   }

@@ -16,7 +16,8 @@ class DeleteAnnonceBloc {
       _doneFetcher.sink.add(null);
       displaySuccessSnackbar(getTranslation.post_deleted);
 
-      profileBloc.loadProfileAnnonces();
+      profileBloc.refresh();
+      ;
     }).onError((error, stackTrace) {
       print(error);
     });

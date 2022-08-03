@@ -50,6 +50,13 @@ class _AnnonceFormState extends State<AnnonceForm> {
     super.initState();
   }
 
+  handleDeliveryChange(bool value) {
+    editAnnonceBloc.delivery = value;
+    setState(() {
+      delivery = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -145,28 +152,32 @@ class _AnnonceFormState extends State<AnnonceForm> {
                         filled: true),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: Checkbox(
-                              value: delivery,
-                              onChanged: (a) {
-                                editAnnonceBloc.delivery = a!;
-                                setState(() {
-                                  delivery = a;
-                                });
-                              })),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Text(getTranslation.with_delivery,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
-                      ),
-                    ],
+                InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    handleDeliveryChange(!delivery);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                                value: delivery,
+                                onChanged: (a) {
+                                  handleDeliveryChange(a!);
+                                })),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Text(getTranslation.with_delivery,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

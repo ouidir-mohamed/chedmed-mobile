@@ -29,7 +29,7 @@ class _ImageSelectionState extends State<ImageSelection> {
         maxHeight: 1100,
         maxWidth: 1100,
         imageQuality: 60,
-        preferredCameraDevice: CameraDevice.front);
+        preferredCameraDevice: CameraDevice.rear);
     if (photo != null) {
       print(pickedImages);
       setState(() {

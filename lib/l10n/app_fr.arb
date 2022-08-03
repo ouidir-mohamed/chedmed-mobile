@@ -144,11 +144,15 @@
 
 
   "@___SETTINGS": {},
+  "settings":"Paramétres",
   "global":"Général",
   "language":"Langue",
   "acount":"Compte",
   "other":"Autre",
   "about":"A propos",
+  "notifications":"Notifications",
+  "notifications_desc":"Recevez les notifications",
+
 
   "theme":"Théme",
   "system_default":"Selon le systéme",
@@ -163,8 +167,57 @@
  "contact_us":"Contacter nous",
  "who_are_we":"Qui somme nous",
  "licences":"Licences",
- "who_are_we_content":"Sahel est une application mobile  de ventes et achats 100% Algérienne, créée dans le but de faciliter les achats pour acheteurs ainsi que le protocole de vente pour les vendeurs.\n\nAvec Sahel, retrouvez seulement en quelques cliques l’acheteur de votre produit dans le périmètre que vous voulez et cela en indiquant votre emplacement et le rayon de recherche. Retrouvez aussi le vendeur le plus proche de ce que vous cherchez à acheter.\n\nSahel vous notifiera à chaque fois que quelqu’un ajoute une annonce qui pourra vous intéressé et vous affichera ainsi toutes les recommandations qui pourrons vous aider à mieux trouver ce que vous cherchez."
+ "who_are_we_content":"Sahel est une application mobile  de ventes et achats 100% Algérienne, créée dans le but de faciliter les achats pour acheteurs ainsi que le protocole de vente pour les vendeurs.\n\nAvec Sahel, retrouvez seulement en quelques cliques l’acheteur de votre produit dans le périmètre que vous voulez et cela en indiquant votre emplacement et le rayon de recherche. Retrouvez aussi le vendeur le plus proche de ce que vous cherchez à acheter.\n\nSahel vous notifiera à chaque fois que quelqu’un ajoute une annonce qui pourra vous intéressé et vous affichera ainsi toutes les recommandations qui pourrons vous aider à mieux trouver ce que vous cherchez.",
+
+ "@___UPDATES": {},
+"update":"Mise a jour",
+"upgrade":"Mettre a jour",
+"skip":"Continuer",
+
+"update_optional_desc":"Une nouvelle verion de l'application est disponible, cliquez sur Mettre a jour pour obtenir la derniére version.",
+"update_required_desc":"Vous utilisez une ancienne version de cette application, cliquez sur Mettre a jour pour obtenir la derniére version",
 
 
+"@___TIME_FORMATTERS": {},
+
+"one_minute_ago":"Il ya une minute",
+"two_minutes_ago":"Il ya 2 minutes",
+
+"one_hour_ago":"Il ya une heure",
+"two_hours_ago":"Il ya 2 heures",
+
+"one_day_ago":"Il ya un jour",
+"two_days_ago":"Il ya 2 jours",
+
+
+"minutes_ago":"Il ya {value} minutes",
+  "@minutes_ago":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
+  },
+
+  "hours_ago":"Il ya {value} heures",
+  "@hours_ago":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
+  },
+
+  "days_ago":"Il ya {value} jours",
+  "@days_ago":{
+   "placeholders": {
+     "value": {
+         "type": "String",
+         "example": "30"
+     }
+ }
+  }
   
 }

@@ -73,8 +73,10 @@ class AddAnnonceBloc {
   }
 
   String? phoneValidator(String? value) {
-    var reg = RegExp(r'^(0)(5|6|7|)[0-9]{8}$');
-    if (!reg.hasMatch(value!)) return (getTranslation.phone_invalide);
+    var reg = RegExp(r'^(0)(5|6|7)[0-9]{8}$');
+    var regFix = RegExp(r'^(0)(2|3|4)[0-9]{7}$');
+    if (!(reg.hasMatch(value!) || regFix.hasMatch(value)))
+      return (getTranslation.phone_invalide);
     phone = value;
     return null;
   }
@@ -121,7 +123,7 @@ class AddAnnonceBloc {
     chedMedApiFormData.addPost(request).then((value) {
       displaySuccessSnackbar(getTranslation.post_added);
       navigationController.jumpToTab(2);
-      profileBloc.loadProfileAnnonces();
+      profileBloc.refresh();
       _doneFetcher.sink.add(null);
     }).onError((error, stackTrace) {
       if (error.runtimeType == DioError) {

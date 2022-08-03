@@ -68,6 +68,11 @@ class SelectedTheme {
         ColorScheme.light().copyWith(primary: primary, secondary: secondary),
     canvasColor: Color(0xffF2F2F2),
     cardColor: Color(0xffFCFCFC),
+    appBarTheme: AppBarTheme(
+      elevation: 0.2,
+      backgroundColor: Color(0xffFCFCFC),
+      foregroundColor: Colors.black,
+    ),
 
     checkboxTheme: CheckboxThemeData(fillColor: checkBoxColor),
     radioTheme: RadioThemeData(fillColor: checkBoxColor),
