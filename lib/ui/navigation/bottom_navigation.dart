@@ -1,5 +1,6 @@
 import 'package:chedmed/ui/add_annonce/add_annonce.dart';
 import 'package:chedmed/ui/common/app_theme.dart';
+import 'package:chedmed/ui/discussions/discussions.dart';
 import 'package:chedmed/ui/home/home.dart';
 import 'package:chedmed/ui/profile/profile.dart';
 import 'package:chedmed/ui/settings/settings.dart';
@@ -51,7 +52,13 @@ class BottomNavBar extends StatelessWidget {
 }
 
 List<Widget> _buildScreens() {
-  return [HomePage(), AddAnnonce(), Profile(), SettingsScreen()];
+  return [
+    HomePage(),
+    AddAnnonce(),
+    Profile(),
+    DiscussionsScreen(),
+    SettingsScreen()
+  ];
 }
 
 List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
@@ -76,6 +83,13 @@ List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
     PersistentBottomNavBarItem(
       icon: Icon(Ionicons.person),
       title: ("Profile"),
+      activeColorPrimary: AppTheme.textColor(context),
+      inactiveColorPrimary: CupertinoColors.systemGrey,
+      //activeColorSecondary: Colors.white
+    ),
+    PersistentBottomNavBarItem(
+      icon: Icon(Ionicons.ios_chatbox_ellipses_outline),
+      title: ("Discussions"),
       activeColorPrimary: AppTheme.textColor(context),
       inactiveColorPrimary: CupertinoColors.systemGrey,
       //activeColorSecondary: Colors.white

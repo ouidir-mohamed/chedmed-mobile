@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:chedmed/blocs/chat_bloc.dart';
 import 'package:chedmed/blocs/location_helper.dart';
 import 'package:chedmed/blocs/locations_bloc.dart';
 import 'package:chedmed/blocs/settings_bloc.dart';
 import 'package:chedmed/models/notifications_request.dart';
 import 'package:chedmed/ressources/dao/sahel_dao.dart';
+import 'package:chedmed/ressources/firebase/cloud_messaging.dart';
 import 'package:chedmed/ressources/repository/repository.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
 import 'package:chedmed/ui/check_version/check_version.dart';
@@ -25,21 +27,27 @@ import 'package:logger/logger.dart';
 import 'ui/navigation/bottom_navigation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'firebase_options.dart';
 
 void main() async {
   // make the launcher appear for 1 more second :)
   WidgetsFlutterBinding.ensureInitialized();
-  await initNotifications();
-  await handleAppStartup();
-  initWorker();
-  await initDatabaseInstance();
+  await SharedPreferenceData.init();
+
   initSahelApi();
+
+  await CloudMessagingService.initFireBase();
+  await initNotifications();
+
+  await handleAppStartup();
+  // initWorker();
+  await initDatabaseInstance();
   await Future.delayed(Duration(seconds: 1));
 
   HttpOverrides.global = new MyHttpOverrides();
-  await SharedPreferenceData.init();
   await initPackageInfo();
   locationsBloc.loadCties();
+  chatBloc.init();
 
   runApp(const MyApp());
 }

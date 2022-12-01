@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "625533040689",
+    "project_id": "sahel-c072a",
+    "storage_bucket": "sahel-c072a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625533040689:android:dd5ffdd63aa35d441ebd10",
+        "android_client_info": {
+          "package_name": "com.sahel.mayva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625533040689-j18m5u11nlo07ssh8hgrb8ieo0hs1qm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWhfwcTKoBq7M6VEiD2rzua_Y4ulOKNy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625533040689-j18m5u11nlo07ssh8hgrb8ieo0hs1qm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

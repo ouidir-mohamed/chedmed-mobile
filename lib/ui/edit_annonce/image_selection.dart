@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../blocs/edit_annonce_bloc.dart';
 import '../common/app_theme.dart';
+import '../common/snackbar.dart';
 
 class ImageSelection extends StatefulWidget {
   const ImageSelection({Key? key}) : super(key: key);
@@ -24,6 +25,10 @@ class _ImageSelectionState extends State<ImageSelection> {
   final ImagePicker _picker = ImagePicker();
 
   openCamera() async {
+    if (pickedImages.length > 7) {
+      displayPhotoLimiteSnackbar(getTranslation.four_photos_max);
+      return;
+    }
     final XFile? photo = await _picker.pickImage(
         source: ImageSource.camera,
         maxHeight: 1100,
@@ -41,6 +46,10 @@ class _ImageSelectionState extends State<ImageSelection> {
   }
 
   openGallery() async {
+    if (pickedImages.length > 7) {
+      displayPhotoLimiteSnackbar(getTranslation.four_photos_max);
+      return;
+    }
     final List<XFile>? images = await _picker.pickMultiImage(
       maxHeight: 1100,
       maxWidth: 1100,

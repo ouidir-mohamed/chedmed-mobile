@@ -25,7 +25,11 @@ class NoItemFound extends StatelessWidget {
             padding: EdgeInsets.only(top: 10, bottom: 3),
             child: Text(
               getTranslation.no_post_found,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
           Container(

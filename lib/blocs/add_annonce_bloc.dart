@@ -73,9 +73,11 @@ class AddAnnonceBloc {
   }
 
   String? phoneValidator(String? value) {
+    value = value!.replaceAll(" ", "");
+
     var reg = RegExp(r'^(0)(5|6|7)[0-9]{8}$');
     var regFix = RegExp(r'^(0)(2|3|4)[0-9]{7}$');
-    if (!(reg.hasMatch(value!) || regFix.hasMatch(value)))
+    if (!(reg.hasMatch(value) || regFix.hasMatch(value)))
       return (getTranslation.phone_invalide);
     phone = value;
     return null;
@@ -92,6 +94,7 @@ class AddAnnonceBloc {
   bool imagesValidator() {
     if (imagePaths.isEmpty) {
       _imageErreurFetcher.sink.add(getTranslation.one_photo_at_least);
+      displayPhotoLimiteSnackbar(getTranslation.one_photo_at_least);
       return false;
     }
 

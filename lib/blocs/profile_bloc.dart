@@ -105,8 +105,10 @@ class ProfileBloc {
 
   String phone = "";
   String? phoneValidator(String? value) {
+    value = value!.replaceAll(" ", "");
+
     var reg = RegExp(r'^(0)(5|6|7|)[0-9]{8}$');
-    if (!reg.hasMatch(value!)) return (getTranslation.phone_invalide);
+    if (!reg.hasMatch(value)) return (getTranslation.phone_invalide);
 
     phone = value;
     return null;

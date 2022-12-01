@@ -16,7 +16,9 @@ import 'package:rxdart/rxdart.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../models/city.dart';
+import '../ressources/firebase/cloud_messaging.dart';
 import '../ressources/repository/repository.dart';
+import '../ressources/websocket/chat_socket.dart';
 import '../ui/common/snackbar.dart';
 import '../utils/language_helper.dart';
 import 'location_helper.dart';
@@ -40,10 +42,13 @@ class GettingStartedBloc {
 
   String phone = "";
   String? phoneValidator(String? value) {
+    value = value!.replaceAll(" ", "");
+    print(value);
+
     var reg = RegExp(r'^(0)(5|6|7)[0-9]{8}$');
     var regFix = RegExp(r'^(0)(2|3|4)[0-9]{7}$');
 
-    if (!(reg.hasMatch(value!) || regFix.hasMatch(value)))
+    if (!(reg.hasMatch(value) || regFix.hasMatch(value)))
       return (getTranslation.phone_invalide);
     phone = value;
     return null;
@@ -158,6 +163,8 @@ validateUser(String token, int cityId, String username, String phone) async {
   await SharedPreferenceData.savePhone(phone);
   await SharedPreferenceData.saveUserName(username);
 
+  await CloudMessagingService.updateUserToken();
+
   Navigator.pushReplacement(requireContext(),
       MaterialPageRoute(builder: (context) => LoadingScreen()));
 }
@@ -167,6 +174,8 @@ addTokenInterceptor(String token) {
     request.headers["Authorization"] = "Bearer " + token;
     return handler.next(request);
   }));
+
+  chatSocket.init(token);
 }
 
 // bypassStart() {

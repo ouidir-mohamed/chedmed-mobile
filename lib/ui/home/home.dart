@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:chedmed/blocs/home_bloc.dart';
 import 'package:chedmed/ressources/shared_preference/shared_preference.dart';
+import 'package:chedmed/ui/discussions/discussions.dart';
 import 'package:chedmed/ui/home/scroll_top_button.dart';
 import 'package:chedmed/ui/navigation/bottom_navigation.dart';
 import 'package:chedmed/utils/language_helper.dart';
@@ -57,6 +58,8 @@ class _HomePageState extends State<HomePage> {
   double lastScrollPosition = 0;
 
   var _scrollTopVisible = false;
+  var _scrollTopDestroyed = true;
+
   isScrollingUp() {
     if (controller.position.pixels > 1000) showButton();
   }
@@ -73,21 +76,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   void hideButton() async {
-    print("hidding");
-    if (!_scrollTopVisible) return;
+    if (!_scrollTopVisible || _scrollTopDestroyed) return;
     //await Future.delayed(Duration(seconds: 1));
     if (mounted)
       setState(() {
         _scrollTopVisible = false;
       });
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      _scrollTopDestroyed = true;
+    });
   }
 
   showButton() async {
-    if (_scrollTopVisible) return;
+    print(_scrollTopVisible.toString() + " " + _scrollTopDestroyed.toString());
+    if (_scrollTopVisible || !_scrollTopDestroyed) return;
 
-    //await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      _scrollTopDestroyed = false;
+    });
 
-    if (_scrollTopVisible) return;
+    // await Future.delayed(Duration(milliseconds: 50));
+
     setState(() {
       _scrollTopVisible = true;
     });
@@ -96,11 +106,22 @@ class _HomePageState extends State<HomePage> {
   checkNotificationClick() async {
     bool isPending = await SharedPreferenceData.loadNotificationPending();
     //displayNotification("title", isPending.toString() + " pending state");
+    bool isMessagingPending =
+        await SharedPreferenceData.loadNotificationMessagePending();
+
+    if (isMessagingPending) {
+      await SharedPreferenceData.saveNotificationMessagePending(false);
+
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => DiscussionsScreen()));
+      return;
+    }
     if (isPending) {
       await SharedPreferenceData.saveNotificationPending(false);
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Recommendations()));
+      return;
     }
   }
 
@@ -111,12 +132,14 @@ class _HomePageState extends State<HomePage> {
             ? FloatingActionButtonLocation.endFloat
             : CustomFabLocation(),
         floatingActionButtonAnimator: LinearMovementFabAnimator(),
-        floatingActionButton: ScrollTopButton(
-            isExtended: _scrollTopVisible,
-            onPressed: () {
-              goToTop();
-            },
-            context: context),
+        floatingActionButton: !_scrollTopDestroyed
+            ? ScrollTopButton(
+                isExtended: _scrollTopVisible,
+                onPressed: () {
+                  goToTop();
+                },
+                context: context)
+            : null,
         body: SafeArea(
           child: Stack(
             children: [

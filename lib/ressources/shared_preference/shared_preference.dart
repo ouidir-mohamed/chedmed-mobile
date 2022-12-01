@@ -5,6 +5,10 @@ late final SharedPreferences prefs;
 class SharedPreferenceData {
   static init() async {
     prefs = await SharedPreferences.getInstance();
+    // await saveToken(
+    //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjI4LCJpYXQiOjE2NjIyMzIyMDR9.coPkBW85BoxqR8RqegUWW8laNkbeLwGa9gsrj_uNdpQ");
+    // await saveUserName("Mouh latch");
+    // await saveCityId(11);
   }
 
   static saveTheme(String theme) async {
@@ -62,6 +66,14 @@ class SharedPreferenceData {
 
   static bool loadNotificationPending() {
     return prefs.getBool('notificationPending') ?? false;
+  }
+
+  static saveNotificationMessagePending(bool pending) async {
+    await prefs.setBool('notificationMessagePending', pending);
+  }
+
+  static bool loadNotificationMessagePending() {
+    return prefs.getBool('notificationMessagePending') ?? false;
   }
 
   static saveLastReceivedNotificationDate(String date) {

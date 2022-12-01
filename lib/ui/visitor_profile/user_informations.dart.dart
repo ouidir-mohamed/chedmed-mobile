@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chedmed/ui/discussions/discussion_details.dart';
 import 'package:chedmed/utils/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -145,6 +146,20 @@ class _UserInfosState extends State<UserInfos> {
             ],
           ),
         ),
+        InkWell(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (ctx) => DiscussionDetils(
+                    conversationId: null,
+                    userName: profile.username,
+                    userId: profile.id)));
+          },
+          child: Icon(
+            MaterialCommunityIcons.message_processing,
+            color: AppTheme.primaryColor(context),
+            size: 28,
+          ),
+        )
       ],
     );
   }
