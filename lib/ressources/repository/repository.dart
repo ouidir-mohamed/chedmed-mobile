@@ -22,7 +22,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
 import '../../models/message.dart';
-part "repository_implementation.dart";
+part 'repository.formdata.dart';
 part 'repository.g.dart';
 
 const BASE_URL = "https://www.sahel-app.com/api/";
@@ -121,6 +121,7 @@ abstract class ChedMedApiFormData {
   factory ChedMedApiFormData(Dio dio, String baseUrl) = _ChedMedApiFormData;
   Future addPost(AnnonceRequest request);
   Future editPost(AnnonceRequest request, int annoceId);
+  Future sendMessage(MessageRequest request);
 }
 
 late Dio dio;

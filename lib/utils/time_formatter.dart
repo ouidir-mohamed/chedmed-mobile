@@ -74,3 +74,8 @@ extension TimePassed on DateTime {
     return toDate();
   }
 }
+
+extension DurationExtension on Duration {
+  /// Converts duration to MM:SS format
+  String toMMSS() => toString().split('.').first.padLeft(8, "0").substring(3);
+}

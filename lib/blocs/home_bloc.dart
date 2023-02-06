@@ -19,6 +19,7 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 import '../models/search_history.dart';
 import '../ressources/dao/sahel_dao.dart';
+import '../utils/vibration.dart';
 
 class HomeBloc {
   //data fetching
@@ -249,12 +250,6 @@ class HomeBloc {
     _annoncesFetcher.sink.add(oldList);
     displayRemovedFromFavoriteSnackbar(getTranslation.removed_from_fav);
     profileBloc.loadFavoriteAnnonces();
-  }
-}
-
-vibrateThePhone() async {
-  if (await Vibrate.canVibrate) {
-    Vibrate.feedback(FeedbackType.selection);
   }
 }
 

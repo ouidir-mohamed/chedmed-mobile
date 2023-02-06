@@ -14,7 +14,9 @@ class SessionBloc {
   checkSession() async {
     print("checking session");
     await Future.delayed(Duration(seconds: 1));
+
     String? token = SharedPreferenceData.loadToken();
+
     if (token != null) {
       _addTokenInterceptor(token);
       CloudMessagingService.updateUserToken();

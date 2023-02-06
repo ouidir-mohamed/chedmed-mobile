@@ -1,18 +1,27 @@
-import '../../models/message.dart';
+import 'package:chedmed/models/message_type.dart';
 import 'package:chedmed/utils/time_formatter.dart';
+
+import '../../models/message.dart';
 
 class ChatBubblePresentation {
   String content;
   bool hasMarginTop;
-  MessageType type;
+  MessageDirection direction;
   String timeHeader;
   bool pending;
+  MessageType type;
+  String? voicePath;
+  int? voiceDuration;
+
   ChatBubblePresentation(
       {required this.content,
-      required this.type,
       required this.hasMarginTop,
+      required this.direction,
       required this.timeHeader,
-      required this.pending});
+      required this.pending,
+      required this.type,
+      this.voicePath,
+      this.voiceDuration});
 
   static List<ChatBubblePresentation> fromMessages(List<Message> messages) {
     return messages.asMap().entries.map((entery) {
@@ -36,14 +45,18 @@ class ChatBubblePresentation {
       return (ChatBubblePresentation(
           content: m.body,
           hasMarginTop: hasMarginTop,
+          type: m.type,
           timeHeader: timeHeader,
           pending: m.pending,
-          type: m.isSent ? MessageType.SENT : MessageType.RECEIVED));
+          voiceDuration: m.voiceDuration,
+          voicePath: m.voicePath,
+          direction:
+              m.isSent ? MessageDirection.SENT : MessageDirection.RECEIVED));
     }).toList();
   }
 }
 
-enum MessageType { SENT, RECEIVED }
+enum MessageDirection { SENT, RECEIVED }
 
 String generateTimeHeader(Message last, {Message? first}) {
   if (first == null) {

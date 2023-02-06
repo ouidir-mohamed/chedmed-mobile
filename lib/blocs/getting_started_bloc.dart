@@ -122,24 +122,19 @@ class GettingStartedBloc {
   handleValidation() async {
     _loadingFetcher.sink.add(true);
     UserRequest request = UserRequest(username: username, phone: phone);
-    chedMedApi
-        .signUp(request)
-        .then((value) {
-          validateUser(
-              value.token, _selectedCityFetcher.value.id, username, phone);
-        })
-        .timeout(Duration(seconds: 2))
-        .catchError((e) {
-          displayNetworkErrorSnackbar();
-        })
-        .onError((error, stackTrace) {
-          displayNetworkErrorSnackbar();
-        })
-        .whenComplete(() {
-          _loadingFetcher.sink.add(false);
-          Navigator.pushReplacement(requireContext(),
-              MaterialPageRoute(builder: (context) => LoadingScreen()));
-        });
+    chedMedApi.signUp(request).then((value) {
+      validateUser(value.token, _selectedCityFetcher.value.id, username, phone);
+      Navigator.pushReplacement(requireContext(),
+          MaterialPageRoute(builder: (context) => LoadingScreen()));
+    }).catchError((e) {
+      if (e.runtimeType == DioError) {
+        var err = e as DioError;
+        print(e.response);
+      }
+      displayNetworkErrorSnackbar();
+    }).whenComplete(() {
+      _loadingFetcher.sink.add(false);
+    });
   }
 
   final introKey = GlobalKey<IntroductionScreenState>();

@@ -13,6 +13,8 @@ import 'package:chedmed/utils/time_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../models/message_type.dart';
+
 class ChatBloc {
   BehaviorSubject<List<Conversation>> _conversationsSubject =
       BehaviorSubject<List<Conversation>>();
@@ -46,7 +48,7 @@ class ChatBloc {
         .getConversations(1)
         .then((value) => {_setConversations(value)})
         .catchError((Object obj) async {
-      print("conx error  retry in 3 seconds .... ");
+      print("conx error  retry in 3 seconds .... 1");
 
       await Future.delayed(Duration(seconds: 3));
       loadAllConversations();
@@ -78,7 +80,7 @@ class ChatBloc {
         DioError dioError = obj as DioError;
         if (dioError.response!.statusCode == 404) return;
       }
-      print("conx error  retry in 3 seconds .... ");
+      print("conx error  retry in 3 seconds .... 2");
       await Future.delayed(Duration(seconds: 3));
       startConversation(conversationId, receipientId);
 
@@ -124,8 +126,12 @@ class ChatBloc {
   }
 
   int tempIdCounter = 0;
-  sendMessage(int receipientId, String content,
-      {bool isRetrying = false, int? conversationId, int? oldTempId}) async {
+
+  _sendMessage(int receipientId, String content, MessageType type,
+      {bool isRetrying = false,
+      int? conversationId,
+      int? oldTempId,
+      int? voiceDuration}) async {
     if (!isRetrying) {
       this._receipientId = receipientId;
     }
@@ -163,16 +169,23 @@ class ChatBloc {
           seen: false,
           createdAt: DateTime.now().toUtc().toUtcDateTimeString(),
           isSent: true,
+          type: type,
           conversation_id: conversationId!,
-          pending: true));
+          pending: true,
+          voicePath: type == MessageType.VOCAL ? content : null,
+          voiceDuration: type == MessageType.VOCAL ? voiceDuration : null));
       _setConversationMessages(conversationId, messages);
     }
 
     int tempId = oldTempId ?? tempIdCounter;
 
-    chedMedApi
-        .sendMessage(
-            MessageRequest(recipientId: receipientId, privateMessage: content))
+    chedMedApiFormData
+        .sendMessage(MessageRequest(
+            recipientId: receipientId,
+            privateMessage: content,
+            mediaPaths: type == MessageType.VOCAL ? [content] : [],
+            voiceDuration: type == MessageType.VOCAL ? voiceDuration : null,
+            type: type))
         .then((value) {
       //TODO
 
@@ -191,13 +204,15 @@ class ChatBloc {
       _setConversationMessages(conversationId, messages);
     }).catchError((Object obj) async {
       if (obj.runtimeType == DioError) {
-        print("conx error  retry in 3 seconds .... ");
+        print((obj as DioError).message);
+        print("conx error  retry in 3 seconds .... 3");
 
         await Future.delayed(Duration(seconds: 3));
-        sendMessage(receipientId, content,
+        _sendMessage(receipientId, content, type,
             isRetrying: true,
             conversationId: conversationId,
-            oldTempId: tempId);
+            oldTempId: tempId,
+            voiceDuration: voiceDuration);
       } else {
         print(obj);
       }
@@ -205,6 +220,13 @@ class ChatBloc {
       return null;
     });
   }
+
+  sendVocalMessage(int receipientId, String filePath, int voiceDuration) =>
+      _sendMessage(receipientId, filePath, MessageType.VOCAL,
+          voiceDuration: voiceDuration);
+
+  sendTextMessage(int receipientId, String content) =>
+      _sendMessage(receipientId, content, MessageType.TEXT);
 
   startTyping(int receipientId) {
     chedMedApi
@@ -232,8 +254,10 @@ class ChatBloc {
       print(value.messages.length.toString() + " messages");
       _setConversationMessages(conversationId, value.messages);
     }).catchError((Object obj) async {
+      print(obj);
       if (this._conversationId != conversationId) return null;
-      print("conx error  retry in 3 seconds .... " + conversationId.toString());
+      print(
+          "conx error  retry in 3 seconds .... 4 " + conversationId.toString());
       await Future.delayed(Duration(seconds: 3));
       _loadSingleConversation(conversationId);
 
@@ -296,7 +320,7 @@ class ChatBloc {
 
   _setConversationMessages(int conversationId, List<Message> messages) {
     messages.sort();
-    _markAsSeen(messages.last);
+    if (messages.isNotEmpty) _markAsSeen(messages.last);
 
     if (conversationId == this._conversationId)
       _singleConversationSubject.sink.add(messages);
