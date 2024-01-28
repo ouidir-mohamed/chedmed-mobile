@@ -10,7 +10,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_android/shared_preferences_android.dart';
-import 'package:shared_preferences_ios/shared_preferences_ios.dart';
 
 import '../models/notification_check_response.dart';
 import '../ressources/dao/sahel_dao.dart';
@@ -23,7 +22,7 @@ class NotificationsBloc {
     await initNotifications();
     initSahelApi();
     if (Platform.isAndroid) SharedPreferencesAndroid.registerWith();
-    if (Platform.isIOS) SharedPreferencesIOS.registerWith();
+    if (Platform.isIOS) SharedPreferencesAndroid.registerWith();
     await SharedPreferenceData.init();
 
 //check if notification are disabled by user then return
